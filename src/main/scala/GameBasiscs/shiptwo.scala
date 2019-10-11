@@ -1,5 +1,0 @@
-package GameBasiscs
-
-class shiptwo {
-
-}

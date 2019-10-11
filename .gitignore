@@ -7,7 +7,7 @@ bin/
 .classpath
 
 # Intellij
-.idea
+.idea/
 target/
 
 # Maven

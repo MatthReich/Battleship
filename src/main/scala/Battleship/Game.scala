@@ -16,6 +16,8 @@ object Battleship {
       "\t: " + player2 + "\n" +
       "#"*20 + "\n"
     )
+
+    println(("Hello" -> 42 -> 'a')._1)
   }
 
 }

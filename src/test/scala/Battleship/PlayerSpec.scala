@@ -1,3 +1,4 @@
+/*
 package Battleship
 
 import org._
@@ -15,3 +16,4 @@ class PlayerSpec extends WordSpec with Matchers {
   }
 
 }
+*/

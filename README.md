@@ -1,4 +1,4 @@
-# Game_Battleship
+# Battleship
 
 Battleship game for two players.
 

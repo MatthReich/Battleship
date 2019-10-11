@@ -8,10 +8,13 @@ object Battleship {
     val player2 = model.Player("Matthias")
 
     println(
+      "#"*20 + "\n" +
       "Battleship \n\n" +
+      "#"*20 + "\n" +
       "played by: \n" + "" +
       "\t: " + player1 + "\n" +
-      "\t: " + player2 + "\n"
+      "\t: " + player2 + "\n" +
+      "#"*20 + "\n"
     )
   }
 

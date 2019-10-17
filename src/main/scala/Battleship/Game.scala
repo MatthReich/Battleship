@@ -6,8 +6,8 @@ import java.lang.reflect.Array
 object Battleship {
   def main(args: Array[String]): Unit = {
 
-    val creator_01 = model.Player("Marcel")
-    val creator_02 = model.Player("Matthias")
+    val creator_01 = model.Creator("Marcel")
+    val creator_02 = model.Creator("Matthias")
 
     print(
       "#"*20 + "\n" +

@@ -1,5 +1,7 @@
 package Battleship
 
+import java.lang.reflect.Array
+
 
 object Battleship {
   def main(args: Array[String]): Unit = {
@@ -7,7 +9,7 @@ object Battleship {
     val player1 = model.Player("Marcel")
     val player2 = model.Player("Matthias")
 
-    println(
+    print(
       "#"*20 + "\n" +
       "Battleship \n\n" +
       "#"*20 + "\n" +

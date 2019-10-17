@@ -1,5 +1,7 @@
 name := "Game_Battleship"
+version       := "0.0.1"
+scalaVersion  := "2.12.10"
 
-version := "0.1"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
-scalaVersion := "2.13.1"
+libraryDependencies += "junit" % "junit" % "4.8" % "test"

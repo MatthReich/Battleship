@@ -36,7 +36,6 @@ project/.sbtserver
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
-.sc
 
 # Sonar
 .sonar/

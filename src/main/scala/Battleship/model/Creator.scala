@@ -1,5 +1,5 @@
 package Battleship.model
 
-case class Player(name: String) {
+case class Creator(name: String) {
   override def toString: String = name
 }

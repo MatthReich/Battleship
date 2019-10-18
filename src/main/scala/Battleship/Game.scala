@@ -1,7 +1,5 @@
 package Battleship
 
-import java.lang.reflect.Array
-
 
 object Battleship {
   def main(args: Array[String]): Unit = {

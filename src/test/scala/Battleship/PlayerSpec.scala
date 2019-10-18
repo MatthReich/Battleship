@@ -1,7 +1,7 @@
-/*
-package Battleship
 
-import org._
+/*package Battleship
+
+import
 
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {
@@ -12,8 +12,6 @@ class PlayerSpec extends WordSpec with Matchers {
     "have a nice String representation" in {
       player.toString should be("Your Name")
     }
-  }
-  }
-
+  }}
 }
 */

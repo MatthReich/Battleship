@@ -1,7 +1,6 @@
+package Battleship.model
 
-/*package Battleship
-
-import
+import org.scalatest._
 
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {
@@ -14,4 +13,3 @@ class PlayerSpec extends WordSpec with Matchers {
     }
   }}
 }
-*/

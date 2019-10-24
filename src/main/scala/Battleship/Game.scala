@@ -27,10 +27,11 @@ object Game {
       "\tPlayer Two: " + player_02 + "\n"
     )
 
-    val field = new model.fieldTest
-    field.insertMap("A0", false)
-    field.insertMap("A1", true)
-    field.insertMap("A2", false)
+    val field = new model.fieldTest(player_01)
+    field.insertMap("A0", 0,false)
+    field.insertMap("A0", 1,true)
+    field.insertMap("A1", 0,true)
+    field.insertMap("A2", 0,false)
     field.getKey("A1")
     field.getKey("A0")
     field.print()

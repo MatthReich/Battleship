@@ -1,6 +1,6 @@
 package Battleship.model
 
-import org.scalatest._
+import org.scalatest.{Matchers, WordSpec}
 
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {

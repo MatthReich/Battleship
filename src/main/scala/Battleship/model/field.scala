@@ -12,11 +12,7 @@ class fieldTest (player: Player) {
   }
 
   def getKey (string: String): Unit = {
-    if (field.contains(string)) {
-      printf("nothing in here\n")
-    } else {
-      printf("connected\n")
-    }
+    printf("%b\n", field.contains(string))
   }
 
   def print (): Unit = {

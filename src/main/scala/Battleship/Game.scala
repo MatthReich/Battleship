@@ -16,9 +16,9 @@ object Game {
         "#" * 20 + "\n\n\n"
     )
 
-    print("Please insert playername for player_01\n")
+    print(Console.GREEN + "Please insert playername for player_01\n")
     val player_01 = model.Player(scala.io.StdIn.readLine().toString)
-    print("Please insert playername for player_02\n")
+    print(Console.CYAN + "Please insert playername for player_02\n" + Console.RESET)
     val player_02 = model.Player(scala.io.StdIn.readLine().toString)
 
     print(
@@ -33,7 +33,7 @@ object Game {
     field.insertMap("A1", 0,true)
     field.insertMap("A2", 0,false)
     field.getKey("A1")
-    field.getKey("A0")
+    field.getKey("A2")
     field.print()
   }
 

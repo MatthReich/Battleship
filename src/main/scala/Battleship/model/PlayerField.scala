@@ -32,17 +32,35 @@ case class PlayerField(holder: Player, size: Int) {
     "A9" -> listA9
   )
 
-  def printField(): String = {
-    val stringOfField = new mutable.StringBuilder("")
-    stringOfField ++= ("Field of: " + holder + "\n")
-    for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
-      stringOfField ++= (k + " : " + v + "\n")
-        .replace("ListBuffer", "")
-        .replace("(", "")
-        .replace(")", "")
-        .replace(",", "")
-        .replace("true", "true ")
-    stringOfField.toString()
+  //noinspection ScalaStyle
+  def printField(nr: Int): String = {
+    if (nr == 1) {
+      val stringOfField = new mutable.StringBuilder("")
+      stringOfField ++= ("Field of: " + Console.GREEN + holder + Console.RESET + "\n")
+      for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
+        stringOfField ++= (k + " : " + v + "\n")
+          .replace("ListBuffer", "")
+          .replace("(", "")
+          .replace(")", "")
+          .replace(",", "")
+          .replace("true", "true ")
+      stringOfField.toString()
+    }else if (nr == 2) {
+      val stringOfField = new mutable.StringBuilder("")
+
+      stringOfField ++= ("Field of: " + Console.CYAN + holder + Console.RESET + "\n")
+      for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
+        stringOfField ++= (k + " : " + v + "\n")
+          .replace("ListBuffer", "")
+          .replace("(", "")
+          .replace(")", "")
+          .replace(",", "")
+          .replace("true", "true ")
+      stringOfField.toString()
+    } else {
+      println("something went wrong...\n")
+      ""
+    }
   }
 
   def replaceEntry(row: Int, column: Int, boolean: Boolean): Unit = {

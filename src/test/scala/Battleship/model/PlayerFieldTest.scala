@@ -28,7 +28,7 @@ class PlayerFieldTest extends WordSpec with Matchers {
       }
 
       "printField" in {
-        val string = fieldP_01.printField()
+        val string = fieldP_01.printField(1)
         string should startWith("Field of: " + player)
         string should endWith("\n")
         string should include("A0")

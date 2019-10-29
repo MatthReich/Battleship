@@ -47,6 +47,7 @@ object Game {
     val outputP_02 = fieldP_02.printField()
     print(outputP_02 + "\n")
 
+    print(fieldP_01.getEntry(2,0) + "\n" + fieldP_01.getEntry(2,1) + "\n")
   }
 
 }

@@ -7,10 +7,9 @@ class PlayerSpec extends WordSpec with Matchers {
     val player = Player("Your Name")
     "have a name"  in {
       player.name should be("Your Name")
-      player.toString should be("Your Name")
     }
     "have a nice String representation" in {
-      Matchers.convertToStringShouldWrapper(player.toString) should be("Your Name")
+      player.toString should be("Your Name")
     }
   }}
 }

@@ -1,12 +1,12 @@
 package Battleship
 
-import Battleship.model.PlayingField
+import Battleship.model.{Creator, PlayerField}
 
 object Game {
   def main(args: Array[String]): Unit = {
 
-    val creator_01 = model.Creator("Marcel")
-    val creator_02 = model.Creator("Matthias")
+    val creator_01: Creator = model.Creator("Marcel")
+    val creator_02: Creator = model.Creator("Matthias")
 
     print(
       "#" * 20 + "\n" +
@@ -34,10 +34,12 @@ object Game {
     )
     val fieldSize: Int = scala.io.StdIn.readLine().toInt
 
-    val fieldP_01 = PlayingField(player_01, fieldSize)
-    val fieldP_02 = PlayingField(player_02, fieldSize)
+    val fieldP_01 = PlayerField(player_01, fieldSize)
+    val fieldP_02 = PlayerField(player_02, fieldSize)
 
     print("\n")
+
+    fieldP_01.replaceEntry(2,0, true)
 
     val outputP_01 = fieldP_01.printField()
     print(outputP_01 + "\n")

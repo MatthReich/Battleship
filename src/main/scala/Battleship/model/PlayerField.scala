@@ -37,6 +37,11 @@ case class PlayerField(holder: Player, size: Int) {
     stringOfField ++= ("Field of: " + holder + "\n")
     for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
       stringOfField ++= (k + " : " + v + "\n")
+        .replace("ListBuffer", "")
+        .replace("(", "")
+        .replace(")", "")
+        .replace(",", "")
+        .replace("true", "true ")
     stringOfField.toString()
   }
 
@@ -52,7 +57,21 @@ case class PlayerField(holder: Player, size: Int) {
       case 7 => listA7.update(column, boolean)
       case 8 => listA8.update(column, boolean)
       case 9 => listA9.update(column, boolean)
-      case _ => print("failed\n")
+    }
+  }
+
+  def getEntry(row: Int, column: Int): Boolean = {
+    row match {
+      case 0 => listA0(column)
+      case 1 => listA1(column)
+      case 2 => listA2(column)
+      case 3 => listA3(column)
+      case 4 => listA4(column)
+      case 5 => listA5(column)
+      case 6 => listA6(column)
+      case 7 => listA7(column)
+      case 8 => listA8(column)
+      case 9 => listA9(column)
     }
   }
 }

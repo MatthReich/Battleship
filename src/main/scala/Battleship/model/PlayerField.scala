@@ -58,8 +58,7 @@ case class PlayerField(holder: Player, size: Int) {
           .replace("true", "true ")
       stringOfField.toString()
     } else {
-      println("something went wrong...\n")
-      ""
+      "something went wrong...\n"
     }
   }
 

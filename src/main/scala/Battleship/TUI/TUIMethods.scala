@@ -34,6 +34,7 @@ object TUIMethods {
     val tmp = scala.io.StdIn.readLine().toInt
     tmp match {
       case 10 => fieldSize = tmp
+        // @TODO import settings for 15 / 20 field
       case 15 => printSetField()
       case 20 => printSetField()
     }

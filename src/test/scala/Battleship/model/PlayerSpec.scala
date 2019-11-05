@@ -1,7 +1,11 @@
 package Battleship.model
 
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
+
+@RunWith(classOf[JUnitRunner])
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {
     val player = Player("Your Name")

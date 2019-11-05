@@ -35,6 +35,10 @@ class PlayerFieldTest extends WordSpec with Matchers {
         string should include("A5")
         string should include("A9")
       }
+      "printField error" in {
+        val string = fieldP_01.printField(3)
+        string should be ("something went wrong...\n")
+      }
     }
   }
 }

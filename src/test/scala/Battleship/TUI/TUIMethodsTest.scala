@@ -9,14 +9,8 @@ import org.scalatest.{Matchers, WordSpec}
 class TUIMethodsTest extends WordSpec with Matchers {
   "Methods" when {
     "new" should {
-      val creator = Creator("Your Name")
+      "printWelcome" in {
 
-      "have a name" in {
-        creator.name should be("Your Name")
-      }
-
-      "have a nice String representation" in {
-        creator.toString should be("Your Name")
       }
     }
   }

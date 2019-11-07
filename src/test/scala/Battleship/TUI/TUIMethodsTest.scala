@@ -15,7 +15,9 @@ class TUIMethodsTest extends WordSpec with Matchers {
     string should include(TUIInterface.creator_02.toString)
     string should include("Battleship")
   }
+
   "setPlayer" in {
+    // can't be tested
   }
 
   "printGetPlayer" in {
@@ -27,9 +29,11 @@ class TUIMethodsTest extends WordSpec with Matchers {
   }
 
   "printSetField" in {
+    // can't be tested
   }
 
   "askShips" in {
+    // can't be tested
   }
 
   "printField" in {
@@ -46,8 +50,8 @@ class TUIMethodsTest extends WordSpec with Matchers {
     val testStrings: List[String] = List("A0","A1","A2","A3", "A4","A5","A6","A7","A8","A9")
     var idx = 0
     for (elem <- testStrings) {
-      val testint = TUIMethods.getRow(elem)
-      testint should be(idx)
+      val testInt = TUIMethods.getRow(elem)
+      testInt should be(idx)
       idx += 1
     }
   }

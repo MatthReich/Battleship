@@ -37,7 +37,7 @@ case class PlayerField(holder: Player, size: Int) {
     val stringOfField = new mutable.StringBuilder("")
     if (nr == 1) {
       stringOfField ++= ("Field of: " + Console.GREEN + holder + Console.RESET + "\n")
-      stringOfField ++= ("       0     1     2     3     4     5     6     7     8     9\n")
+      stringOfField ++= "       0     1     2     3     4     5     6     7     8     9\n"
       for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
         stringOfField ++= (k + " : " + v + "\n")
           .replace("ListBuffer", "")
@@ -49,7 +49,7 @@ case class PlayerField(holder: Player, size: Int) {
       stringOfField.toString()
     } else if (nr == 2) {
       stringOfField ++= ("Field of: " + Console.CYAN + holder + Console.RESET + "\n")
-      stringOfField ++= ("       0     1     2     3     4     5     6     7     8     9\n")
+      stringOfField ++= "       0     1     2     3     4     5     6     7     8     9\n"
       for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
         stringOfField ++= (k + " : " + v + "\n")
           .replace("ListBuffer", "")
@@ -91,11 +91,11 @@ case class PlayerField(holder: Player, size: Int) {
     case 9 => listA9(column)
   }
 
-  def getSize(): Int = {
+  def getSize: Int = {
     size
   }
 
-  def checkShipplacementRules(): Boolean = {
+  def checkShipPlacementRules(): Boolean = {
     // @TODO mehrere Schleifen die senkrecht und waagrecht über Listen laufen und checke was abgeht
     false
   }

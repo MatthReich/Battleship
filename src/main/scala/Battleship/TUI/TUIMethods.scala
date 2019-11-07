@@ -10,39 +10,40 @@ import util.control.Breaks._
 object TUIMethods {
 
   def printWelcome (): String = {
-    val stringprint = new mutable.StringBuilder("")
+    val stringPrint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
     val sSpace: String = " " * 10
     val name: String = "Battleship"
-    stringprint ++= (sSharp + "\n" + sSpace+name + "\n" + sSharp + "\ncreated by:\n\t: " + creator_01.toString +
+    stringPrint ++= (sSharp + "\n" + sSpace + name + "\n" + sSharp + "\ncreated by:\n\t: " + creator_01.toString +
       "\n\t: " + creator_02.toString + "\n" + sSharp + "\n\n\n")
-    stringprint.toString()
+    stringPrint.toString()
   }
 
   def setPlayer(): Unit = {
-    print(Console.GREEN + "Please insert playername for player_01\n")
+    print(Console.GREEN + "Please insert player name for player_01\n")
     player_01 = model.Player(scala.io.StdIn.readLine().toString)
-    if(player_01 == "") {
+    if(player_01.name == "") {
       player_01 = model.Player("player_01")
     }
-    print(Console.CYAN + "Please insert playername for player_02\n" + Console.RESET)
+    print(Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
     player_02 = model.Player(scala.io.StdIn.readLine().toString)
-    if(player_02 == "") {
+    if(player_02.name == "") {
       player_02 = model.Player("player_02")
     }
   }
 
   def printGetPlayer(): String = {
-    val stringprint = new mutable.StringBuilder("")
-    stringprint ++= ("Actual playerconfiguartion:\n" +
+    val stringPrint = new mutable.StringBuilder("")
+    stringPrint ++= ("Actual player-configuration\n" +
       "\tPlayer One: " + Console.GREEN + player_01 + "\n" + Console.RESET +
       "\tPlayer Two: " + Console.CYAN + player_02 + "\n\n" + Console.RESET)
-    stringprint.toString()
+    stringPrint.toString()
   }
 
   //noinspection ScalaStyle
+  @scala.annotation.tailrec
   def printSetField(): Unit = {
-    printf("insert fieldsize\noptions:\n\t10 \t for [10 x 10] field\n\t15 \t for [15 x 15] field\n\t20 \t for [20 x 20] field\n")
+    printf("insert field-size\noptions:\n\t10 \t for [10 x 10] field\n\t15 \t for [15 x 15] field\n\t20 \t for [20 x 20] field\n")
     val tmp = scala.io.StdIn.readLine().toInt
     tmp match {
       case 10 => fieldSize = tmp
@@ -56,22 +57,23 @@ object TUIMethods {
     // @TODO variable saves settings for ship placement
     printf("please insert locations for ships\noptions:\n\t2 space ship:\t1\n\t3 space ship:\t1\n\t4 space ship:\t1\n")
     var count = 0
+    val shipPlacements = 19
     breakable {
-      for (a <- 0 to 19) {
+      for (_ <- 0 to shipPlacements) {
         val inputControl = scala.io.StdIn.readLine()
         if (inputControl == " " || inputControl == "" || inputControl == "q") break
         val input = inputControl.split(" ")
         count += 1
-        playerField.replaceEntry(getRow(input(0)), input(1).toInt, true)
+        playerField.replaceEntry(getRow(input(0)), input(1).toInt, boolean = true)
       }
     }
   }
 
   def printField(field: PlayerField, nr: Int): String = {
-    val stringprint = new mutable.StringBuilder("")
+    val printString = new mutable.StringBuilder("")
     val output = field.printField(nr)
-    stringprint ++= (output + "\n")
-    stringprint.toString()
+    printString ++= (output + "\n")
+    printString.toString()
   }
 
   //noinspection ScalaStyle

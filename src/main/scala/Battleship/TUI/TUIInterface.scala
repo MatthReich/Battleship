@@ -13,7 +13,7 @@ object TUIInterface {
 
   def execute (): Unit = {
 
-    printWelcome()
+    print(printWelcome())
 
     setPlayer()
 

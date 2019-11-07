@@ -31,10 +31,10 @@ object TUIInterface {
     val fieldP_02 = PlayerField(player_02, fieldSize)
 
     // @TODO add color to Player itself
-    printField(fieldP_01_Ships, 1)
-    printField(fieldP_02_Ships, 2)
-    printField(fieldP_01, 1)
-    printField(fieldP_02, 2)
+    print(printField(fieldP_01_Ships, 1))
+    print(printField(fieldP_02_Ships, 2))
+    print(printField(fieldP_01, 1))
+    print(printField(fieldP_02, 2))
 
 
   }

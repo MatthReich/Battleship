@@ -17,7 +17,7 @@ object TUIInterface {
 
     setPlayer()
 
-    printGetPlayer()
+    print(printGetPlayer())
 
     printSetField()
 

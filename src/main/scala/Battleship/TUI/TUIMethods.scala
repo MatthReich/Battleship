@@ -52,7 +52,7 @@ object TUIMethods {
         if (inputControl == " ") break
         val input = inputControl.split(" ")
         count += 1
-        playerField.replaceEntry(playerField.getRow(input(0)), input(1).toInt, true)
+        playerField.replaceEntry(getRow(input(0)), input(1).toInt, true)
       }
     }
   }
@@ -60,5 +60,19 @@ object TUIMethods {
   def printField(field: PlayerField, nr: Int): Unit = {
     val output = field.printField(nr)
     print(output + "\n")
+  }
+
+  //noinspection ScalaStyle
+  def getRow(row: String): Int = row match {
+    case "A0" => 0
+    case "A1" => 1
+    case "A2" => 2
+    case "A3" => 3
+    case "A4" => 4
+    case "A5" => 5
+    case "A6" => 6
+    case "A7" => 7
+    case "A8" => 8
+    case "A9" => 9
   }
 }

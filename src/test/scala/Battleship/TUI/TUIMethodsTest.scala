@@ -18,6 +18,11 @@ class TUIMethodsTest extends WordSpec with Matchers {
   "setPlayer" in {
   }
   "printGetPlayer" in {
+    val string = TUIMethods.printGetPlayer()
+    string should startWith("Actual")
+    string should endWith("\n" + Console.RESET)
+    string should include(TUIInterface.player_01.toString)
+    string should include(TUIInterface.player_02.toString)
   }
   "printSetField" in {
   }

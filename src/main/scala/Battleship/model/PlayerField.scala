@@ -66,56 +66,38 @@ case class PlayerField(holder: Player, size: Int) {
     }
   }
 
-  def replaceEntry(row: Int, column: Int, boolean: Boolean): Unit = {
-    row match {
-      case 0 => listA0.update(column, boolean)
-      case 1 => listA1.update(column, boolean)
-      case 2 => listA2.update(column, boolean)
-      case 3 => listA3.update(column, boolean)
-      case 4 => listA4.update(column, boolean)
-      case 5 => listA5.update(column, boolean)
-      case 6 => listA6.update(column, boolean)
-      case 7 => listA7.update(column, boolean)
-      case 8 => listA8.update(column, boolean)
-      case 9 => listA9.update(column, boolean)
-    }
+  def replaceEntry(row: Int, column: Int, boolean: Boolean): Unit = row match {
+    case 0 => listA0.update(column, boolean)
+    case 1 => listA1.update(column, boolean)
+    case 2 => listA2.update(column, boolean)
+    case 3 => listA3.update(column, boolean)
+    case 4 => listA4.update(column, boolean)
+    case 5 => listA5.update(column, boolean)
+    case 6 => listA6.update(column, boolean)
+    case 7 => listA7.update(column, boolean)
+    case 8 => listA8.update(column, boolean)
+    case 9 => listA9.update(column, boolean)
   }
 
-  def getEntry(row: Int, column: Int): Boolean = {
-    row match {
-      case 0 => listA0(column)
-      case 1 => listA1(column)
-      case 2 => listA2(column)
-      case 3 => listA3(column)
-      case 4 => listA4(column)
-      case 5 => listA5(column)
-      case 6 => listA6(column)
-      case 7 => listA7(column)
-      case 8 => listA8(column)
-      case 9 => listA9(column)
-    }
-  }
+  def getEntry(row: Int, column: Int): Boolean = row match {
 
-  def getRow(row: String): Int = {
-    row match {
-      case "A0" => 0
-      case "A1" => 1
-      case "A2" => 2
-      case "A3" => 3
-      case "A4" => 4
-      case "A5" => 5
-      case "A6" => 6
-      case "A7" => 7
-      case "A8" => 8
-      case "A9" => 9
-    }
+    case 0 => listA0(column)
+    case 1 => listA1(column)
+    case 2 => listA2(column)
+    case 3 => listA3(column)
+    case 4 => listA4(column)
+    case 5 => listA5(column)
+    case 6 => listA6(column)
+    case 7 => listA7(column)
+    case 8 => listA8(column)
+    case 9 => listA9(column)
   }
 
   def getSize(): Int = {
     size
   }
 
-  def checkShipplacementRules(playerField: PlayerField): Boolean = {
+  def checkShipplacementRules(): Boolean = {
     // @TODO mehrere Schleifen die senkrecht und waagrecht über Listen laufen und checke was abgeht
     false
   }

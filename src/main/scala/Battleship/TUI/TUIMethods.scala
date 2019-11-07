@@ -1,8 +1,10 @@
 package Battleship.TUI
 
 import Battleship.model
-import Battleship.model.PlayerField
+import Battleship.model.{Player, PlayerField}
 import Battleship.TUI.TUIInterface._
+
+import util.control.Breaks._
 
 object TUIMethods {
 
@@ -40,9 +42,23 @@ object TUIMethods {
     }
   }
 
+  def askShips(playerField: PlayerField, player: Player): Unit = {
+    // @TODO variable saves settings for ship placement
+    printf("please insert locations for ships\noptions:\n\t2 space ship:\t1\n\t3 space ship:\t1\n\t4 space ship:\t1\n")
+    var count = 0
+    breakable {
+      for (a <- 0 to 19) {
+        val inputControl = scala.io.StdIn.readLine()
+        if (inputControl == " ") break
+        val input = inputControl.split(" ")
+        count += 1
+        playerField.replaceEntry(playerField.getRow(input(0)), input(1).toInt, true)
+      }
+    }
+  }
+
   def printField(field: PlayerField, nr: Int): Unit = {
     val output = field.printField(nr)
     print(output + "\n")
   }
-
 }

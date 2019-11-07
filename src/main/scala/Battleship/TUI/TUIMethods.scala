@@ -22,15 +22,20 @@ object TUIMethods {
   def setPlayer(): Unit = {
     print(Console.GREEN + "Please insert playername for player_01\n")
     player_01 = model.Player(scala.io.StdIn.readLine().toString)
+    if(player_01 == "")
+      player_01 = model.Player( "player_01" )
     print(Console.CYAN + "Please insert playername for player_02\n" + Console.RESET)
     player_02 = model.Player(scala.io.StdIn.readLine().toString)
+    if(player_02 == "")
+      player_02 = model.Player( "player_02" )
   }
 
-  def printGetPlayer(): Unit = {
-    printf("Actual playerconfiguartion:\n" +
-      "\tPlayer One: " + Console.GREEN + "%s\n" + Console.RESET +
-      "\tPlayer Two: " + Console.CYAN + "%s\n\n" + Console.RESET,
-      player_01, player_02)
+  def printGetPlayer(): String = {
+    val stringprint = new mutable.StringBuilder("")
+    stringprint ++= ("Actual playerconfiguartion:\n" +
+      "\tPlayer One: " + Console.GREEN + player_01+"\n" + Console.RESET +
+      "\tPlayer Two: " + Console.CYAN + player_02+"\n\n" + Console.RESET)
+    stringprint.toString()
   }
 
   //noinspection ScalaStyle

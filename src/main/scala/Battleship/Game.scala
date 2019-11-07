@@ -8,5 +8,4 @@ object Game {
     TUIInterface.execute()
 
   }
-
 }

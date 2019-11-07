@@ -34,8 +34,8 @@ case class PlayerField(holder: Player, size: Int) {
 
   //noinspection ScalaStyle
   def printField(nr: Int): String = {
+    val stringOfField = new mutable.StringBuilder("")
     if (nr == 1) {
-      val stringOfField = new mutable.StringBuilder("")
       stringOfField ++= ("Field of: " + Console.GREEN + holder + Console.RESET + "\n")
       stringOfField ++= ("       0     1     2     3     4     5     6     7     8     9\n")
       for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
@@ -48,8 +48,6 @@ case class PlayerField(holder: Player, size: Int) {
           .replace("true", Console.RED + "  x  " + Console.RESET)
       stringOfField.toString()
     } else if (nr == 2) {
-      val stringOfField = new mutable.StringBuilder("")
-
       stringOfField ++= ("Field of: " + Console.CYAN + holder + Console.RESET + "\n")
       stringOfField ++= ("       0     1     2     3     4     5     6     7     8     9\n")
       for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))

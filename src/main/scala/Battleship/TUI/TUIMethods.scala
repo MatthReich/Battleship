@@ -4,16 +4,19 @@ import Battleship.model
 import Battleship.model.{Player, PlayerField}
 import Battleship.TUI.TUIInterface._
 
+import scala.collection.mutable
 import util.control.Breaks._
 
 object TUIMethods {
 
-  def printWelcome (): Unit = {
+  def printWelcome (): String = {
+    val stringprint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
     val sSpace: String = " " * 10
     val name: String = "Battleship"
-    printf("%s\n%s%s\n%s\ncreated by:\n\t: %s\n\t: %s\n%s\n\n\n",
-      sSharp, sSpace, name, sSharp, creator_01.toString, creator_02.toString, sSharp)
+    stringprint ++= (sSharp+"\n"+sSpace+name+"\n"+sSharp+"\ncreated by:\n\t: "+creator_01.toString+
+      "\n\t: "+creator_02.toString+"\n"+sSharp+"\n\n\n")
+    stringprint.toString()
   }
 
   def setPlayer(): Unit = {

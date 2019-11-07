@@ -67,9 +67,11 @@ object TUIMethods {
     }
   }
 
-  def printField(field: PlayerField, nr: Int): Unit = {
+  def printField(field: PlayerField, nr: Int): String = {
+    val stringprint = new mutable.StringBuilder("")
     val output = field.printField(nr)
-    print(output + "\n")
+    stringprint ++= (output + "\n")
+    stringprint.toString()
   }
 
   //noinspection ScalaStyle

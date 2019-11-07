@@ -37,25 +37,29 @@ case class PlayerField(holder: Player, size: Int) {
     if (nr == 1) {
       val stringOfField = new mutable.StringBuilder("")
       stringOfField ++= ("Field of: " + Console.GREEN + holder + Console.RESET + "\n")
+      stringOfField ++= ("       0     1     2     3     4     5     6     7     8     9\n")
       for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
         stringOfField ++= (k + " : " + v + "\n")
           .replace("ListBuffer", "")
           .replace("(", "")
           .replace(")", "")
           .replace(",", "")
-          .replace("true", "true ")
+          .replace("false",Console.BLUE + "  ~  " + Console.RESET)
+          .replace("true", Console.RED + "  x  " + Console.RESET)
       stringOfField.toString()
-    }else if (nr == 2) {
+    } else if (nr == 2) {
       val stringOfField = new mutable.StringBuilder("")
 
       stringOfField ++= ("Field of: " + Console.CYAN + holder + Console.RESET + "\n")
+      stringOfField ++= ("       0     1     2     3     4     5     6     7     8     9\n")
       for ((k, v) <- ListMap(playingField.toSeq.sortBy(_._1): _*))
         stringOfField ++= (k + " : " + v + "\n")
           .replace("ListBuffer", "")
           .replace("(", "")
           .replace(")", "")
           .replace(",", "")
-          .replace("true", "true ")
+          .replace("false",Console.BLUE + "  ~  " + Console.RESET)
+          .replace("true", Console.RED + "  x  " + Console.RESET)
       stringOfField.toString()
     } else {
       "something went wrong...\n"
@@ -90,5 +94,29 @@ case class PlayerField(holder: Player, size: Int) {
       case 8 => listA8(column)
       case 9 => listA9(column)
     }
+  }
+
+  def getRow(row: String): Int = {
+    row match {
+      case "A0" => 0
+      case "A1" => 1
+      case "A2" => 2
+      case "A3" => 3
+      case "A4" => 4
+      case "A5" => 5
+      case "A6" => 6
+      case "A7" => 7
+      case "A8" => 8
+      case "A9" => 9
+    }
+  }
+
+  def getSize(): Int = {
+    size
+  }
+
+  def checkShipplacementRules(playerField: PlayerField): Boolean = {
+    // @TODO mehrere Schleifen die senkrecht und waagrecht über Listen laufen und checke was abgeht
+    false
   }
 }

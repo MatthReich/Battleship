@@ -1,8 +1,9 @@
-package Battleship.model
+package Battleship.TUI
 
+import Battleship.model.Creator
 import org.junit.runner.RunWith
-import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.{Matchers, WordSpec}
 
 @RunWith(classOf[JUnitRunner])
 class TUIMethodsTest extends WordSpec with Matchers {

@@ -10,7 +10,18 @@ class TUIMethodsTest extends WordSpec with Matchers {
   "Methods" when {
     "new" should {
       "printWelcome" in {
-
+      }
+      "setPlayer" in {
+      }
+      "printGetPlayer" in {
+      }
+      "printSetField" in {
+      }
+      "askShips" in {
+      }
+      "printField" in {
+      }
+      "getRow" in {
       }
     }
   }

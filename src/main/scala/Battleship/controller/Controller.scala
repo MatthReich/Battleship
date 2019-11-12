@@ -10,5 +10,8 @@ class Controller(var grid:Grid) extends Observable{
 
   def gridToString: String = grid.toString
 
-
+  def set(row: Int, col: Int, value: Int):Unit = {
+    grid = grid.set(row, col, value)
+    notifyObservers
+  }
 }

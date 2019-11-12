@@ -1,6 +1,6 @@
 package Battleship.TUI
 
-import Battleship.model.{Creator, Player, PlayerField}
+import Battleship.model.{Creator, Grid, Player, PlayerField}
 import Battleship.TUI.TUIMethods._
 
 object TUIInterface {
@@ -15,15 +15,15 @@ object TUIInterface {
     print(printWelcome())
     setPlayer()
     print(printGetPlayer())
-    printSetField()
+    fieldSize = printSetField()
 
-    val fieldP_01_Ships = PlayerField(player_01, fieldSize)
-    val fieldP_02_Ships = PlayerField(player_02, fieldSize)
+    val playerField_01 : Grid = new Grid(fieldSize)
+    val playerField_02 : Grid = new Grid(fieldSize)
 
-    print(printField(fieldP_01_Ships, 1))
-    askShips(fieldP_01_Ships, player_01)
-    print(printField(fieldP_02_Ships, 2))
-    askShips(fieldP_02_Ships, player_02)
+    print(printGrid(playerField_01, player_01))
+    askShips(playerField_01, player_01)
+    print(printGrid(playerField_02, player_02))
+    askShips(playerField_02, player_02)
 
     var fieldP_01 = PlayerField(player_01, fieldSize)
     var fieldP_02 = PlayerField(player_02, fieldSize)

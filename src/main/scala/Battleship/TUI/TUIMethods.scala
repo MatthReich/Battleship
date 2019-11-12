@@ -63,13 +63,6 @@ object TUIMethods {
     }
   }
 
-  def printGrid(grid: Grid, player: Player): String = {
-    val printString = new mutable.StringBuilder("")
-    val output = printGrid(grid, player)
-    printString ++= (output + "\n")
-    printString.toString()
-  }
-
   //noinspection ScalaStyle
   def getRow(row: String): Int = row match {
     case "A0" => 0

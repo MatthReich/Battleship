@@ -56,5 +56,8 @@ case class Grid(size: Int){
     case 9 => listA9(column)
   }
 
+  def getSize: Int = {
+    size
+  }
 
 }

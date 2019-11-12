@@ -80,17 +80,18 @@ object TUIMethods {
   def printGrid(grid: Grid, player: Player): String ={
     val stringOfGrid = new mutable.StringBuilder("")
     stringOfGrid ++= ("Field of: " + Console.GREEN + player + Console.RESET + "\n")
-    stringOfGrid ++= "      0    1    2    3    4    5    6    7    8    9\n"
+    stringOfGrid ++= "     0    1    2    3    4    5    6    7    8    9\n"
     var idy = 0
     while (idy < grid.size){
       var idx = 0
+      stringOfGrid ++= "A" + idy + " "
       while (idx < grid.size){
         val tmp = grid.getField(idx, idy)
         tmp match {
-          case 0 => stringOfGrid ++= "A" + idy + " " + Console.BLUE + "  ~  " + Console.RESET
-          case 1 => stringOfGrid ++= "A" + idy + " " + Console.GREEN + "  x  " + Console.RESET
-          case 2 => stringOfGrid ++= "A" + idy + " " + Console.RED + "  x  " + Console.RESET
-          case 3 => stringOfGrid ++= "A" + idy + " " + Console.BLUE + "  0  " + Console.RESET
+          case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+          case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+          case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+          case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
         }
         idx += 1
       }

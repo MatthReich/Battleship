@@ -21,21 +21,21 @@ object TUIInterface {
     val playerField_02 : Grid = new Grid(fieldSize)
 
     print(printGrid(playerField_01, player_01))
-    askShips(playerField_01, player_01)
+    //askShips(playerField_01, player_01)
     print(printGrid(playerField_02, player_02))
-    askShips(playerField_02, player_02)
+    //askShips(playerField_02, player_02)
 
-    var fieldP_01 = PlayerField(player_01, fieldSize)
-    var fieldP_02 = PlayerField(player_02, fieldSize)
+    //var fieldP_01 = PlayerField(player_01, fieldSize)
+    //var fieldP_02 = PlayerField(player_02, fieldSize)
 
     // @TODO add color to Player itself
-    print(printField(fieldP_01_Ships, 1))
-    print(printField(fieldP_02_Ships, 2))
+    //print(printGrid(playerField_01, player_01))
+    //print(printGrid(playerField_02, player_02))
     // printField(fieldP_01, 1)
     // printField(fieldP_02, 2)
 
 
-    var turn = true
+    /*var turn = true
     while (true) {
       if (turn) print(player_01 + " is on turn\n")
       if (!turn) print(player_02.name + " is on turn\n")
@@ -61,7 +61,7 @@ object TUIInterface {
           val guess = fieldP_02_Ships.getEntry(row, column)
           if (guess) {
             fieldP_02.replaceEntry(row, column, true)
-            print(printField(fieldP_02, 2))
+            print(printGrid(playerField_02, player_02))
           }
           if (!turn) turn = true
           else turn = false
@@ -70,13 +70,13 @@ object TUIInterface {
           val guess = fieldP_01_Ships.getEntry(row, column)
           if (guess) {
             fieldP_01.replaceEntry(row, column, true)
-            print(printField(fieldP_01, 1))
+            print(printGrid(playerField_01, player_01))
           }
           if (!turn) turn = true
           else turn = false
         }
       }
-    }
+    }*/
 
   }
 }

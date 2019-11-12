@@ -36,16 +36,6 @@ class TUIMethodsTest extends WordSpec with Matchers {
     // can't be tested
   }
 
-  "printField" in {
-    val fieldP_01_Ships = PlayerField(TUIInterface.player_01, TUIInterface.fieldSize)
-    val string = TUIMethods.printField(fieldP_01_Ships,1)
-    string should startWith("Field of: ")
-    string should endWith("\n")
-    string should include("A0")
-    string should include("A5")
-    string should include("A9")
-  }
-
   "getRow" in {
     val testStrings: List[String] = List("A0","A1","A2","A3", "A4","A5","A6","A7","A8","A9")
     var idx = 0

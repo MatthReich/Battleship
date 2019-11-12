@@ -1,5 +1,6 @@
 package Battleship.controller
 
+import Battleship.model.Grid
 import Battleship.util.Observable
 
 class Controller(var grid:Grid) extends Observable{

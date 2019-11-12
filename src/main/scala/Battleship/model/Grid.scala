@@ -7,18 +7,9 @@ case class Grid(size: Int){
 
   val matrix = Array.ofDim[Int](size,size)
 
-  val playingField: mutable.Map[String, ListBuffer[Boolean]] = mutable.Map(
-    "A0" -> listA0,
-    "A1" -> listA1,
-    "A2" -> listA2,
-    "A3" -> listA3,
-    "A4" -> listA4,
-    "A5" -> listA5,
-    "A6" -> listA6,
-    "A7" -> listA7,
-    "A8" -> listA8,
-    "A9" -> listA9
-  )
+  def getField(x: Int, y: Int): Int = {
+    matrix(x)(y)
+  }
 
   def replaceEntry(row: Int, column: Int, boolean: Boolean): Unit = row match {
     case 0 => listA0.update(column, boolean)

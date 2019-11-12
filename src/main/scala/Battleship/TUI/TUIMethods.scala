@@ -1,9 +1,10 @@
 package Battleship.TUI
 
 import Battleship.model
-import Battleship.model.{Player, PlayerField}
+import Battleship.model.{Grid, Player, PlayerField}
 import Battleship.TUI.TUIInterface._
 
+import scala.collection.immutable.ListMap
 import scala.collection.mutable
 import util.control.Breaks._
 
@@ -40,17 +41,10 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  //noinspection ScalaStyle
-  @scala.annotation.tailrec
-  def printSetField(): Unit = {
+  def printSetField(): Int = {
     printf("insert field-size\noptions:\n\t10 \t for [10 x 10] field\n\t15 \t for [15 x 15] field\n\t20 \t for [20 x 20] field\n")
     val tmp = scala.io.StdIn.readLine().toInt
-    tmp match {
-      case 10 => fieldSize = tmp
-        // @TODO import settings for 15 / 20 field
-      case 15 => printSetField()
-      case 20 => printSetField()
-    }
+    tmp
   }
 
   def askShips(playerField: PlayerField, player: Player): Unit = {
@@ -69,9 +63,9 @@ object TUIMethods {
     }
   }
 
-  def printField(field: PlayerField, nr: Int): String = {
+  def printGrid(grid: Grid, player: Player): String = {
     val printString = new mutable.StringBuilder("")
-    val output = field.printField(nr)
+    val output = printGrid(grid, player)
     printString ++= (output + "\n")
     printString.toString()
   }
@@ -88,5 +82,30 @@ object TUIMethods {
     case "A7" => 7
     case "A8" => 8
     case "A9" => 9
+  }
+
+  def printGrid(grid: Grid, player: Player): String ={
+    val stringOfGrid = new mutable.StringBuilder("")
+    stringOfGrid ++= ("Field of: " + Console.GREEN + player + Console.RESET + "\n")
+    stringOfGrid ++= "       0     1     2     3     4     5     6     7     8     9\n"
+    var idy = 0
+    while (idy < grid.size){
+      var idx = 0
+      while (idx < grid.size){
+        val tmp = grid.getField(idx, idy)
+        tmp match {
+          case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+          case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+          case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+          case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+        }
+        idx += 1
+        stringOfGrid ++= "\n"
+      }
+      idy += 1
+
+    }
+    stringOfGrid.toString()
+
   }
 }

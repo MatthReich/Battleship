@@ -29,6 +29,19 @@ case class Grid(size: Int){
     "A9" -> listA9
   )
 
+  def replaceEntry(row: Int, column: Int, boolean: Boolean): Unit = row match {
+    case 0 => listA0.update(column, boolean)
+    case 1 => listA1.update(column, boolean)
+    case 2 => listA2.update(column, boolean)
+    case 3 => listA3.update(column, boolean)
+    case 4 => listA4.update(column, boolean)
+    case 5 => listA5.update(column, boolean)
+    case 6 => listA6.update(column, boolean)
+    case 7 => listA7.update(column, boolean)
+    case 8 => listA8.update(column, boolean)
+    case 9 => listA9.update(column, boolean)
+  }
+
 
 
 }

@@ -1,8 +1,5 @@
 package Battleship.model
 
-import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
-
 //Standart  0
 //Schiff    1
 //Treffer   2

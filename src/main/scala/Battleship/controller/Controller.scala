@@ -7,4 +7,8 @@ class Controller(var grid:Grid) extends Observable{
     grid = new Grid(size);
     notifyObservers
   }
+
+  def gridToString: String = grid.toString
+
+
 }

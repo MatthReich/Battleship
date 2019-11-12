@@ -1,7 +1,7 @@
 package Battleship.TUI
 
 import Battleship.model
-import Battleship.model.{Grid, Player, PlayerField}
+import Battleship.model.{Grid, Player}
 import Battleship.TUI.TUIInterface._
 
 import scala.collection.immutable.ListMap
@@ -47,7 +47,7 @@ object TUIMethods {
     tmp
   }
 
-  def askShips(playerField: PlayerField, player: Player): Unit = {
+  def askShips(grid: Grid, player: Player): Unit = {
     // @TODO variable saves settings for ship placement
     printf("please insert locations for ships\noptions:\n\t2 space ship:\t1\n\t3 space ship:\t1\n\t4 space ship:\t1\n")
     var count = 0
@@ -58,7 +58,7 @@ object TUIMethods {
         if (inputControl == " " || inputControl == "" || inputControl == "q") break
         val input = inputControl.split(" ")
         count += 1
-        playerField.replaceEntry(getRow(input(0)), input(1).toInt, boolean = true)
+        //playerField.replaceEntry(getRow(input(0)), input(1).toInt, boolean = true)
       }
     }
   }

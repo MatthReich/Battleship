@@ -1,6 +1,6 @@
 package Battleship.TUI
 
-import Battleship.model.{Creator, Grid, Player, PlayerField}
+import Battleship.model.{Creator, Grid, Player}
 import Battleship.TUI.TUIMethods._
 
 object TUIInterface {

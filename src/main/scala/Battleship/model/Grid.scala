@@ -4,38 +4,14 @@ import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
 case class Grid(size: Int){
-
   val matrix = Array.ofDim[Int](size,size)
 
   def getField(x: Int, y: Int): Int = {
     matrix(x)(y)
   }
 
-  def replaceEntry(row: Int, column: Int, boolean: Boolean): Unit = row match {
-    case 0 => listA0.update(column, boolean)
-    case 1 => listA1.update(column, boolean)
-    case 2 => listA2.update(column, boolean)
-    case 3 => listA3.update(column, boolean)
-    case 4 => listA4.update(column, boolean)
-    case 5 => listA5.update(column, boolean)
-    case 6 => listA6.update(column, boolean)
-    case 7 => listA7.update(column, boolean)
-    case 8 => listA8.update(column, boolean)
-    case 9 => listA9.update(column, boolean)
-  }
-
-  def getEntry(row: Int, column: Int): Boolean = row match {
-
-    case 0 => listA0(column)
-    case 1 => listA1(column)
-    case 2 => listA2(column)
-    case 3 => listA3(column)
-    case 4 => listA4(column)
-    case 5 => listA5(column)
-    case 6 => listA6(column)
-    case 7 => listA7(column)
-    case 8 => listA8(column)
-    case 9 => listA9(column)
+  def setField(x: Int, y: Int, value: Int): Unit = {
+    matrix(x)(y) = value
   }
 
   def getSize: Int = {

@@ -14,5 +14,11 @@ class Controller() extends Observable{
   var playerGrid_01: Grid = new Grid(fieldSize)
   var playerGrid_02: Grid = new Grid(fieldSize)
 
+  def setPlayer():Unit ={
+    player_01 = TUIMethods.setPlayer(1)
+    player_02 = TUIMethods.setPlayer(2)
+    notifyObservers
+  }
+
 
 }

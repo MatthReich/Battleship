@@ -56,20 +56,6 @@ object TUIMethods {
     }
   }
 
-  //noinspection ScalaStyle
-  def getRow(row: String): Int = row match {
-    case "A0" => 0
-    case "A1" => 1
-    case "A2" => 2
-    case "A3" => 3
-    case "A4" => 4
-    case "A5" => 5
-    case "A6" => 6
-    case "A7" => 7
-    case "A8" => 8
-    case "A9" => 9
-  }
-
   def printGrid(grid: Grid, player: Player): String ={
     val stringOfGrid = new mutable.StringBuilder("")
     stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")

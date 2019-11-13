@@ -30,5 +30,9 @@ class Controller() extends Observable{
     notifyObservers
   }
 
-
+  def printGrid:Unit ={
+    TUIInterface.printGrid(playerGrid_01,player_01)
+    TUIInterface.printGrid(playerGrid_02,player_02)
+    notifyObservers
+  }
 }

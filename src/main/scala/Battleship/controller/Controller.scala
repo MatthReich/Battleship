@@ -25,5 +25,10 @@ class Controller() extends Observable{
     notifyObservers
   }
 
+  def printWelcome():Unit ={
+    TUIInterface.printWelcome(creator_01, creator_02)
+    notifyObservers
+  }
+
 
 }

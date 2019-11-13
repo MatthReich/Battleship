@@ -1,11 +1,16 @@
 package Battleship
 
-import Battleship.TUI.TUIInterface
+import Battleship.controller.Controller
 
 object Game {
   def main(args: Array[String]): Unit = {
-
-    TUIInterface.execute()
+    val controller:Controller = new Controller()
+    controller.printWelcome()
+    controller.setPlayer()
+    controller.printPlayer()
+    controller.printGrid()
+    controller.addShips()
+    controller.printGrid()
 
   }
 }

@@ -7,26 +7,10 @@ import org.scalatest.{Matchers, WordSpec}
 
 @RunWith(classOf[JUnitRunner])
 class TUIMethodsTest extends WordSpec with Matchers {
-  "printWelcome" in {
-  val string = TUIMethods.printWelcome()
-    string should startWith("#")
-    string should endWith("\n")
-    string should include(TUIInterface.creator_01.toString)
-    string should include(TUIInterface.creator_02.toString)
-    string should include("Battleship")
-  }
-
   "setPlayer" in {
     // can't be tested
   }
 
-  "printGetPlayer" in {
-    val string = TUIMethods.printGetPlayer()
-    string should startWith("Actual")
-    string should endWith("\n" + Console.RESET)
-    string should include(TUIInterface.player_01.toString)
-    string should include(TUIInterface.player_02.toString)
-  }
 
   "printSetField" in {
     // can't be tested

@@ -17,10 +17,11 @@ object TUIMethods {
   }
 
   def setPlayer(color:Int): Player = {
-    if (color == 1)
-      print(Console.GREEN+ "Please insert player name for player_01\n")
-    else
+    if (color == 1) {
+      print(Console.GREEN + "Please insert player name for player_01\n")
+    } else {
       print(Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
+    }
     val name = scala.io.StdIn.readLine().toString
     if (name != "") {
       val player: Player = new Player(name)

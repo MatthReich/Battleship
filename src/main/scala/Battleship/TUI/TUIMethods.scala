@@ -24,10 +24,10 @@ object TUIMethods {
     }
     val name = scala.io.StdIn.readLine().toString
     if (name != "") {
-      val player: Player = new Player(name)
+      val player: Player = Player(name)
       player
     }else {
-      val player: Player = new Player("player_0" + color)
+      val player: Player = Player("player_0" + color)
       player
     }
 
@@ -50,7 +50,6 @@ object TUIMethods {
       for (_ <- 0 to shipPlacements) {
         val inputControl = scala.io.StdIn.readLine()
         if (inputControl == " " || inputControl == "" || inputControl == "q") break
-        val input = inputControl.split(" ")
         count += 1
         //playerField.replaceEntry(getRow(input(0)), input(1).toInt, boolean = true)
       }

@@ -1,7 +1,7 @@
 package Battleship.TUI
 
 import Battleship.model
-import Battleship.model.{Grid, Player}
+import Battleship.model.{Creator, Grid, Player}
 import Battleship.TUI.TUIInterface._
 
 import scala.collection.immutable.ListMap
@@ -10,7 +10,7 @@ import util.control.Breaks._
 
 object TUIMethods {
 
-  def printWelcome (): String = {
+  def printWelcome (creator_01: Creator, creator_02: Creator): String = {
     val stringPrint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
     val sSpace: String = " " * 10
@@ -20,31 +20,28 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def setPlayer(): Unit = {
-    print(Console.GREEN + "Please insert player name for player_01\n")
-    player_01 = model.Player(scala.io.StdIn.readLine().toString)
-    if(player_01.name == "") {
-      player_01 = model.Player("player_01")
+  def setPlayer(color:Int): Player = {
+    if (color == 1)
+      print(Console.GREEN+ "Please insert player name for player_01\n")
+    else
+      print(Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
+    val name = scala.io.StdIn.readLine().toString
+    if (name != "") {
+      val player: Player = new Player(name)
+      player
+    }else {
+      val player: Player = new Player("player_0" + color)
+      player
     }
-    print(Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
-    player_02 = model.Player(scala.io.StdIn.readLine().toString)
-    if(player_02.name == "") {
-      player_02 = model.Player("player_02")
-    }
+
   }
 
-  def printGetPlayer(): String = {
+  def printGetPlayer(player_01: Player,player_02: Player): String = {
     val stringPrint = new mutable.StringBuilder("")
     stringPrint ++= ("Actual player-configuration\n" +
-      "\tPlayer One: " + Console.GREEN + player_01 + "\n" + Console.RESET +
-      "\tPlayer Two: " + Console.CYAN + player_02 + "\n\n" + Console.RESET)
+      "\tPlayer One: " + Console.GREEN + player_01.name + "\n" + Console.RESET +
+      "\tPlayer Two: " + Console.CYAN + player_02.name + "\n\n" + Console.RESET)
     stringPrint.toString()
-  }
-
-  def printSetField(): Int = {
-    printf("insert field-size\noptions:\n\t10 \t for [10 x 10] field\n\t15 \t for [15 x 15] field\n\t20 \t for [20 x 20] field\n")
-    val tmp = scala.io.StdIn.readLine().toInt
-    tmp
   }
 
   def askShips(grid: Grid, player: Player): Unit = {
@@ -79,8 +76,14 @@ object TUIMethods {
 
   def printGrid(grid: Grid, player: Player): String ={
     val stringOfGrid = new mutable.StringBuilder("")
-    stringOfGrid ++= ("Field of: " + Console.GREEN + player + Console.RESET + "\n")
-    stringOfGrid ++= "     0    1    2    3    4    5    6    7    8    9\n"
+    stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
+    stringOfGrid ++= "   "
+    var ids = 0
+    while (ids < grid.size) {
+      stringOfGrid ++= "  " + ids + "  "
+      ids += 1
+    }
+    stringOfGrid ++= "\n"
     var idy = 0
     while (idy < grid.size){
       var idx = 0

@@ -1,9 +1,9 @@
 package Battleship.model
 
-//Standart  0
-//Schiff    1
-//Treffer   2
-//Wasser    3
+//Standard  0
+//Ship      1
+//Hit       2
+//Watter    3
 
 case class Grid(size: Int){
   private val matrix = Array.ofDim[Int](size,size)

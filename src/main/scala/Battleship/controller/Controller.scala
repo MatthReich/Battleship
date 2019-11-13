@@ -20,5 +20,10 @@ class Controller() extends Observable{
     notifyObservers
   }
 
+  def printPlayer():Unit ={
+    TUIInterface.printGetPlayer(player_01, player_02)
+    notifyObservers
+  }
+
 
 }

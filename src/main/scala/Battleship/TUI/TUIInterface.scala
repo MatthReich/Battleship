@@ -4,25 +4,20 @@ import Battleship.model.{Creator, Grid, Player}
 import Battleship.TUI.TUIMethods._
 
 object TUIInterface {
-  val creator_01: Creator = Creator("Marcel")
-  val creator_02: Creator = Creator("Matthias")
-  var player_01 = Player("")
-  var player_02 = Player("")
-  var fieldSize: Int = 0
 
-  //noinspection ScalaStyle
+
+  def printGrid(grid: Grid, player: Player): Unit ={
+    print(TUIMethods.printGrid(grid, player))
+  }
+  def printWelcome (creator_01: Creator, creator_02: Creator): Unit ={
+    print(TUIMethods.printWelcome(creator_01, creator_02))
+  }
+  def printGetPlayer(player_01: Player,player_02: Player): Unit ={
+    print(TUIMethods.printGetPlayer(player_01, player_02))
+  }
+
   def execute(): Unit = {
-    print(printWelcome())
-    setPlayer()
-    print(printGetPlayer())
-    fieldSize = printSetField()
-
-    val playerField_01 : Grid = new Grid(fieldSize)
-    val playerField_02 : Grid = new Grid(fieldSize)
-
-    print(printGrid(playerField_01, player_01))
     //askShips(playerField_01, player_01)
-    print(printGrid(playerField_02, player_02))
     //askShips(playerField_02, player_02)
 
     //var fieldP_01 = PlayerField(player_01, fieldSize)

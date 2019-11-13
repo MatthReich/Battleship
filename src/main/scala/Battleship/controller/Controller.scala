@@ -17,22 +17,22 @@ class Controller() extends Observable{
   def setPlayer():Unit ={
     player_01 = TUIMethods.setPlayer(1)
     player_02 = TUIMethods.setPlayer(2)
-    notifyObservers
+    notifyObservers()
   }
 
   def printPlayer():Unit ={
     TUIInterface.printGetPlayer(player_01, player_02)
-    notifyObservers
+    notifyObservers()
   }
 
   def printWelcome():Unit ={
     TUIInterface.printWelcome(creator_01, creator_02)
-    notifyObservers
+    notifyObservers()
   }
 
   def printGrid():Unit ={
     TUIInterface.printGrid(playerGrid_01,player_01)
     TUIInterface.printGrid(playerGrid_02,player_02)
-    notifyObservers
+    notifyObservers()
   }
 }

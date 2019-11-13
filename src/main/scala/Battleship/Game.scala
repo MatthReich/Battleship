@@ -8,7 +8,7 @@ object Game {
     controller.printWelcome()
     controller.setPlayer()
     controller.printPlayer()
-    controller.printGrid
+    controller.printGrid()
 
   }
 }

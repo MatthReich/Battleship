@@ -1,7 +1,6 @@
 package Battleship.TUI
 
 import Battleship.model.{Creator, Grid, Player}
-import Battleship.TUI.TUIMethods._
 
 object TUIInterface {
   def printGrid(grid: Grid, player: Player): Unit = {

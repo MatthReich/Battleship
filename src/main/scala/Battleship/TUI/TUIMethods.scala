@@ -1,10 +1,6 @@
 package Battleship.TUI
 
-import Battleship.model
 import Battleship.model.{Creator, Grid, Player}
-import Battleship.TUI.TUIInterface._
-
-import scala.collection.immutable.ListMap
 import scala.collection.mutable
 import util.control.Breaks._
 

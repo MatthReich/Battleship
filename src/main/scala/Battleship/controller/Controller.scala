@@ -35,4 +35,10 @@ class Controller() extends Observable{
     TUIInterface.printGrid(playerGrid_02,player_02)
     notifyObservers()
   }
+
+  def addShips(): Unit ={
+    TUIMethods.addShips(playerGrid_01, player_01)
+    //TUIMethods.addShips(playerGrid_02, player_02)
+    notifyObservers()
+  }
 }

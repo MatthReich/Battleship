@@ -41,19 +41,48 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def askShips(grid: Grid, player: Player): Unit = {
-    // @TODO variable saves settings for ship placement
-    printf("please insert locations for ships\noptions:\n\t2 space ship:\t1\n\t3 space ship:\t1\n\t4 space ship:\t1\n")
-    var count = 0
-    val shipPlacements = 19
-    breakable {
-      for (_ <- 0 to shipPlacements) {
-        val inputControl = scala.io.StdIn.readLine()
-        if (inputControl == " " || inputControl == "" || inputControl == "q") break
-        count += 1
-        //playerField.replaceEntry(getRow(input(0)), input(1).toInt, boolean = true)
+  def addShips(grid: Grid, player: Player): Unit = {
+    val nr: Array[Int] = Array(4, 3, 2, 1)
+    while(nr(0) != 0 || nr(1) != 0 || nr(2) != 0 && nr(3) != 0) {
+      print(printNrOfShips(nr))
+      print(printGrid(grid, player))
+      print("Format is(Only Numbers Like: 1 9 2 9) :x1 y1 x2 y2\n")
+      val placement = scala.io.StdIn.readLine().toString
+      if (placement.length == 7) {
+        val list: Array[Int] = Array(placement.charAt(0) - 48, placement.charAt(2) - 48,
+          placement.charAt(4) - 48, placement.charAt(6) - 48)
+        var length:Int = 0
+        if (list(0) == list(2)){
+          length = list(3) - list(1)
+          while (list(1) <= list(3)){
+            grid.setField(list(0), list(1), 1)
+            list(1) += 1
+          }
+          nr(length-1) -= 1
+        } else if (list(1) == list(3)){
+          length = list(2) - list(0)
+          while (list(0) <= list(2)){
+            grid.setField(list(1), list(0), 1)
+            list(0) += 1
+          }
+          nr(length-1) -= 1
+        } else {
+          print("Something goes wrong, try again\n")
+        }
+      } else {
+        print("Something goes wrong, try again\n")
       }
     }
+  }
+
+  def printNrOfShips(nr:Array[Int]): String = {
+    val string = new mutable.StringBuilder("")
+    string ++= ("Please set your Ships:\n")
+    string ++= ("You can still place: " + Console.GREEN + nr(0) + Console.RESET + "x 2 Block Ship\n")
+    string ++= ("You can still place: " + Console.GREEN + nr(1) + Console.RESET + "x 3 Block Ship\n")
+    string ++= ("You can still place: " + Console.GREEN + nr(2) + Console.RESET + "x 4 Block Ship\n")
+    string ++= ("You can still place: " + Console.GREEN + nr(3) + Console.RESET + "x 5 Block Ship\n")
+    string.toString()
   }
 
   def printGrid(grid: Grid, player: Player): String ={

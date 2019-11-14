@@ -65,35 +65,35 @@ object TUIMethods {
               }
               var idx = 0
               while (idx < input.length) {
-                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
                 idx += 2
               }
             } else if (input.length == 4 && internRules(shipLength2) != 0) {
               internRules(shipLength2) -= 1
               var idx = 0
               while (idx < input.length) {
-                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
                 idx += 2
               }
             } else if (input.length == 6 && internRules(shipLength3) != 0) {
               internRules(shipLength3) -= 1
               var idx = 0
               while (idx < input.length) {
-                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
                 idx += 2
               }
             } else if (input.length == 8 && internRules(shipLength4) != 0) {
               internRules(shipLength4) -= 1
               var idx = 0
               while (idx < input.length) {
-                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
                 idx += 2
               }
             } else if (input.length == 10 && internRules(shipLength5) != 0) {
               internRules(shipLength5) -= 1
               var idx = 0
               while (idx < input.length) {
-                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
                 idx += 2
               }
             }

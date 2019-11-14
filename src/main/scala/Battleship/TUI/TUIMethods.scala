@@ -41,36 +41,21 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def addShips(grid: Grid, player: Player): Unit = {
-    val nr: Array[Int] = Array(4, 3, 2, 1)
-    while(nr(0) != 0 || nr(1) != 0 || nr(2) != 0 && nr(3) != 0) {
-      print(printNrOfShips(nr))
-      print(printGrid(grid, player))
-      print("Format is(Only Numbers Like: 1 9 2 9) :x1 y1 x2 y2\n")
-      val placement = scala.io.StdIn.readLine().toString
-      if (placement.length == 7) {
-        val list: Array[Int] = Array(placement.charAt(0) - 48, placement.charAt(2) - 48,
-          placement.charAt(4) - 48, placement.charAt(6) - 48)
-        var length:Int = 0
-        if (list(0) == list(2)){
-          length = list(3) - list(1)
-          while (list(1) <= list(3)){
-            grid.setField(list(0), list(1), 1)
-            list(1) += 1
-          }
-          nr(length-1) -= 1
-        } else if (list(1) == list(3)){
-          length = list(2) - list(0)
-          while (list(0) <= list(2)){
-            grid.setField(list(1), list(0), 1)
-            list(0) += 1
-          }
-          nr(length-1) -= 1
-        } else {
-          print("Something goes wrong, try again\n")
-        }
+  def addShips(grid: Grid, player: Player, shipSettingRules: Array[Int]): Unit = {
+    var exitStatement = true
+    while (exitStatement) {
+      val input = io.StdIn.readLine().split(" ")
+      if (input(0).equals("q") || input(0).equals("exit")) {
+        exitStatement = false
       } else {
-        print("Something goes wrong, try again\n")
+        if (input.length % 2 == 0) {
+          var idx = 0
+          while (idx < input.length) {
+            grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+            idx += 2
+          }
+          print(printGrid(grid, player))
+        }
       }
     }
   }

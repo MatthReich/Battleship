@@ -13,6 +13,7 @@ class Controller() extends Observable{
   val fieldSize: Int = 10
   val playerGrid_01: Grid = Grid(fieldSize)
   val playerGrid_02: Grid = Grid(fieldSize)
+  val shipPlacementRules: Array[Int] = Array(4, 3, 2, 1)
 
   def setPlayer():Unit ={
     player_01 = TUIMethods.setPlayer(1)
@@ -37,7 +38,7 @@ class Controller() extends Observable{
   }
 
   def addShips(): Unit ={
-    TUIMethods.addShips(playerGrid_01, player_01)
+    TUIMethods.addShips(playerGrid_01, player_01, shipPlacementRules)
     //TUIMethods.addShips(playerGrid_02, player_02)
     notifyObservers()
   }

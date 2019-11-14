@@ -1,12 +1,12 @@
 package Battleship.TUI
 
 import Battleship.model.{Creator, Grid, Player}
-
 import scala.collection.mutable
+import util.control.Breaks._
 
 object TUIMethods {
 
-  def printWelcome(creator_01: Creator, creator_02: Creator): String = {
+  def printWelcome (creator_01: Creator, creator_02: Creator): String = {
     val stringPrint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
     val sSpace: String = " " * 10
@@ -16,7 +16,7 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def setPlayer(color: Int): Player = {
+  def setPlayer(color:Int): Player = {
     if (color == 1) {
       print(Console.GREEN + "Please insert player name for player_01\n")
     } else {
@@ -26,14 +26,14 @@ object TUIMethods {
     if (name != "") {
       val player: Player = Player(name)
       player
-    } else {
+    }else {
       val player: Player = Player("player_0" + color)
       player
     }
 
   }
 
-  def printGetPlayer(player_01: Player, player_02: Player): String = {
+  def printGetPlayer(player_01: Player,player_02: Player): String = {
     val stringPrint = new mutable.StringBuilder("")
     stringPrint ++= ("Actual player-configuration\n" +
       "\tPlayer One: " + Console.GREEN + player_01.name + "\n" + Console.RESET +
@@ -41,41 +41,77 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def addShips(grid: Grid, player: Player): Unit = {
-    val nr: Array[Int] = Array(4, 3, 2, 1)
-    while (nr(0) != 0 || nr(1) != 0 || nr(2) != 0 && nr(3) != 0) {
-      print(printNrOfShips(nr))
-      print(printGrid(grid, player))
-      print("Format is(Only Numbers Like: 1 9 2 9) :x1 y1 x2 y2\n")
-      val placement = scala.io.StdIn.readLine().toString
-      if (placement.length == 7) {
-        val list: Array[Int] = Array(placement.charAt(0) - 48, placement.charAt(2) - 48,
-          placement.charAt(4) - 48, placement.charAt(6) - 48)
-        var length: Int = 0
-        if (list(0) == list(2)) {
-          length = list(3) - list(1)
-          while (list(1) <= list(3)) {
-            grid.setField(list(0), list(1), 1)
-            list(1) += 1
-          }
-          nr(length - 1) -= 1
-        } else if (list(1) == list(3)) {
-          length = list(2) - list(0)
-          while (list(0) <= list(2)) {
-            grid.setField(list(1), list(0), 1)
-            list(0) += 1
-          }
-          nr(length - 1) -= 1
-        } else {
-          print("Something goes wrong, try again\n")
-        }
+  def addShips(grid: Grid, player: Player, shipSettingRules: Array[Int]): Unit = {
+    val internRules = shipSettingRules
+    val shipLength2 = 0
+    val shipLength3 = 1
+    val shipLength4 = 2
+    val shipLength5 = 3
+
+    var exitStatement = true
+    while (exitStatement) {
+      val input = io.StdIn.readLine().split(" ")
+      if (input(0).equals("q") || input(0).equals("exit")) {
+        exitStatement = false
       } else {
-        print("Something goes wrong, try again\n")
+        if (input.length > 2 && input.length <= 10) {
+          if (input.length % 2 == 0) {
+            if (internRules(0) != 0 && internRules(1) != 0 && internRules(2) != 0 && internRules(3) != 0) {
+              input.length match {
+                case  4 => internRules(shipLength2) -= 1
+                case  6 => internRules(shipLength3) -= 1
+                case  8 => internRules(shipLength4) -= 1
+                case 10 => internRules(shipLength5) -= 1
+              }
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 4 && internRules(shipLength2) != 0) {
+              internRules(shipLength2) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 6 && internRules(shipLength3) != 0) {
+              internRules(shipLength3) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 8 && internRules(shipLength4) != 0) {
+              internRules(shipLength4) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 10 && internRules(shipLength5) != 0) {
+              internRules(shipLength5) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+                idx += 2
+              }
+            }
+
+            print(printGrid(grid, player))
+            print(printNrOfShips(internRules))
+
+            if (internRules(0) == 0 && internRules(1) == 0 && internRules(2) == 0 && internRules(3) == 0) {
+              exitStatement = false
+            }
+          }
+        }
+        println("try again")
       }
     }
   }
 
-  def printNrOfShips(nr: Array[Int]): String = {
+  def printNrOfShips(nr:Array[Int]): String = {
     val string = new mutable.StringBuilder("")
     string ++= ("Please set your Ships:\n")
     string ++= ("You can still place: " + Console.GREEN + nr(0) + Console.RESET + "x 2 Block Ship\n")
@@ -85,7 +121,7 @@ object TUIMethods {
     string.toString()
   }
 
-  def printGrid(grid: Grid, player: Player): String = {
+  def printGrid(grid: Grid, player: Player): String ={
     val stringOfGrid = new mutable.StringBuilder("")
     stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
     stringOfGrid ++= "   "
@@ -96,10 +132,10 @@ object TUIMethods {
     }
     stringOfGrid ++= "\n"
     var idy = 0
-    while (idy < grid.size) {
+    while (idy < grid.size){
       var idx = 0
       stringOfGrid ++= "A" + idy + " "
-      while (idx < grid.size) {
+      while (idx < grid.size){
         val tmp = grid.getField(idx, idy)
         tmp match {
           case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET

@@ -41,13 +41,13 @@ case class Grid(size: Int) {
   def addToGrid(array: Array[Int]): Unit = {
     if (array(0) == array(2)) {
       var idx = array(1)
-      while (idx < array(3)) {
+      while (idx <= array(3)) {
         setField(array(0), idx, 1)
         idx += 1
       }
     } else {
       var idx = array(0)
-      while (idx < array(2)) {
+      while (idx <= array(2)) {
         setField(idx, array(1), 1)
         idx += 1
       }

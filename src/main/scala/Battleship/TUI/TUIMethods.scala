@@ -1,8 +1,10 @@
 package Battleship.TUI
 
+import java.lang.IllegalArgumentException
+
 import Battleship.model.{Creator, Grid, Player}
+
 import scala.collection.mutable
-import util.control.Breaks._
 
 object TUIMethods {
 
@@ -71,25 +73,40 @@ object TUIMethods {
               setShip = true
             }
             if (setShip) {
-              var idx = 0
-              while (idx < input.length) {
-                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                idx += 2
+              try {
+                val coordinateSpace = new Array[Int](input.length)
+                var idx2 = 0
+                for (i <- input) {
+                  coordinateSpace(idx2) = i.toInt
+                  idx2 += 1
+                }
+                var idx = 0
+                while (idx < input.length) {
+                  grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+                  idx += 2
+                }
+                /*
+                val ship = new Ship(input)
+                grid.setShip(ship)
+               */
+              } catch {
+                case e: NumberFormatException => println("you have to input numbers", e)
               }
             }
+          }
 
-            print(printGrid(grid, player))
-            print(printNrOfShips(internRules))
+          print(printGrid(grid, player))
+          print(printNrOfShips(internRules))
 
-            if (internRules(0) == 0 && internRules(1) == 0 && internRules(2) == 0 && internRules(3) == 0) {
-              exitStatement = false
-            }
+          if (internRules(0) == 0 && internRules(1) == 0 && internRules(2) == 0 && internRules(3) == 0) {
+            exitStatement = false
           }
         }
-        println("try again")
       }
+      println("try again")
     }
   }
+
 
   def printNrOfShips(nr:Array[Int]): String = {
     val string = new mutable.StringBuilder("")

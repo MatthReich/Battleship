@@ -16,11 +16,6 @@ class GridSpec extends WordSpec with Matchers {
         tmp should be(0)
       }
 
-      "getSize" in {
-        val tmp = grid.getSize()
-        tmp should be(10)
-      }
-
       "setField" in {
         grid.setField(0, 0, 1)
         val tmp = grid.getField(0, 0)

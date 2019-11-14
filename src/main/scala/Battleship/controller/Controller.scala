@@ -37,9 +37,11 @@ class Controller() extends Observable {
   }
 
   def addShips(): Unit = {
-    val tmp = TUIMethods.addShips(playerGrid_01, player_01)
-    if (tmp(0) != 10) {
-      playerGrid_01.setShip(tmp)
+    while (true) {
+      val tmp = TUIMethods.addShips(playerGrid_01, player_01)
+      if (tmp(0) != 10) {
+        playerGrid_01.setShip(tmp)
+      }
     }
     //TUIMethods.addShips(playerGrid_02, player_02)
     notifyObservers()

@@ -1,6 +1,6 @@
 package Battleship.TUI
 
-import Battleship.model.{Creator, Player}
+import Battleship.model.{Creator, Grid, Player}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
@@ -17,7 +17,7 @@ class TUIMethodsTest extends WordSpec with Matchers {
   }
 
   "printWelcome" in {
-    val tmp = TUIMethods.printWelcome(new Creator("Marcel"), new Creator("Matthias"))
+    val tmp = TUIMethods.printWelcome(Creator("Marcel"), Creator("Matthias"))
     tmp should startWith("#")
     tmp should include("Marcel")
     tmp should include("Matthias")
@@ -26,7 +26,7 @@ class TUIMethodsTest extends WordSpec with Matchers {
   }
 
   "printGetPlayer" in {
-    val tmp = TUIMethods.printGetPlayer(new Player("Marcel"), new Player("Matthias"))
+    val tmp = TUIMethods.printGetPlayer(Player("Marcel"), Player("Matthias"))
     tmp should startWith("Actual")
     tmp should include("Marcel")
     tmp should include("Matthias")
@@ -43,6 +43,19 @@ class TUIMethodsTest extends WordSpec with Matchers {
     tmp should endWith("\n")
   }
 
-
+  "printGrid" in {
+    var grid: Grid = Grid(10)
+    grid.setField(1, 1, 1)
+    grid.setField(2, 2, 2)
+    grid.setField(3, 3, 3)
+    val tmp = TUIMethods.printGrid(grid, Player("Marcel"))
+    tmp should startWith("Field of:")
+    tmp should include("Marcel")
+    tmp should include("A")
+    tmp should include("~")
+    tmp should include("x")
+    tmp should include("0")
+    tmp should endWith("\n")
+  }
 
 }

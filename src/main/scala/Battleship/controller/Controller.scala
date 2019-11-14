@@ -13,6 +13,7 @@ class Controller() extends Observable {
   val playerGrid_02: Grid = Grid(fieldSize)
   var player_01 = Player("")
   var player_02 = Player("")
+  var nr = Array[Int](4, 3, 2, 1)
 
   def setPlayer(): Unit = {
     player_01 = TUIMethods.setPlayer(1)
@@ -37,13 +38,19 @@ class Controller() extends Observable {
   }
 
   def addShips(): Unit = {
-    while (true) {
-      val tmp = TUIMethods.addShips(playerGrid_01, player_01)
+    while ((nr(0) + nr(1) + nr(2) + nr(3)) != 0) {
+      val tmp = TUIMethods.addShips(playerGrid_01, player_01, nr)
       if (tmp(0) != 10) {
         playerGrid_01.setShip(tmp)
       }
     }
-    //TUIMethods.addShips(playerGrid_02, player_02)
+    nr = Array[Int](4, 3, 2, 1)
+    while ((nr(0) + nr(1) + nr(2) + nr(3)) != 0) {
+      val tmp = TUIMethods.addShips(playerGrid_02, player_02, nr)
+      if (tmp(0) != 10) {
+        playerGrid_01.setShip(tmp)
+      }
+    }
     notifyObservers()
   }
 }

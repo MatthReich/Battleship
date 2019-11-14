@@ -14,10 +14,6 @@ case class Grid(size: Int) {
     matrix(x)(y)
   }
 
-  def setField(x: Int, y: Int, value: Int): Unit = {
-    matrix(x)(y) = value
-  }
-
   def setShip(array: Array[Int], nr: Array[Int]): Array[Int] = {
     var test: Boolean = true
     var idx = 0
@@ -62,6 +58,10 @@ case class Grid(size: Int) {
         idx += 1
       }
     }
+  }
+
+  def setField(x: Int, y: Int, value: Int): Unit = {
+    matrix(x)(y) = value
   }
 
 }

@@ -1,8 +1,8 @@
 package Battleship.model
 
 import org.junit.runner.RunWith
-import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.{Matchers, WordSpec}
 
 @RunWith(classOf[JUnitRunner])
 class ShipSpec extends WordSpec with Matchers {
@@ -12,13 +12,6 @@ class ShipSpec extends WordSpec with Matchers {
       val coordinats = Array(1, 2, 1, 3)
       val ship = Ship(coordinats)
 
-      "getCoordinates" in {
-        val shipOutput = ship.getCoordinates()
-      }
-
-      "getSize" in {
-        ship.getSize() should be (2)
-      }
 
       "insertCoordinates" in {
         // tested through getCoordinates ??

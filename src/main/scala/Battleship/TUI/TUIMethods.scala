@@ -57,42 +57,18 @@ object TUIMethods {
         if (input.length > 2 && input.length <= 10) {
           if (input.length % 2 == 0) {
             var idx = 0
-
-            if (internRules(0) != 0 && internRules(1) != 0 && internRules(2) != 0 && internRules(3) != 0) {
-              input.length match {
-                case  4 => internRules(shipLength2) -= 1
-                case  6 => internRules(shipLength3) -= 1
-                case  8 => internRules(shipLength4) -= 1
-                case 10 => internRules(shipLength5) -= 1
-              }
-              while (idx < input.length) {
-                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                idx += 2
-              }
-            } else if (input.length == 4 && internRules(shipLength2) != 0) {
+            if (input.length == 4 && internRules(shipLength2) != 0) {
               internRules(shipLength2) -= 1
-              while (idx < input.length) {
-                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                idx += 2
-              }
             } else if (input.length == 6 && internRules(shipLength3) != 0) {
               internRules(shipLength3) -= 1
-              while (idx < input.length) {
-                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                idx += 2
-              }
             } else if (input.length == 8 && internRules(shipLength4) != 0) {
               internRules(shipLength4) -= 1
-              while (idx < input.length) {
-                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                idx += 2
-              }
             } else if (input.length == 10 && internRules(shipLength5) != 0) {
               internRules(shipLength5) -= 1
-              while (idx < input.length) {
-                grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                idx += 2
-              }
+            }
+            while (idx < input.length) {
+              grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
+              idx += 2
             }
 
             print(printGrid(grid, player))

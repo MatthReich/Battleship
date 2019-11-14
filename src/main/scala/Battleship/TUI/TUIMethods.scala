@@ -72,7 +72,7 @@ object TUIMethods {
 
   def printNrOfShips(nr:Array[Int]): String = {
     val string = new mutable.StringBuilder("")
-    string ++= ("Please set your Ships:\n")
+    string ++= "Please set your Ships:\n"
     string ++= ("You can still place: " + Console.GREEN + nr(0) + Console.RESET + "x 2 Block Ship\n")
     string ++= ("You can still place: " + Console.GREEN + nr(1) + Console.RESET + "x 3 Block Ship\n")
     string ++= ("You can still place: " + Console.GREEN + nr(2) + Console.RESET + "x 4 Block Ship\n")

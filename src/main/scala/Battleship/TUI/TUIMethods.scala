@@ -1,8 +1,6 @@
 package Battleship.TUI
 
-import java.lang.IllegalArgumentException
-
-import Battleship.model.{Creator, Grid, Player, Ship}
+import Battleship.model.{Creator, Grid, Player}
 
 import scala.collection.mutable
 
@@ -43,69 +41,32 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def addShips(grid: Grid, player: Player, shipSettingRules: Array[Int]): Unit = {
-    val internRules = shipSettingRules
-    val shipLength2 = 0
-    val shipLength3 = 1
-    val shipLength4 = 2
-    val shipLength5 = 3
-
-    var exitStatement = true
-    while (exitStatement) {
-      val input = io.StdIn.readLine().split(" ")
-      if (input(0).equals("q") || input(0).equals("exit")) {
-        exitStatement = false
-      } else {
-        if (input.length > 2 && input.length <= 10) {
-          if (input.length % 2 == 0) {
-            var setShip: Boolean = false
-            if (input.length == 4 && internRules(shipLength2) != 0) {
-              internRules(shipLength2) -= 1
-              setShip = true
-            } else if (input.length == 6 && internRules(shipLength3) != 0) {
-              internRules(shipLength3) -= 1
-              setShip = true
-            } else if (input.length == 8 && internRules(shipLength4) != 0) {
-              internRules(shipLength4) -= 1
-              setShip = true
-            } else if (input.length == 10 && internRules(shipLength5) != 0) {
-              internRules(shipLength5) -= 1
-              setShip = true
-            }
-            if (setShip) {
-              try {
-                val coordinateSpace = new Array[Int](input.length)
-                var idx2 = 0
-                for (i <- input) {
-                  coordinateSpace(idx2) = i.toInt
-                  idx2 += 1
-                }
-                val ship = Ship(coordinateSpace)
-                var idx = 0
-                while (idx < input.length) {
-                  grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)
-                  idx += 2
-                }
-                /*
-                val ship = new Ship(input)
-                grid.setShip(ship)
-               */
-              } catch {
-                case e: NumberFormatException => println("you have to input numbers", e)
-              }
-            }
-          }
-
-          print(printGrid(grid, player))
-          print(printNrOfShips(internRules))
-
-          if (internRules(0) == 0 && internRules(1) == 0 && internRules(2) == 0 && internRules(3) == 0) {
-            exitStatement = false
-          }
+  def addShips(grid: Grid, player: Player): Array[Int] = {
+    printGrid(grid, player)
+    val input = io.StdIn.readLine().split(" ")
+    val tmp: Array[Int] = new Array[Int](4)
+    try {
+      if (input.length == 4) {
+        var idx = 0
+        while (idx < 4) {
+          tmp(idx) = input(idx).toInt
+          idx += 1
         }
+
+      } else {
+        print("Format Error\n")
+        tmp(0) = 10
       }
-      println("try again")
+    } catch {
+      case e: NumberFormatException => println("you have to input numbers\n", e)
+        tmp(0) = 10
     }
+    if ((tmp(0) >= 0 && tmp(0) <= 9) && (tmp(1) >= 0 && tmp(1) <= 9) && (tmp(2) >= 0 && tmp(2) <= 9) && (tmp(3) >= 0 && tmp(3) <= 9)) {
+
+    } else {
+      tmp(0) = 10
+    }
+    tmp
   }
 
 

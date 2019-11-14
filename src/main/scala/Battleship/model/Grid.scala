@@ -5,8 +5,8 @@ package Battleship.model
 //Hit       2
 //Watter    3
 
-case class Grid(size: Int){
-  private val matrix = Array.ofDim[Int](size,size)
+case class Grid(size: Int) {
+  private val matrix = Array.ofDim[Int](size, size)
 
   def getField(x: Int, y: Int): Int = {
     matrix(x)(y)
@@ -32,7 +32,7 @@ case class Grid(size: Int){
     }
   }
 
-  def getSize: Int = {
+  def getSize(): Int = {
     size
   }
 

@@ -17,7 +17,10 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       controller.add(observer)
 
-
+      "notify its Observer after printWelcome" in {
+        controller.printWelcome()
+        observer.updated should be(true)
+      }
     }
   }
 }

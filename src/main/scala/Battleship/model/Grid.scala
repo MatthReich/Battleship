@@ -32,7 +32,7 @@ case class Grid(size: Int) {
     }
   }
 
-  def getSize: Int = {
+  def getSize(): Int = {
     size
   }
 

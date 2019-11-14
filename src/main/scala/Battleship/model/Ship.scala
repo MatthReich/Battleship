@@ -31,7 +31,7 @@ case class Ship(shipCoordinates: Array[Int]) {
     var idx = 0
     while (idx != size) {
       if (array(0) == array(2)) {
-        var idy = array(3) - array(1) + 1
+        var idy = array(1)
         while (idy <= array(3)) {
           if (array(0) == coordinats(idx)(0) && idy == coordinats(idx)(1)) {
             output = true
@@ -39,7 +39,7 @@ case class Ship(shipCoordinates: Array[Int]) {
           idy += 1
         }
       } else if (array(1) == array(3)) {
-        var idy = array(2) - array(0) + 1
+        var idy = array(0)
         while (idy <= array(2)) {
           if (idy == coordinats(idx)(0) && array(1) == coordinats(idx)(1)) {
             output = true

@@ -21,6 +21,11 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.printWelcome()
         observer.updated should be(true)
       }
+
+      "notify its Observer after printPlayer" in {
+        controller.printPlayer()
+        observer.updated should be(true)
+      }
     }
   }
 }

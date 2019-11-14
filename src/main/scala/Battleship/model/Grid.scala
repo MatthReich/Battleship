@@ -30,7 +30,7 @@ case class Grid(size: Int) {
       } else {
         sizeShip = array(2) - array(0) + 1
       }
-      if (shipSize <= 5 && shipSize >= 2) {
+      if (sizeShip <= 5 && sizeShip >= 2) {
         if (nr(sizeShip - 2) != 0) {
           ships(shipSize) = Ship(array)
           ships(shipSize).setCoordinates()
@@ -38,9 +38,9 @@ case class Grid(size: Int) {
           shipSize += 1
           nr(sizeShip - 2) -= 1
           print("New Ship\n")
+        } else {
+          print("No new Ship\n")
         }
-      } else {
-        print("No new Ship\n")
       }
     }
     nr

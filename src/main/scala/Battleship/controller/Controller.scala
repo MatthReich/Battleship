@@ -41,14 +41,14 @@ class Controller() extends Observable {
     while ((nr(0) + nr(1) + nr(2) + nr(3)) != 0) {
       val tmp = TUIMethods.addShips(playerGrid_01, player_01, nr)
       if (tmp(0) != 10) {
-        playerGrid_01.setShip(tmp)
+        playerGrid_01.setShip(tmp, nr)
       }
     }
     nr = Array[Int](4, 3, 2, 1)
     while ((nr(0) + nr(1) + nr(2) + nr(3)) != 0) {
       val tmp = TUIMethods.addShips(playerGrid_02, player_02, nr)
       if (tmp(0) != 10) {
-        playerGrid_01.setShip(tmp)
+        playerGrid_01.setShip(tmp, nr)
       }
     }
     notifyObservers()

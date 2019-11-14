@@ -1,5 +1,6 @@
 package Battleship.TUI
 
+import Battleship.model.Creator
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
@@ -17,4 +18,15 @@ class TUIMethodsTest extends WordSpec with Matchers {
   "askShips" in {
     // can't be tested
   }
+
+  "printWelcome" in {
+    val tmp = TUIMethods.printWelcome(new Creator("Marcel"), new Creator("Matthias"))
+    tmp should startWith("#")
+    tmp should include("Marcel")
+    tmp should include("Matthias")
+    tmp should include("Battleship")
+    tmp should endWith("\n")
+  }
+
+
 }

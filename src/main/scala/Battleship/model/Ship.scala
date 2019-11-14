@@ -6,7 +6,7 @@ case class Ship(shipCoordinates: Array[Int]) {
 
   def setCoordinates(): Unit = {
     if (shipCoordinates(0) == shipCoordinates(2)) {
-      size = shipCoordinates(3) - shipCoordinates(1) + 1
+      size = shipCoordinates(3) - shipCoordinates(1)
       coordinats = Array.ofDim[Int](size, 2)
       var idy = 0
       while (idy != size) {
@@ -15,7 +15,7 @@ case class Ship(shipCoordinates: Array[Int]) {
         idy += 1
       }
     } else {
-      size = shipCoordinates(2) - shipCoordinates(0) + 1
+      size = shipCoordinates(2) - shipCoordinates(0)
       coordinats = Array.ofDim[Int](size, 2)
       var idy = 0
       while (idy != size) {

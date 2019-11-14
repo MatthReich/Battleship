@@ -42,7 +42,7 @@ object TUIMethods {
   }
 
   def addShips(grid: Grid, player: Player): Array[Int] = {
-    printGrid(grid, player)
+    print(printGrid(grid, player))
     val input = io.StdIn.readLine().split(" ")
     val tmp: Array[Int] = new Array[Int](4)
     try {

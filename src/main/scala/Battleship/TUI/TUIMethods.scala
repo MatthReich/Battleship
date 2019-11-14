@@ -2,7 +2,7 @@ package Battleship.TUI
 
 import java.lang.IllegalArgumentException
 
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.model.{Creator, Grid, Player, Ship}
 
 import scala.collection.mutable
 
@@ -80,6 +80,7 @@ object TUIMethods {
                   coordinateSpace(idx2) = i.toInt
                   idx2 += 1
                 }
+                val ship = Ship(coordinateSpace)
                 var idx = 0
                 while (idx < input.length) {
                   grid.setField(input(idx + 1).toInt, input(idx).toInt, 1)

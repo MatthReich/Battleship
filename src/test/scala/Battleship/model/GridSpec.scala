@@ -1,7 +1,10 @@
 package Battleship.model
 
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
+@RunWith(classOf[JUnitRunner])
 class GridSpec extends WordSpec with Matchers {
 
   "A Grid" when {

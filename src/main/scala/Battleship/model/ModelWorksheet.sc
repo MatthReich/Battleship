@@ -1,8 +1,5 @@
 
 
-var count = 0
-while (count < 10) {
-  print(count)
-  if (count == 5) break
-  count += 1
-}
+var coordinats = Array.ofDim[Int](4, 2)
+coordinats(0)(0) = 1
+print(coordinats(0)(1))

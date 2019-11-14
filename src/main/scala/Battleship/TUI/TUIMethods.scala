@@ -41,8 +41,9 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def addShips(grid: Grid, player: Player): Array[Int] = {
+  def addShips(grid: Grid, player: Player, nr: Array[Int]): Array[Int] = {
     print(printGrid(grid, player))
+    print(printNrOfShips(nr))
     val input = io.StdIn.readLine().split(" ")
     val tmp: Array[Int] = new Array[Int](4)
     try {

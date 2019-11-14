@@ -42,20 +42,71 @@ object TUIMethods {
   }
 
   def addShips(grid: Grid, player: Player, shipSettingRules: Array[Int]): Unit = {
+    val internRules = shipSettingRules
+    val shipLength2 = 0
+    val shipLength3 = 1
+    val shipLength4 = 2
+    val shipLength5 = 3
+
     var exitStatement = true
     while (exitStatement) {
       val input = io.StdIn.readLine().split(" ")
       if (input(0).equals("q") || input(0).equals("exit")) {
         exitStatement = false
       } else {
-        if (input.length % 2 == 0) {
-          var idx = 0
-          while (idx < input.length) {
-            grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
-            idx += 2
+        if (input.length > 2 && input.length <= 10) {
+          if (input.length % 2 == 0) {
+            if (internRules(0) != 0 && internRules(1) != 0 && internRules(2) != 0 && internRules(3) != 0) {
+              input.length match {
+                case  4 => internRules(shipLength2) -= 1
+                case  6 => internRules(shipLength3) -= 1
+                case  8 => internRules(shipLength4) -= 1
+                case 10 => internRules(shipLength5) -= 1
+              }
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 4 && internRules(shipLength2) != 0) {
+              internRules(shipLength2) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 6 && internRules(shipLength3) != 0) {
+              internRules(shipLength3) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 8 && internRules(shipLength4) != 0) {
+              internRules(shipLength4) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                idx += 2
+              }
+            } else if (input.length == 10 && internRules(shipLength5) != 0) {
+              internRules(shipLength5) -= 1
+              var idx = 0
+              while (idx < input.length) {
+                grid.setField(input(idx).toInt, input(idx + 1).toInt, 1)
+                idx += 2
+              }
+            }
+
+            print(printGrid(grid, player))
+            print(printNrOfShips(internRules))
+
+            if (internRules(0) == 0 && internRules(1) == 0 && internRules(2) == 0 && internRules(3) == 0) {
+              exitStatement = false
+            }
           }
-          print(printGrid(grid, player))
         }
+        println("try again")
       }
     }
   }

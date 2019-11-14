@@ -18,7 +18,7 @@ case class Grid(size: Int) {
     matrix(x)(y) = value
   }
 
-  def setShip(array: Array[Int]): Unit = {
+  def setShip(array: Array[Int], nr: Array[Int]): Array[Int] = {
     var test: Boolean = true
     var idx = 0
     while (idx != shipSize) {
@@ -28,14 +28,24 @@ case class Grid(size: Int) {
       idx += 1
     }
     if (test && ((array(0) == array(2)) ^ (array(1) == array(3)))) {
-      ships(shipSize) = Ship(array)
-      ships(shipSize).setCoordinates()
-      addToGrid(array)
-      shipSize += 1
-      print("New Ship\n")
+      var sizeShip = 0
+      if (array(0) == array(2)) {
+        sizeShip = array(3) - array(1) + 1
+      } else {
+        sizeShip = array(2) - array(0) + 1
+      }
+      if (nr(sizeShip - 2) != 0) {
+        ships(shipSize) = Ship(array)
+        ships(shipSize).setCoordinates()
+        addToGrid(array)
+        shipSize += 1
+        nr(sizeShip - 2) -= 1
+        print("New Ship\n")
+      }
     } else {
       print("No new Ship\n")
     }
+    nr
   }
 
   def addToGrid(array: Array[Int]): Unit = {

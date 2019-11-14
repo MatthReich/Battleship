@@ -10,7 +10,6 @@ object Game {
     controller.printPlayer()
     controller.printGrid()
     controller.addShips()
-    controller.printGrid()
 
   }
 }

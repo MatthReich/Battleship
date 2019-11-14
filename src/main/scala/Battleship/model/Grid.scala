@@ -30,10 +30,27 @@ case class Grid(size: Int) {
     if (test && ((array(0) == array(2)) ^ (array(1) == array(3)))) {
       ships(shipSize) = Ship(array)
       ships(shipSize).setCoordinates()
+      addToGrid(array)
       shipSize += 1
       print("New Ship\n")
     } else {
       print("No new Ship\n")
+    }
+  }
+
+  def addToGrid(array: Array[Int]): Unit = {
+    if (array(0) == array(2)) {
+      var idx = array(1)
+      while (idx < array(3)) {
+        setField(array(0), idx, 1)
+        idx += 1
+      }
+    } else {
+      var idx = array(0)
+      while (idx < array(2)) {
+        setField(idx, array(1), 1)
+        idx += 1
+      }
     }
   }
 

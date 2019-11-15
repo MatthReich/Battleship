@@ -53,7 +53,6 @@ object TUIMethods {
           tmp(idx) = input(idx).toInt
           idx += 1
         }
-
       } else {
         print("Format Error\n")
         tmp(0) = 10

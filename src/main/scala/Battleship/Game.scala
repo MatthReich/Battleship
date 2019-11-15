@@ -30,6 +30,5 @@ object Game {
       input = scala.io.StdIn.readLine()
       tui.processLine(input)
     } while (input != "q")
-
   }
 }

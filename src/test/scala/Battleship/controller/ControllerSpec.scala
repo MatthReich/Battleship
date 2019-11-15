@@ -1,3 +1,4 @@
+/*
 package Battleship.controller
 
 import Battleship.util.Observer
@@ -34,3 +35,4 @@ class ControllerSpec extends WordSpec with Matchers {
     }
   }
 }
+*/

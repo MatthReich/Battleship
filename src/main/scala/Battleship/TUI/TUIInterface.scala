@@ -1,17 +1,36 @@
 package Battleship.TUI
 
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.controller.Controller
+import Battleship.util.Observer
 
-object TUIInterface {
-  def printGrid(grid: Grid, player: Player): Unit = {
-    print(TUIMethods.printGrid(grid, player))
+
+class TUIInterface(controller: Controller) extends Observer {
+
+
+  def setPlayers(): Unit = {
+    controller.add(this)
+
+    print(TUIMethods.printWelcome(controller.creator_01, controller.creator_02))
+
+    controller.player_01 = TUIMethods.setPlayer(1)
+    controller.player_02 = TUIMethods.setPlayer(2)
+
   }
 
-  def printWelcome(creator_01: Creator, creator_02: Creator): Unit = {
-    print(TUIMethods.printWelcome(creator_01, creator_02))
+  def playerConfiguration(): Unit = {
+    print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
   }
 
-  def printGetPlayer(player_01: Player, player_02: Player): Unit = {
-    print(TUIMethods.printGetPlayer(player_01, player_02))
+  def setShips(): Unit = {
+  controller.addShipUpper(controller.player_01, controller.player_02, controller.playerGrid_01,
+      controller.playerGrid_02, controller.nr, controller.nr2)
+  }
+
+  def processLine(input: String): Unit = {
+
+  }
+
+  override def update(): Unit = {
+
   }
 }

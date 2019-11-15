@@ -1,4 +1,6 @@
+/*
 package Battleship.TUI
+
 
 import Battleship.model.{Creator, Grid, Player}
 import org.junit.runner.RunWith
@@ -59,3 +61,4 @@ class TUIMethodsTest extends WordSpec with Matchers {
   }
 
 }
+*/

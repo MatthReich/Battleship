@@ -26,5 +26,10 @@ object Game {
       tui.setShips(input, controller.player_02, controller.playerGrid_02, controller.nr2)
     } while ((controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3)) != 0)
 
+    do {
+      input = scala.io.StdIn.readLine()
+      tui.processLine(input)
+    } while (input != "q")
+
   }
 }

@@ -5,35 +5,65 @@ package Battleship.model
 //Hit       2
 //Watter    3
 
-case class Grid(size: Int){
-  private val matrix = Array.ofDim[Int](size,size)
+case class Grid(size: Int) {
+  private val matrix = Array.ofDim[Int](size, size)
+  var ships: Array[Ship] = new Array[Ship](10)
+  var shipSize = 0
 
   def getField(x: Int, y: Int): Int = {
     matrix(x)(y)
   }
 
-  def setField(x: Int, y: Int, value: Int): Unit = {
-    matrix(x)(y) = value
+  def setShip(array: Array[Int], nr: Array[Int]): Array[Int] = {
+    var test: Boolean = true
+    var idx = 0
+    while (idx != shipSize) {
+      if (ships(idx).colidate(array)) {
+        test = false
+      }
+      idx += 1
+    }
+    if (test && ((array(0) == array(2)) ^ (array(1) == array(3)))) {
+      var sizeShip = 0
+      if (array(0) == array(2)) {
+        sizeShip = array(3) - array(1) + 1
+      } else {
+        sizeShip = array(2) - array(0) + 1
+      }
+      if (sizeShip <= 5 && sizeShip >= 2) {
+        if (nr(sizeShip - 2) != 0) {
+          ships(shipSize) = Ship(array)
+          ships(shipSize).setCoordinates()
+          addToGrid(array)
+          shipSize += 1
+          nr(sizeShip - 2) -= 1
+          print("New Ship\n")
+        } else {
+          print("No new Ship\n")
+        }
+      }
+    }
+    nr
   }
 
-  def setShip(x: Int, y: Int, x2: Int, y2: Int): Unit = {
-    if ((x2 - x) > (y2 - y)) {
-      var tmp = x2
-      while (x <= tmp) {
-        matrix(tmp)(y) = 1
-        tmp -= 1
+  def addToGrid(array: Array[Int]): Unit = {
+    if (array(0) == array(2)) {
+      var idx = array(1)
+      while (idx <= array(3)) {
+        setField(array(0), idx, 1)
+        idx += 1
       }
     } else {
-      var tmp = y2
-      while (y <= tmp) {
-        matrix(x)(tmp) = 1
-        tmp -= 1
+      var idx = array(0)
+      while (idx <= array(2)) {
+        setField(idx, array(1), 1)
+        idx += 1
       }
     }
   }
 
-  def getSize: Int = {
-    size
+  def setField(x: Int, y: Int, value: Int): Unit = {
+    matrix(x)(y) = value
   }
 
 }

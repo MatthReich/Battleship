@@ -3,8 +3,6 @@ package Battleship.controller
 import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.Observable
 
-import scala.collection.mutable
-
 //noinspection ScalaStyle
 class Controller() extends Observable {
 
@@ -15,8 +13,8 @@ class Controller() extends Observable {
   val playerGrid_02: Grid = Grid(fieldSize)
   var player_01 = Player("")
   var player_02 = Player("")
-  var nr = Array[Int](1, 0, 0, 0)
-  var nr2 = Array[Int](1, 0, 0, 0)
+  var nr = Array[Int](2, 0, 0, 0)
+  var nr2 = Array[Int](2, 0, 0, 0)
 
 
   def addShips(grid: Grid, player: Player, nr: Array[Int], input: String): Array[Int] = {

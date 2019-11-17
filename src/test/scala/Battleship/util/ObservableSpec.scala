@@ -2,7 +2,7 @@ package Battleship.util
 
 import org.scalatest.{Matchers, WordSpec}
 
-class ObserverSpec extends WordSpec with Matchers {
+class ObservableSpec extends WordSpec with Matchers {
   "An Observable" should {
     val observable = new Observable
     val observer: Observer = new Observer {
@@ -21,9 +21,8 @@ class ObserverSpec extends WordSpec with Matchers {
       observable.subscribers should contain(observer)
     }
     "notify an Observer" in {
-      observer.isUpdated should be(false)
       observable.notifyObservers
-      observer.isUpdated should be(true)
+      observer.update() should be(true)
     }
     "remove an Observer" in {
       observable.remove(observer)

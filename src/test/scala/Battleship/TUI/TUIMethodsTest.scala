@@ -1,4 +1,3 @@
-/*
 package Battleship.TUI
 
 
@@ -61,4 +60,3 @@ class TUIMethodsTest extends WordSpec with Matchers {
   }
 
 }
-*/

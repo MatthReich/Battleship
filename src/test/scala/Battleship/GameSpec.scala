@@ -6,5 +6,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 @RunWith(classOf[JUnitRunner])
 class GameSpec extends WordSpec with Matchers {
-
+  "main" in {
+    Game.main(Array[String]())
+  }
 }

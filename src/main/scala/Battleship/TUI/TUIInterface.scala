@@ -8,9 +8,9 @@ import Battleship.util.Observer
 
 class TUIInterface(controller: Controller) extends Observer {
 
+  controller.add(this)
 
   def setPlayers(): Unit = {
-    controller.add(this)
     output(printWelcome(controller.creator_01, controller.creator_02))
     output(printSetPlayer(1))
     controller.player_01 = setPlayer(1)

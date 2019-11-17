@@ -9,8 +9,11 @@ import org.scalatest.{Matchers, WordSpec}
 @RunWith(classOf[JUnitRunner])
 class TUIMethodsTest extends WordSpec with Matchers {
 
-  "setPlayer" in {
-    // can't be tested
+  "printSetPlayer" in {
+    var tmp = TUIMethods.printSetPlayer(1)
+    tmp should include(Console.GREEN)
+    tmp = TUIMethods.printSetPlayer(2)
+    tmp should include(Console.CYAN)
   }
 
   "addShips" in {

@@ -20,6 +20,15 @@ class TUIMethodsTest extends WordSpec with Matchers {
     // can't be tested
   }
 
+  "checkValidShip" in {
+    var tmp = TUIMethods.checkValidShip("1 1 2 1")
+    tmp should be(Array[Int](1, 1, 2, 1))
+    tmp = TUIMethods.checkValidShip("1 1 2 1 2")
+    tmp(0) should be(10)
+    tmp = TUIMethods.checkValidShip("a 1 2 1")
+    tmp(0) should be(10)
+  }
+
   "printWelcome" in {
     val tmp = TUIMethods.printWelcome(Creator("Marcel"), Creator("Matthias"))
     tmp should startWith("#")

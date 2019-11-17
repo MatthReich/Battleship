@@ -17,7 +17,7 @@ class Controller() extends Observable {
   var nr2 = Array[Int](2, 0, 0, 0)
 
 
-  def addShips(grid: Grid, player: Player, nr: Array[Int], input: String): Array[Int] = {
+  def addShips(input: String): Array[Int] = {
     val inputInner = input.split(" ")
     val tmp: Array[Int] = new Array[Int](4)
     try {

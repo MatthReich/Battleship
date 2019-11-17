@@ -1,6 +1,7 @@
 package Battleship.TUI
 
 import Battleship.model.{Creator, Grid, Player}
+
 import scala.collection.mutable
 
 object TUIMethods {
@@ -16,12 +17,7 @@ object TUIMethods {
   }
 
   def setPlayer(color: Int): Player = {
-    if (color == 1) {
-      print(Console.GREEN + "Please insert player name for player_01\n")
-    } else {
-      print(Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
-    }
-    val name = scala.io.StdIn.readLine().toString
+    val name = input()
     if (name != "") {
       val player: Player = Player(name)
       player
@@ -29,7 +25,10 @@ object TUIMethods {
       val player: Player = Player("player_0" + color)
       player
     }
+  }
 
+  def input(): String = {
+    scala.io.StdIn.readLine().toString
   }
 
   def printGetPlayer(player_01: Player, player_02: Player): String = {
@@ -70,14 +69,27 @@ object TUIMethods {
     stringOfGrid.toString()
   }
 
+  def printSetPlayer(color: Int): String = {
+    if (color == 1) {
+      (Console.GREEN + "Please insert player name for player_01\n" + Console.RESET)
+    } else {
+      (Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
+    }
+  }
+
   def printNrOfShips(nr: Array[Int]): String = {
     val string = new mutable.StringBuilder("")
     string ++= "Please set your Ships:\n"
-    string ++= ("You can still place: " + Console.GREEN + nr(0) + Console.RESET + "x 2 Block Ship\n")
-    string ++= ("You can still place: " + Console.GREEN + nr(1) + Console.RESET + "x 3 Block Ship\n")
-    string ++= ("You can still place: " + Console.GREEN + nr(2) + Console.RESET + "x 4 Block Ship\n")
-    string ++= ("You can still place: " + Console.GREEN + nr(3) + Console.RESET + "x 5 Block Ship\n")
+    var idx = 2
+    for (tmp <- nr) {
+      string ++= ("You can still place: " + Console.GREEN + tmp + "x " + Console.RESET + " " + idx + " Block Ship\n")
+      idx += 1
+    }
     string.toString()
+  }
+
+  def output(output: String): Unit = {
+    print(output)
   }
 
 }

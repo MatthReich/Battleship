@@ -15,6 +15,7 @@ class ObserverSpec extends WordSpec with Matchers {
         updated
       }
     }
+
     "add an Observer" in {
       observable.add(observer)
       observable.subscribers should contain(observer)
@@ -28,6 +29,5 @@ class ObserverSpec extends WordSpec with Matchers {
       observable.remove(observer)
       observable.subscribers should not contain observer
     }
-
   }
 }

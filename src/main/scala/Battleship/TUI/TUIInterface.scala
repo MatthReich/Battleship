@@ -27,7 +27,8 @@ class TUIInterface(controller: Controller) extends Observer {
     output(printNrOfShips(nr))
   }
 
-  def setShips(grid: Grid, nr: Array[Int]): Unit = {
+  def setShips(player: Player, grid: Grid, nr: Array[Int]): Unit = {
+    setShipsPrint(player, grid, nr)
     val tmp = controller.addShips(input)
     if (tmp(0) != 10) {
       grid.setShip(tmp, nr)

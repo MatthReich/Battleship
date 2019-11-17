@@ -17,7 +17,7 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       controller.add(observer)
 
-      "notify its Observer after addShips" in {
+      /*"notify its Observer after addShips" in {
         var tmp = controller.addShips("1 1 1 1")
         tmp should be(Array(1, 1, 1, 1))
         tmp = controller.addShips("1 1 1 1 1")
@@ -25,7 +25,7 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp = controller.addShips("a 1 1 1")
         tmp(0) should be(10)
         observer.updated should be(true)
-      }
+      }*/
     }
 
   }

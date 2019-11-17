@@ -30,6 +30,7 @@ case class Grid(size: Int) {
       } else {
         sizeShip = array(2) - array(0) + 1
       }
+
       if (sizeShip <= 5 && sizeShip >= 2) {
         if (nr(sizeShip - 2) != 0) {
           ships(shipSize) = Ship(array)

@@ -34,10 +34,6 @@ class TUIInterface(controller: Controller) extends Observer {
     }
   }
 
-  def processLine(input: String): Unit = {
-
-  }
-
   override def update(): Unit = {
 
   }

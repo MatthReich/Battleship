@@ -1,4 +1,3 @@
-/*
 package Battleship.controller
 
 import Battleship.util.Observer
@@ -18,21 +17,16 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       controller.add(observer)
 
-      "notify its Observer after printWelcome" in {
-        controller.printWelcome()
-        observer.updated should be(true)
-      }
-
-      "notify its Observer after printPlayer" in {
-        controller.printPlayer()
-        observer.updated should be(true)
-      }
-
-      "notify its Observer after printGrid" in {
-        controller.printGrid()
+      "notify its Observer after addShips" in {
+        var tmp = controller.addShips("1 1 1 1")
+        tmp should be(Array(1, 1, 1, 1))
+        tmp = controller.addShips("1 1 1 1 1")
+        tmp(0) should be(10)
+        tmp = controller.addShips("a 1 1 1")
+        tmp(0) should be(10)
         observer.updated should be(true)
       }
     }
+
   }
 }
-*/

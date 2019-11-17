@@ -15,6 +15,10 @@ class ObservableSpec extends WordSpec with Matchers {
         updated
       }
     }
+    "add an Observer" in {
+      observable.add(observer)
+      observable.subscribers should contain(observer)
+    }
 
   }
 }

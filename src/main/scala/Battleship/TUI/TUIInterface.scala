@@ -42,7 +42,6 @@ class TUIInterface(controller: Controller) extends Observer {
     var playerInput: String = ""
     var firstTime = true
     val gridPrint = false // grid will print without placed ships
-    var winStatement = false
 
     do {
       if (firstTime) {
@@ -62,9 +61,8 @@ class TUIInterface(controller: Controller) extends Observer {
           else playerStatus = processLineIntern(playerStatus, playerInput, controller.playerGrid_01)
       }
 
-      winStatement = controller.playerGrid_01.winStatement()
-      if (!winStatement) controller.playerGrid_02.winStatement()
-      if (winStatement) return
+      if (controller.playerGrid_01.winStatement()) return
+      if (controller.playerGrid_02.winStatement()) return
 
     } while (playerInput != "q")
   }

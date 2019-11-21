@@ -36,5 +36,4 @@ object TUIProcessLine {
       !playerStatus
     }
   }
-
 }

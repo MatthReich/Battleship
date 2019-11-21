@@ -36,6 +36,38 @@ class TUIInterface(controller: Controller) extends Observer {
     }
   }
 
+  def processLine(): Unit = {
+    var playerStatus = true   // true = player 1, false = player2
+    var playerInput: String = ""
+    do {
+      playerInput match {
+        case "q" => " "
+          // cases to get some more functions like getField again or so
+        case _ => {
+          if (playerStatus) {
+            output(printGrid(controller.playerGrid_02, controller.player_01))
+          } else {
+            output(printGrid(controller.playerGrid_01, controller.player_02))
+          }
+          playerInput = input()
+          playerStatus = processLineIntern(playerStatus, playerInput)
+        }
+      }
+    } while (playerInput != "q")
+  }
+
+  def processLineIntern(playerStatus: Boolean, playerInput: String): Boolean = {
+    val hit = false
+
+
+
+    if (hit) {
+      playerStatus
+    } else {
+      !playerStatus
+    }
+  }
+
   override def update(): Boolean = {
     true
   }

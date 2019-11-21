@@ -14,7 +14,7 @@ object Game {
     tui.playerConfiguration()
 
     do {
-      tui.setShips(controller.player_02, controller.playerGrid_01, controller.nr)
+      tui.setShips(controller.player_01, controller.playerGrid_01, controller.nr)
     } while ((controller.nr(0) + controller.nr(1) + controller.nr(2) + controller.nr(3)) != 0)
 
     do {

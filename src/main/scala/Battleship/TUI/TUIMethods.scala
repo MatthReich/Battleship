@@ -88,7 +88,7 @@ object TUIMethods {
     val inputInner = input.split(" ")
     val tmp: Array[Int] = new Array[Int](4)
     try {
-      if (inputInner.length == 4) {
+      if (inputInner.length == 4) {   // schöner mit for <- schleife lösen
         var idx = 0
         while (idx < 4) {
           tmp(idx) = inputInner(idx).toInt

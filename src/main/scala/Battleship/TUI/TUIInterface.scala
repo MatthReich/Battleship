@@ -1,6 +1,7 @@
 package Battleship.TUI
 
 import Battleship.TUI.TUIMethods._
+import Battleship.TUI.TUIProcessLine._
 import Battleship.controller.Controller
 import Battleship.model.{Grid, Player}
 import Battleship.util.Observer
@@ -39,34 +40,27 @@ class TUIInterface(controller: Controller) extends Observer {
   def processLine(): Unit = {
     var playerStatus = true   // true = player 1, false = player2
     var playerInput: String = ""
+    var firstTime = true
     do {
+      if (firstTime) {
+        output(printGrid(controller.playerGrid_02, controller.player_01))
+        firstTime = false
+      } else {  // grid nur mit spiel makierungen ausgeben
+        if (playerStatus) output(printGrid(controller.playerGrid_02, controller.player_01))
+        else output(printGrid(controller.playerGrid_01, controller.player_02))
+      }
       playerInput = input()
       playerInput match {
         case "q" => " "
           // cases to get some more functions like getField again or so
-        case _ => {
-          if (playerStatus) { // grid nur mit spiel makierungen ausgeben
-            output(printGrid(controller.playerGrid_02, controller.player_01))
-          } else {
-            output(printGrid(controller.playerGrid_01, controller.player_02))
-          }
-          playerStatus = processLineIntern(playerStatus, playerInput)
+        case _ => { // grid nur mit spiel makierungen ausgeben
+          if (playerStatus) playerStatus = processLineIntern(playerStatus, playerInput, controller.playerGrid_02)
+          else playerStatus = processLineIntern(playerStatus, playerInput, controller.playerGrid_01)
         }
       }
     } while (playerInput != "q")
   }
 
-  def processLineIntern(playerStatus: Boolean, playerInput: String): Boolean = {
-    val hit = false
-
-    // @TODO eingabe spitten + schiffesetzen überprüfen
-
-    if (hit) {
-      playerStatus
-    } else {
-      !playerStatus
-    }
-  }
 
   override def update(): Boolean = {
     true

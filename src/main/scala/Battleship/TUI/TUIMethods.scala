@@ -35,8 +35,8 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def printGrid(grid: Grid, player: Player): String = {
-    val stringOfGrid = new mutable.StringBuilder("")
+  def printGrid(grid: Grid, player: Player): String = {  //sortOfPrint true = with setted ships
+    val stringOfGrid = new mutable.StringBuilder("")                          // false = without setted ships
     stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
     stringOfGrid ++= "   "
     var ids = 0

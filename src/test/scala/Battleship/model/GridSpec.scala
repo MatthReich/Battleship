@@ -10,6 +10,7 @@ class GridSpec extends WordSpec with Matchers {
   "A Grid" when {
     "new" should {
       val grid = Grid(10)
+      val gridShort = Grid(1)
 
       "getField" in {
         val tmp = grid.getField(0, 0)
@@ -35,6 +36,21 @@ class GridSpec extends WordSpec with Matchers {
         grid.setShip(Array[Int](0, 0, 3, 0), Array[Int](1, 1, 1, 1))
         tmp = grid.getField(3, 0)
         tmp should be(0)
+      }
+
+      "getValue" in {
+        gridShort.setField(0, 0, 1)
+        gridShort.getValue(0, 0) should be (1)
+        gridShort.setField(0, 0, 0)
+        gridShort.getValue(0, 0) should be (0)
+      }
+
+      "winStatement" in {
+        var check = gridShort.winStatement()
+        check should be (true)
+        gridShort.setField(0, 0, 1)
+        check = gridShort.winStatement()
+        check should be (false)
       }
 
     }

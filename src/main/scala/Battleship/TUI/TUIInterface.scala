@@ -40,16 +40,16 @@ class TUIInterface(controller: Controller) extends Observer {
     var playerStatus = true   // true = player 1, false = player2
     var playerInput: String = ""
     do {
+      playerInput = input()
       playerInput match {
         case "q" => " "
           // cases to get some more functions like getField again or so
         case _ => {
-          if (playerStatus) {
+          if (playerStatus) { // grid nur mit spiel makierungen ausgeben
             output(printGrid(controller.playerGrid_02, controller.player_01))
           } else {
             output(printGrid(controller.playerGrid_01, controller.player_02))
           }
-          playerInput = input()
           playerStatus = processLineIntern(playerStatus, playerInput)
         }
       }
@@ -59,7 +59,7 @@ class TUIInterface(controller: Controller) extends Observer {
   def processLineIntern(playerStatus: Boolean, playerInput: String): Boolean = {
     val hit = false
 
-
+    // @TODO eingabe spitten + schiffesetzen überprüfen
 
     if (hit) {
       playerStatus

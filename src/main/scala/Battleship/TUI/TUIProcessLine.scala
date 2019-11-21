@@ -14,12 +14,12 @@ object TUIProcessLine {
         val y = input(1).toInt
 
         grid.getValue(x, y) match {
+          case 0 => grid.setField(x, y, 3)
           case 1 => {
             hit = true
             grid.setField(x, y, 2)
           }
-          case 2 => grid.setField(x, y, 3)
-          case _ =>
+          case _ => " "
         }
       } else {
         print("Format Error\n")

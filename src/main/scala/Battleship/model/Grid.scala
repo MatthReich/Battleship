@@ -67,4 +67,8 @@ case class Grid(size: Int) {
     matrix(x)(y) = value
   }
 
+  def getValue(x: Int, y:Int): Int = {
+    matrix(x)(y)
+  }
+
 }

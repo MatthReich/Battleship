@@ -24,7 +24,7 @@ class TUIInterface(controller: Controller) extends Observer {
   }
 
   def setShipsPrint(player: Player, grid: Grid, nr: Array[Int]): Unit = {
-    output(printGrid(grid, player))
+    output(printGrid(grid, player, true))
     output(printNrOfShips(nr))
   }
 
@@ -41,13 +41,14 @@ class TUIInterface(controller: Controller) extends Observer {
     var playerStatus = true   // true = player 1, false = player2
     var playerInput: String = ""
     var firstTime = true
+    val gridPrint = false // grid will print without placed ships
     do {
       if (firstTime) {
-        output(printGrid(controller.playerGrid_02, controller.player_01))
+        output(printGrid(controller.playerGrid_02, controller.player_01, gridPrint))
         firstTime = false
       } else {  // grid nur mit spiel makierungen ausgeben
-        if (playerStatus) output(printGrid(controller.playerGrid_02, controller.player_01))
-        else output(printGrid(controller.playerGrid_01, controller.player_02))
+        if (playerStatus) output(printGrid(controller.playerGrid_02, controller.player_01, gridPrint))
+        else output(printGrid(controller.playerGrid_01, controller.player_02, gridPrint))
       }
       playerInput = input()
       playerInput match {

@@ -35,7 +35,7 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def printGrid(grid: Grid, player: Player): String = {  //sortOfPrint true = with setted ships
+  def printGrid(grid: Grid, player: Player, sortOfPrint: Boolean): String = {  //sortOfPrint true = with setted ships
     val stringOfGrid = new mutable.StringBuilder("")                          // false = without setted ships
     stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
     stringOfGrid ++= "   "
@@ -51,11 +51,20 @@ object TUIMethods {
       stringOfGrid ++= "A" + idy + " "
       while (idx < grid.size) {
         val tmp = grid.getField(idx, idy)
-        tmp match {
-          case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-          case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
-          case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-          case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+        if (sortOfPrint) {
+          tmp match {
+            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+          }
+        } else {
+          tmp match {
+            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 1 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+          }
         }
         idx += 1
       }

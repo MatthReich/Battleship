@@ -42,6 +42,8 @@ class TUIInterface(controller: Controller) extends Observer {
     var playerInput: String = ""
     var firstTime = true
     val gridPrint = false // grid will print without placed ships
+    var winStatement = false
+
     do {
       if (firstTime) {
         output(printGrid(controller.playerGrid_02, controller.player_01, gridPrint))
@@ -54,11 +56,16 @@ class TUIInterface(controller: Controller) extends Observer {
       playerInput match {
         case "q" => " "
           // cases to get some more functions like getField again or so
-        case _ => { // grid nur mit spiel makierungen ausgeben
+
+        case _ => // grid nur mit spiel makierungen ausgeben
           if (playerStatus) playerStatus = processLineIntern(playerStatus, playerInput, controller.playerGrid_02)
           else playerStatus = processLineIntern(playerStatus, playerInput, controller.playerGrid_01)
-        }
       }
+
+      winStatement = controller.playerGrid_01.winStatement()
+      if (!winStatement) controller.playerGrid_02.winStatement()
+      if (winStatement) return
+
     } while (playerInput != "q")
   }
 

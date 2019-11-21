@@ -23,9 +23,11 @@ object TUIProcessLine {
         }
       } else {
         print("Format Error\n")
+        hit = true
       }
     } catch {
-      case e: NumberFormatException => println("you have to input numbers\n", e)
+      case e: NumberFormatException => println("you have to input numbers\n")
+        hit = true
     }
 
     if (hit) {

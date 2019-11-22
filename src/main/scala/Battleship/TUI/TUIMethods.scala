@@ -17,12 +17,7 @@ object TUIMethods {
   }
 
   def setPlayer(color: Int): Player = {
-    if (color == 1) {
-      print(Console.GREEN + "Please insert player name for player_01\n")
-    } else {
-      print(Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
-    }
-    val name = scala.io.StdIn.readLine().toString
+    val name = input()
     if (name != "") {
       val player: Player = Player(name)
       player
@@ -30,7 +25,6 @@ object TUIMethods {
       val player: Player = Player("player_0" + color)
       player
     }
-
   }
 
   def printGetPlayer(player_01: Player, player_02: Player): String = {
@@ -41,16 +35,72 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def addShips(grid: Grid, player: Player, nr: Array[Int]): Array[Int] = {
-    print(printGrid(grid, player))
-    print(printNrOfShips(nr))
-    val input = io.StdIn.readLine().split(" ")
+  def printGrid(grid: Grid, player: Player, sortOfPrint: Boolean): String = {  //sortOfPrint true = with setted ships
+    val stringOfGrid = new mutable.StringBuilder("")                          // false = without setted ships
+    stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
+    stringOfGrid ++= "   "
+    var ids = 0
+    while (ids < grid.size) {
+      stringOfGrid ++= "  " + ids + "  "
+      ids += 1
+    }
+    stringOfGrid ++= "\n"
+    var idy = 0
+    while (idy < grid.size) {
+      var idx = 0
+      stringOfGrid ++= "A" + idy + " "
+      while (idx < grid.size) {
+        val tmp = grid.getField(idx, idy)
+        if (sortOfPrint) {
+          tmp match {
+            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+          }
+        } else {
+          tmp match {
+            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 1 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+          }
+        }
+        idx += 1
+      }
+      idy += 1
+      stringOfGrid ++= "\n"
+    }
+    stringOfGrid.toString()
+  }
+
+  def printSetPlayer(color: Int): String = {
+    if (color == 1) {
+      (Console.GREEN + "Please insert player name for player_01\n" + Console.RESET)
+    } else {
+      (Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
+    }
+  }
+
+  def printNrOfShips(nr: Array[Int]): String = {
+    val string = new mutable.StringBuilder("")
+    string ++= "Please set your Ships:\n"
+    var idx = 2
+    for (tmp <- nr) {
+      string ++= ("You can still place: " + Console.GREEN + tmp + "x " + Console.RESET + " " + idx + " Block Ship\n")
+      idx += 1
+    }
+    string.toString()
+  }
+
+  def checkValidShip(input: String): Array[Int] = {
+    val inputInner = input.split(" ")
     val tmp: Array[Int] = new Array[Int](4)
     try {
-      if (input.length == 4) {
+      if (inputInner.length == 4) {   // schöner mit for <- schleife lösen
         var idx = 0
         while (idx < 4) {
-          tmp(idx) = input(idx).toInt
+          tmp(idx) = inputInner(idx).toInt
           idx += 1
         }
       } else {
@@ -69,44 +119,12 @@ object TUIMethods {
     tmp
   }
 
-  def printGrid(grid: Grid, player: Player): String = {
-    val stringOfGrid = new mutable.StringBuilder("")
-    stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
-    stringOfGrid ++= "   "
-    var ids = 0
-    while (ids < grid.size) {
-      stringOfGrid ++= "  " + ids + "  "
-      ids += 1
-    }
-    stringOfGrid ++= "\n"
-    var idy = 0
-    while (idy < grid.size) {
-      var idx = 0
-      stringOfGrid ++= "A" + idy + " "
-      while (idx < grid.size) {
-        val tmp = grid.getField(idx, idy)
-        tmp match {
-          case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-          case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
-          case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-          case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-        }
-        idx += 1
-      }
-      idy += 1
-      stringOfGrid ++= "\n"
-    }
-    stringOfGrid.toString()
-
+  def input(): String = {
+    scala.io.StdIn.readLine().toString
   }
 
-  def printNrOfShips(nr: Array[Int]): String = {
-    val string = new mutable.StringBuilder("")
-    string ++= "Please set your Ships:\n"
-    string ++= ("You can still place: " + Console.GREEN + nr(0) + Console.RESET + "x 2 Block Ship\n")
-    string ++= ("You can still place: " + Console.GREEN + nr(1) + Console.RESET + "x 3 Block Ship\n")
-    string ++= ("You can still place: " + Console.GREEN + nr(2) + Console.RESET + "x 4 Block Ship\n")
-    string ++= ("You can still place: " + Console.GREEN + nr(3) + Console.RESET + "x 5 Block Ship\n")
-    string.toString()
+  def output(output: String): Unit = {
+    print(output)
   }
+
 }

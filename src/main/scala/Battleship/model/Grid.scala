@@ -30,6 +30,7 @@ case class Grid(size: Int) {
       } else {
         sizeShip = array(2) - array(0) + 1
       }
+
       if (sizeShip <= 5 && sizeShip >= 2) {
         if (nr(sizeShip - 2) != 0) {
           ships(shipSize) = Ship(array)
@@ -64,6 +65,21 @@ case class Grid(size: Int) {
 
   def setField(x: Int, y: Int, value: Int): Unit = {
     matrix(x)(y) = value
+  }
+
+  def getValue(x: Int, y:Int): Int = {
+    matrix(x)(y)
+  }
+
+  def winStatement(): Boolean = {
+    var statement = true
+    // while for efficiency if found direct finished with search
+    for (i <- 0 until size) {
+      for (j <- 0 until size) {
+        if (matrix(i)(j) == 1) statement = false
+      }
+    }
+    statement
   }
 
 }

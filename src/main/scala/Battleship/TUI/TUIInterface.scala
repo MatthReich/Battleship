@@ -51,6 +51,7 @@ class TUIInterface(controller: Controller) extends Observer {
         if (playerStatus) output(printGrid(controller.playerGrid_02, controller.player_01, gridPrint))
         else output(printGrid(controller.playerGrid_01, controller.player_02, gridPrint))
       }
+
       playerInput = input()
       playerInput match {
         case "q" => " "

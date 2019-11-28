@@ -1,7 +1,7 @@
 package Battleship
 
 import Battleship.TUI.{TUIInterface, Tui}
-import Battleship.controller.Controller
+import Battleship.controller.{Controller, GameStatus}
 import Battleship.model.Grid
 
 //noinspection ScalaStyle
@@ -37,8 +37,7 @@ object Game {
       input = scala.io.StdIn.readLine().toString
       tuii.processLine(input)
       // @TODO Pattern GameStatus instead of winStatement
-      if (controller.grid_player01.winStatement()) return
-      if (controller.grid_player02.winStatement()) return
+      if (controller.gameStatus == GameStatus.SOLVED) return
     } while (input != "q")
 
   }

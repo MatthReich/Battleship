@@ -29,4 +29,3 @@ class Tui(controller: Controller) extends Observer {
     true
   }
 }
-

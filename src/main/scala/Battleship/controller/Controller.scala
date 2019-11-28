@@ -31,6 +31,39 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
         case 1 => grid_player02.toString(player_01, boolean)
       }
     }
+  }
+
+  def checkGuess(playerInput: String, playerStatus: Boolean, grid: Grid): Boolean = {
+    var hit = false
+    val input = playerInput.split(" ")
+
+    try {
+      if (input.length == 2) { // schöner mit for <- schleife lösen
+        val x = input(0).toInt
+        val y = input(1).toInt
+
+        grid.getValue(x, y) match {
+          case 0 => grid.setField(x, y, 3)
+          case 1 => {
+            hit = true
+            grid.setField(x, y, 2)
+          }
+          case _ =>
+        }
+      } else {
+        print("Format Error\n")
+        hit = true
+      }
+    } catch {
+      case e: NumberFormatException => println("you have to input numbers\n")
+        hit = true
+    }
+
+    if (hit) {
+      playerStatus
+    } else {
+      !playerStatus
+    }
 
   }
 

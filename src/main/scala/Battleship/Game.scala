@@ -30,6 +30,7 @@ object Game {
     do {
       input = scala.io.StdIn.readLine().toString
       tuii.processLine(input)
+      // @TODO Pattern GameStatus instead of winStatement
       if (controller.grid_player01.winStatement()) return
       if (controller.grid_player02.winStatement()) return
     } while (input != "q")

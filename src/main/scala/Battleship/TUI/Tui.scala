@@ -25,11 +25,9 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" =>
       case _ => // grid nur mit spiel makierungen ausgeben
-        if (playerStatus) playerStatus = TUIProcessLine.processLineIntern(playerStatus, input, controller.grid_player02)
-        else playerStatus = TUIProcessLine.processLineIntern(playerStatus, input, controller.grid_player01)
+        if (playerStatus) playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
+        else playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
     }
-    if (controller.grid_player01.winStatement()) return
-    if (controller.grid_player02.winStatement()) return
   }
 
   override def update: Boolean = {

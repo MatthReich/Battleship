@@ -19,7 +19,7 @@ object TUIProcessLine {
             hit = true
             grid.setField(x, y, 2)
           }
-          case _ => " "
+          case _ =>
         }
       } else {
         print("Format Error\n")

@@ -5,7 +5,7 @@ import Battleship.util.Observer
 
 class Tui(controller: Controller) extends Observer {
 
-  var boolean: Boolean = false
+  var printGridOption: Boolean = false
   var tui = new TUIInterface(controller)
 
   val gridPrint = false // grid will print without placed ships
@@ -25,14 +25,8 @@ class Tui(controller: Controller) extends Observer {
   }
 
   override def update: Boolean = {
-    if (boolean) {
-      print(controller.gridToString(0, boolean))
-      print(controller.gridToString(1, boolean))
-    } else {
-      print("podhfpishdfpisdpfshpdfdypfpsidhfnoi \n")
-      if (playerStatus) print(controller.gridToString(1, boolean))
-      else print(controller.gridToString(0, boolean))
-    }
+    if (playerStatus) print(controller.gridToString(1, printGridOption))
+    else print(controller.gridToString(0, printGridOption))
     true
   }
 }

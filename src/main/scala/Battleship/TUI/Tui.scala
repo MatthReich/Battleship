@@ -14,7 +14,6 @@ class Tui(controller: Controller) extends Observer {
 
   def processLine(input: String): Unit = {
 
-
     if (firstTime) {
       print(controller.gridToString(1, gridPrint))
       firstTime = false

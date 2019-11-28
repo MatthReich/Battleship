@@ -18,8 +18,8 @@ class Tui(controller: Controller) extends Observer {
       print(controller.gridToString(1, gridPrint))
       firstTime = false
     } else { // grid nur mit spiel makierungen ausgeben
-      if (playerStatus) print(controller.gridToString(1, gridPrint))
-      else print(controller.gridToString(0, gridPrint))
+      if (playerStatus) print(controller.gridToString(0, gridPrint))
+      else print(controller.gridToString(1, gridPrint))
     }
 
     input match {
@@ -35,7 +35,8 @@ class Tui(controller: Controller) extends Observer {
       print(controller.gridToString(0, boolean))
       print(controller.gridToString(1, boolean))
     } else {
-      print(controller.gridToString(0, boolean))
+      if (playerStatus) print(controller.gridToString(0, boolean))
+      else print(controller.gridToString(1, boolean))
     }
     true
   }

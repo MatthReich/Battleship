@@ -5,7 +5,7 @@ import Battleship.util.Observer
 
 class Tui(controller: Controller) extends Observer {
 
-  var boolean: Boolean = true
+  var boolean: Boolean = false
   var tui = new TUIInterface(controller)
 
   val gridPrint = false // grid will print without placed ships
@@ -14,13 +14,7 @@ class Tui(controller: Controller) extends Observer {
 
   def processLine(input: String): Unit = {
 
-    if (firstTime) {
-      print(controller.gridToString(1, gridPrint))
-      firstTime = false
-    } else { // grid nur mit spiel makierungen ausgeben
-      if (playerStatus) print(controller.gridToString(0, gridPrint))
-      else print(controller.gridToString(1, gridPrint))
-    }
+    update
 
     input match {
       case "q" =>
@@ -35,8 +29,9 @@ class Tui(controller: Controller) extends Observer {
       print(controller.gridToString(0, boolean))
       print(controller.gridToString(1, boolean))
     } else {
-      if (playerStatus) print(controller.gridToString(0, boolean))
-      else print(controller.gridToString(1, boolean))
+      print("podhfpishdfpisdpfshpdfdypfpsidhfnoi \n")
+      if (playerStatus) print(controller.gridToString(1, boolean))
+      else print(controller.gridToString(0, boolean))
     }
     true
   }

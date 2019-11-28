@@ -2,10 +2,12 @@ package Battleship
 
 import Battleship.TUI.TUIInterface
 import Battleship.controller.Controller
+import Battleship.model.Grid
 
 object Game {
 
-  val controller = new Controller()
+  val fieldSize = 10
+  val controller = new Controller(new Grid(fieldSize), new Grid(fieldSize))
   val tui = new TUIInterface(controller)
 
   def main(args: Array[String]): Unit = {

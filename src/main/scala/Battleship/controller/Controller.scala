@@ -4,7 +4,7 @@ import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.Observable
 
 //noinspection ScalaStyle
-class Controller() extends Observable {
+class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Observable {
 
   val creator_01: Creator = Creator("Marcel")
   val creator_02: Creator = Creator("Matthias")

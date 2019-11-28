@@ -1,7 +1,8 @@
 package Battleship.controller
 
+import Battleship.controller.GameStatus._
 import Battleship.model.{Creator, Grid, Player}
-import Battleship.util.Observable
+import Battleship.util.{Observable, UndoManager}
 
 //noinspection ScalaStyle
 class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Observable {
@@ -13,6 +14,8 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
   var nr: Array[Int] = Array[Int](1, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
+  var gameStatus: GameStatus = IDLE
+  private val undoManager = new UndoManager
 
   def checkShipSetting(playerInput: String): Array[Int] = {
     val input = playerInput.split(" ")
@@ -31,8 +34,7 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
   }
 
   def addShips(int: Int, ship: Array[Int]): Unit = {
-    if (int == 0) grid_player01.setShip(ship, nr) // int: 0 = player1, 1 = player2
-    else grid_player02.setShip(ship, nr2)
+    undoManager.addShip(new SetCommand(int, ship, this))
     notifyObservers()
   }
 

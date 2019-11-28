@@ -36,7 +36,7 @@ class TUIInterface(controller: Controller) extends Observer {
     }
   }
 
-  override def update(): Boolean = {
+  override def update: Boolean = {
     true
   }
 }

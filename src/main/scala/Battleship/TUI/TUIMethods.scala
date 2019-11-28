@@ -1,6 +1,6 @@
 package Battleship.TUI
 
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.model.{Creator, Player}
 
 import scala.collection.mutable
 
@@ -33,45 +33,6 @@ object TUIMethods {
       "\tPlayer One: " + Console.GREEN + player_01.name + "\n" + Console.RESET +
       "\tPlayer Two: " + Console.CYAN + player_02.name + "\n\n" + Console.RESET)
     stringPrint.toString()
-  }
-
-  def printGrid(grid: Grid, player: Player, sortOfPrint: Boolean): String = {  //sortOfPrint true = with setted ships
-    val stringOfGrid = new mutable.StringBuilder("")                          // false = without setted ships
-    stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
-    stringOfGrid ++= "   "
-    var ids = 0
-    while (ids < grid.size) {
-      stringOfGrid ++= "  " + ids + "  "
-      ids += 1
-    }
-    stringOfGrid ++= "\n"
-    var idy = 0
-    while (idy < grid.size) {
-      var idx = 0
-      stringOfGrid ++= "A" + idy + " "
-      while (idx < grid.size) {
-        val tmp = grid.getField(idx, idy)
-        if (sortOfPrint) {
-          tmp match {
-            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
-            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-          }
-        } else {
-          tmp match {
-            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 1 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-          }
-        }
-        idx += 1
-      }
-      idy += 1
-      stringOfGrid ++= "\n"
-    }
-    stringOfGrid.toString()
   }
 
   def printSetPlayer(color: Int): String = {

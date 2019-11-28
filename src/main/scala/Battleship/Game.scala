@@ -17,15 +17,21 @@ object Game {
     tui.setPlayers()
     tui.playerConfiguration()
 
+    var input: String = ""
+
     do {
-      tui.setShips(controller.player_01, controller.grid_player01, controller.nr)
+      tuii.printGrid(0)
+      tuii.printShipSetSettings(controller.nr)
+      input = scala.io.StdIn.readLine().toString
+      tuii.shipProcess(input, 0) // 0 = player1
     } while ((controller.nr(0) + controller.nr(1) + controller.nr(2) + controller.nr(3)) != 0)
 
     do {
-      tui.setShips(controller.player_02, controller.grid_player02, controller.nr2)
+      tuii.printGrid(1)
+      tuii.printShipSetSettings(controller.nr2)
+      input = scala.io.StdIn.readLine().toString
+      tuii.shipProcess(input,1) // 1 = player2
     } while ((controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3)) != 0)
-
-    var input: String = ""
 
     do {
       input = scala.io.StdIn.readLine().toString

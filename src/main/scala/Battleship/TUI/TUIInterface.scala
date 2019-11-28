@@ -2,7 +2,6 @@ package Battleship.TUI
 
 import Battleship.TUI.TUIMethods._
 import Battleship.controller.Controller
-import Battleship.model.{Grid, Player}
 import Battleship.util.Observer
 
 
@@ -20,20 +19,6 @@ class TUIInterface(controller: Controller) extends Observer {
 
   def playerConfiguration(): Unit = {
     output(printGetPlayer(controller.player_01, controller.player_02))
-  }
-
-  def setShipsPrint(player: Player, grid: Grid, nr: Array[Int]): Unit = {
-    output(controller.gridToString(1, true))
-    output(printNrOfShips(nr))
-  }
-
-  def setShips(player: Player, grid: Grid, nr: Array[Int]): Unit = {
-    setShipsPrint(player, grid, nr)
-    val ship: String = input()
-    val check = checkValidShip(ship)
-    if (check(0) != 10) {
-      controller.addShips(grid, check, nr)
-    }
   }
 
   override def update: Boolean = {

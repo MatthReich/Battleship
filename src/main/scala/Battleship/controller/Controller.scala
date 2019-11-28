@@ -14,23 +14,26 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
 
-  def addShips(grid: Grid, ship: Array[Int], nrArray: Array[Int]): Unit = {
-    grid.setShip(ship, nrArray)
-    notifyObservers()
+  def checkShipSetting(playerInput: String): Array[Int] = {
+    val input = playerInput.split(" ")
+    val ship: Array[Int] = new Array[Int](4)
+    try {
+      if (input.length == 4) {
+        ship(0) = input(0).toInt
+        ship(1) = input(1).toInt
+        ship(2) = input(2).toInt
+        ship(3) = input(3).toInt
+      }
+    } catch {
+      case e: NumberFormatException => print("you have to input numbers\n")
+    }
+    ship
   }
 
-  def gridToString(int: Int, boolean: Boolean): String = {
-    if (boolean) {
-      int match {
-        case 0 => grid_player01.toString(player_01, boolean)
-        case 1 => grid_player02.toString(player_02, boolean)
-      }
-    } else {
-      int match {
-        case 0 => grid_player01.toString(player_01, boolean)
-        case 1 => grid_player02.toString(player_02, boolean)
-      }
-    }
+  def addShips(int: Int, ship: Array[Int]): Unit = {
+    if (int == 0) grid_player01.setShip(ship, nr) // int: 0 = player1, 1 = player2
+    else grid_player02.setShip(ship, nr2)
+    notifyObservers()
   }
 
   def checkGuess(playerInput: String, playerStatus: Boolean, grid: Grid): Boolean = {
@@ -63,6 +66,20 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
       playerStatus
     } else {
       !playerStatus
+    }
+  }
+
+  def gridToString(int: Int, boolean: Boolean): String = {
+    if (boolean) {
+      int match {
+        case 0 => grid_player01.toString(player_01, boolean)
+        case 1 => grid_player02.toString(player_02, boolean)
+      }
+    } else {
+      int match {
+        case 0 => grid_player01.toString(player_01, boolean)
+        case 1 => grid_player02.toString(player_02, boolean)
+      }
     }
   }
 

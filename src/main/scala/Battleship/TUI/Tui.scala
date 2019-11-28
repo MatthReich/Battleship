@@ -1,6 +1,7 @@
 package Battleship.TUI
 
-import Battleship.controller.Controller
+import Battleship.Game.controller
+import Battleship.controller.{Controller, GameStatus}
 import Battleship.util.Observer
 
 import scala.collection.mutable
@@ -36,15 +37,17 @@ class Tui(controller: Controller) extends Observer {
     controller.addShips(player, ship)
   }
 
-
   def processLine(input: String): Unit = {
     if (shipProcess) shipProcess = false
     if (printGridOption) printGridOption = false
 
     input match {
-      case "q" =>
-      case "getPlayerconfig" => print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
+        // @TODO println hier in dem Zweck erlaubt?
+      case "q" => // exit game
+      case "getPlayerConfig" => print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
+      case "getGameStatus" => println(controller.gameStatus)
       case _ => // grid nur mit spiel makierungen ausgeben
+        // @TODO postion von Update falsch -> muss mit enter aktualisiert werden dass richtiges feld angezeigt
         update
         if (playerStatus) playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
         else playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
@@ -58,6 +61,10 @@ class Tui(controller: Controller) extends Observer {
     }
     if (playerStatus) print(controller.gridToString(1, printGridOption))
     else print(controller.gridToString(0, printGridOption))
+    // @TODO ist das so okay gemacht? -> winstatmenet aus grid benutzen für gamestatus
+    if (controller.grid_player01.winStatement() || controller.grid_player02.winStatement())
+      controller.gameStatus = GameStatus.SOLVED
+    else controller.gameStatus = GameStatus.IDLE
     true
   }
 }

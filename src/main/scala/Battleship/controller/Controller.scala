@@ -19,9 +19,19 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
     notifyObservers()
   }
 
-  def gridToString(int: Int, boolean: Boolean): String = int match {
-    case 0 => grid_player01.toString(player_01, boolean)
-    case 1 => grid_player02.toString(player_02, boolean)
+  def gridToString(int: Int, boolean: Boolean): String = {
+    if (boolean) {
+      int match {
+        case 0 => grid_player01.toString(player_01, boolean)
+        case 1 => grid_player02.toString(player_02, boolean)
+      }
+    } else {
+      int match {
+        case 0 => grid_player01.toString(player_02, boolean)
+        case 1 => grid_player02.toString(player_01, boolean)
+      }
+    }
+
   }
 
 }

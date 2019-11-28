@@ -1,7 +1,7 @@
 package Battleship.util
 
 trait Observer {
-  def update(): Boolean
+  def update: Boolean
 }
 
 class Observable {

@@ -1,4 +1,4 @@
-package Battleship.TUI
+/*package Battleship.TUI
 
 
 import Battleship.model.{Creator, Grid, Player}
@@ -94,3 +94,4 @@ class TUIMethodsTest extends WordSpec with Matchers {
   }
 
 }
+*/

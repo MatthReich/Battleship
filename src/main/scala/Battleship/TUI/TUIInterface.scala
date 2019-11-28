@@ -23,7 +23,7 @@ class TUIInterface(controller: Controller) extends Observer {
   }
 
   def setShipsPrint(player: Player, grid: Grid, nr: Array[Int]): Unit = {
-    output(printGrid(grid, player, true))
+    output(controller.gridToString(1, true))
     output(printNrOfShips(nr))
   }
 

@@ -8,35 +8,29 @@ class Tui(controller: Controller) extends Observer {
   var boolean: Boolean = true
   var tui = new TUIInterface(controller)
 
-  def provcessLine(input: String): Unit = {
+  val gridPrint = false // grid will print without placed ships
+  var playerStatus = true // true = player 1, false = player2
+  var firstTime = true
 
-    var playerStatus = true // true = player 1, false = player2
-    var playerInput: String = ""
-    var firstTime = true
-    val gridPrint = false // grid will print without placed ships
+  def processLine(input: String): Unit = {
 
-    do {
-      if (firstTime) {
-        print(controller.gridToString(1, gridPrint))
-        firstTime = false
-      } else { // grid nur mit spiel makierungen ausgeben
-        if (playerStatus) print(controller.gridToString(1, gridPrint))
-        else print(controller.gridToString(0, gridPrint))
-      }
 
-      playerInput = scala.io.StdIn.readLine().toString
+    if (firstTime) {
+      print(controller.gridToString(1, gridPrint))
+      firstTime = false
+    } else { // grid nur mit spiel makierungen ausgeben
+      if (playerStatus) print(controller.gridToString(1, gridPrint))
+      else print(controller.gridToString(0, gridPrint))
+    }
 
-      playerInput match {
-        case "q" =>
-        case _ => // grid nur mit spiel makierungen ausgeben
-          if (playerStatus) playerStatus = TUIProcessLine.processLineIntern(playerStatus, playerInput, controller.grid_player02)
-          else playerStatus = TUIProcessLine.processLineIntern(playerStatus, playerInput, controller.grid_player01)
-      }
-
-      if (controller.grid_player01.winStatement()) return
-      if (controller.grid_player02.winStatement()) return
-
-    } while (playerInput != "q")
+    input match {
+      case "q" =>
+      case _ => // grid nur mit spiel makierungen ausgeben
+        if (playerStatus) playerStatus = TUIProcessLine.processLineIntern(playerStatus, input, controller.grid_player02)
+        else playerStatus = TUIProcessLine.processLineIntern(playerStatus, input, controller.grid_player01)
+    }
+    if (controller.grid_player01.winStatement()) return
+    if (controller.grid_player02.winStatement()) return
   }
 
   override def update: Boolean = {
@@ -49,3 +43,4 @@ class Tui(controller: Controller) extends Observer {
     true
   }
 }
+

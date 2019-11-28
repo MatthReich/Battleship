@@ -1,4 +1,4 @@
-package Battleship.controller
+/*package Battleship.controller
 
 import Battleship.util.Observer
 import org.scalatest.{Matchers, WordSpec}
@@ -29,3 +29,4 @@ class ControllerSpec extends WordSpec with Matchers {
 
   }
 }
+ */

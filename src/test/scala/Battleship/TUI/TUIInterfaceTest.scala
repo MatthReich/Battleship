@@ -1,4 +1,4 @@
-package Battleship.TUI
+/*package Battleship.TUI
 
 import Battleship.controller.Controller
 import Battleship.model.{Grid, Player}
@@ -22,3 +22,4 @@ class TUIInterfaceTest extends WordSpec with Matchers {
   }
 
 }
+*/

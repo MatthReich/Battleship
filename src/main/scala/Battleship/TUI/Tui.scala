@@ -14,11 +14,10 @@ class Tui(controller: Controller) extends Observer {
 
   def processLine(input: String): Unit = {
 
-    update
-
     input match {
       case "q" =>
       case _ => // grid nur mit spiel makierungen ausgeben
+        update
         if (playerStatus) playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
         else playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
     }

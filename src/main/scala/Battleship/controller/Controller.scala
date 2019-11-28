@@ -64,7 +64,6 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
     } else {
       !playerStatus
     }
-
   }
 
 }

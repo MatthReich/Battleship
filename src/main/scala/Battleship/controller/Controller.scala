@@ -23,4 +23,5 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
     case 0 => grid_player01.toString(player_01, boolean)
     case 1 => grid_player02.toString(player_02, boolean)
   }
+
 }

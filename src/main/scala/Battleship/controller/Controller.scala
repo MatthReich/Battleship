@@ -15,6 +15,8 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
   var nr: Array[Int] = Array[Int](1, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
+  var hit = false
+
   var gameStatus: GameStatus = IDLE
   var playerStatus: PlayerStatus = PLAYER_ONE
   private val undoManager = new UndoManager
@@ -40,8 +42,8 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
     notifyObservers()
   }
 
-  def checkGuess(playerInput: String, playerStatus: Boolean, grid: Grid): Boolean = {
-    var hit = false
+  def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
+    hit = false
     val input = playerInput.split(" ")
 
     try {
@@ -66,10 +68,20 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
         hit = true
     }
 
-    if (hit) {
-      playerStatus
+    if (!hit) {
+      if (playerStatus == PLAYER_ONE) {
+        PlayerStatus.PLAYER_TWO
+      }
+      else {
+        PlayerStatus.PLAYER_ONE
+      }
     } else {
-      !playerStatus
+      if (playerStatus == PLAYER_ONE) {
+        PlayerStatus.PLAYER_ONE
+      }
+      else {
+        PlayerStatus.PLAYER_TWO
+      }
     }
   }
 

@@ -19,6 +19,13 @@ class Tui(controller: Controller) extends Observer {
     print(controller.gridToString(int, printGridOption))
   }
 
+  def printFirstTimeProcessLine(): Unit = {
+    if (shipProcess) shipProcess = false
+    if (printGridOption) printGridOption = false
+
+    update
+  }
+
   def printShipSetSettings(nr: Array[Int]): Unit = {
     val string = new mutable.StringBuilder("")
     string ++= "Please set your Ships:\n"
@@ -37,8 +44,6 @@ class Tui(controller: Controller) extends Observer {
   }
 
   def processLine(input: String): Unit = {
-    if (shipProcess) shipProcess = false
-    if (printGridOption) printGridOption = false
 
     input match {
         // @TODO println hier in dem Zweck erlaubt?
@@ -47,9 +52,9 @@ class Tui(controller: Controller) extends Observer {
       case "getGameStatus" => println(controller.gameStatus)
       case _ => // grid nur mit spiel makierungen ausgeben
         // @TODO postion von Update falsch -> muss mit enter aktualisiert werden dass richtiges feld angezeigt
-        update
         if (playerStatus) playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
         else playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
+        update
     }
   }
 

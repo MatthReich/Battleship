@@ -44,6 +44,25 @@ class Tui(controller: Controller) extends Observer {
     update
   }
 
+
+  def processLine(input: String): Unit = {
+
+    input match {
+      // @TODO println hier in dem Zweck erlaubt?
+      case "q" => // exit game
+      case "getPlayerConfig" => print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
+      case "getGameStatus" => print(controller.gameStatus + "\n")
+      case _ => // grid nur mit spiel makierungen ausgeben
+        if (playerStatus) {
+          playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
+        }
+        else {
+          playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
+        }
+        update
+    }
+  }
+
   override def update: Boolean = {
     if (shipProcess) {
       if (shipProcess) {
@@ -66,24 +85,6 @@ class Tui(controller: Controller) extends Observer {
       controller.gameStatus = GameStatus.IDLE
     }
     true
-  }
-
-  def processLine(input: String): Unit = {
-
-    input match {
-      // @TODO println hier in dem Zweck erlaubt?
-      case "q" => // exit game
-      case "getPlayerConfig" => print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
-      case "getGameStatus" => print(controller.gameStatus + "\n")
-      case _ => // grid nur mit spiel makierungen ausgeben
-        if (playerStatus) {
-          playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
-        }
-        else {
-          playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
-        }
-        update
-    }
   }
 
 }

@@ -1,5 +1,6 @@
 package Battleship.model
 
+import Battleship.controller.PlayerStatus
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
@@ -59,7 +60,7 @@ class GridSpec extends WordSpec with Matchers {
         grid.setField(2, 2, 2)
         grid.setField(3, 3, 3)
 
-        var tmp = grid.toString(Player("Marcel"), sortOfPrint = true)
+        var tmp = grid.toString(Player("Marcel"), sortOfPrint = true, PlayerStatus.PLAYER_ONE)
 
         tmp should startWith("Field of:")
         tmp should include("Marcel")
@@ -70,7 +71,7 @@ class GridSpec extends WordSpec with Matchers {
         tmp should include("0")
         tmp should endWith("\n")
 
-        tmp = grid.toString(Player("Matthias"), sortOfPrint = false)
+        tmp = grid.toString(Player("Matthias"), sortOfPrint = false, PlayerStatus.PLAYER_TWO)
 
         tmp should startWith("Field of:")
         tmp should include("Matthias")

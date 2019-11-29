@@ -46,8 +46,11 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp should be(PlayerStatus.PLAYER_TWO)
         tmp = controller.checkGuess("1 1", controller.grid_player02);
         tmp should be(PlayerStatus.PLAYER_ONE)
-        tmp = controller.checkGuess("a b", controller.grid_player01);
+        tmp = controller.checkGuess("a b c", controller.grid_player01);
         tmp should be(PlayerStatus.PLAYER_ONE)
+        controller.grid_player01.setField(1, 1, 2)
+        tmp = controller.checkGuess("1 1", controller.grid_player01);
+        tmp should be(PlayerStatus.PLAYER_TWO)
       }
 
     }

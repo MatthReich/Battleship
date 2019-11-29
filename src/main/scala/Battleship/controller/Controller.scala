@@ -6,12 +6,14 @@ import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.{Observable, UndoManager}
 
 //noinspection ScalaStyle
-class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Observable {
+class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
 
   val creator_01: Creator = Creator("Marcel")
   val creator_02: Creator = Creator("Matthias")
   var player_01 = Player("")
   var player_02 = Player("")
+  var grid_player01 = this.grid_player_01
+  var grid_player02 = this.grid_player_02
   var nr: Array[Int] = Array[Int](1, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
@@ -21,7 +23,7 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
   var playerStatus: PlayerStatus = PLAYER_ONE
   private val undoManager = new UndoManager
 
-  def checkShipSetting(playerInput: String): Array[Int] = {
+  def checkShipSetting(playerInput: String): Array[Int] = { //??wenn input (1,1,1,a) => output (1,1,1,0)
     val input = playerInput.split(" ")
     val ship: Array[Int] = new Array[Int](4)
     try {

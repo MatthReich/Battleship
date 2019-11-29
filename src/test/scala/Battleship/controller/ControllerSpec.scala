@@ -1,5 +1,6 @@
-/*package Battleship.controller
+package Battleship.controller
 
+import Battleship.model.Grid
 import Battleship.util.Observer
 import org.scalatest.{Matchers, WordSpec}
 
@@ -7,7 +8,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
   "A Controller" when {
     "observed by an Observer" should {
-      val controller = new Controller()
+      val controller = new Controller(Grid(10), Grid(10))
       val observer: Observer = new Observer {
         var updated: Boolean = false
 
@@ -21,34 +22,35 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.add(observer)
 
       "notify its Observer after addShips" in {
-        controller.addShips(controller.playerGrid_01, Array[Int](1, 1, 2, 1), Array[Int](1, 1, 1, 1))
-        controller.playerGrid_01.getField(1, 1) should be(1)
+        controller.addShips(0, Array[Int](1, 1, 2, 1))
+        controller.addShips(1, Array[Int](1, 1, 2, 1))
         observer.update should be(true)
       }
 
-  "processLineIntern" in {
-    val grid = Grid(1)
+      "gridToString" in {
+        var tmp = controller.gridToString(0, true)
+        tmp = controller.gridToString(0, false)
+        tmp = controller.gridToString(1, true)
+        tmp = controller.gridToString(1, false)
+      }
 
-    var statement = TUIProcessLine.processLineIntern(true, "0 0", grid)
-    statement should be (false)
+      "checkShipSetting" in {
+        var tmp = controller.checkShipSetting("1 1 1 1")
+        tmp should be(Array[Int](1, 1, 1, 1))
+        tmp = controller.checkShipSetting("1 1 1 a")
+        tmp should be(Array[Int](1, 1, 1, 0))
+      }
 
-    grid.setField(0, 0, 1)
-    statement = TUIProcessLine.processLineIntern(false, "0 0", grid)
-    grid.getValue(0, 0) should be (2)
-    statement should be (false)
+      "checkGuess" in {
+        var tmp = controller.checkGuess("0 0", controller.grid_player01);
+        tmp should be(PlayerStatus.PLAYER_TWO)
+        tmp = controller.checkGuess("1 1", controller.grid_player02);
+        tmp should be(PlayerStatus.PLAYER_ONE)
+        tmp = controller.checkGuess("a b", controller.grid_player01);
+        tmp should be(PlayerStatus.PLAYER_ONE)
+      }
 
-    statement = TUIProcessLine.processLineIntern(true, "a 0", grid)
-    statement should be (true)
-
-    grid.setField(0, 0, 3)
-    statement = TUIProcessLine.processLineIntern(true, "0 0", grid)
-    statement should be (false)
-
-    statement = TUIProcessLine.processLineIntern(true, "00", grid)
-    statement should be (true)
-  }
     }
 
   }
 }
- */

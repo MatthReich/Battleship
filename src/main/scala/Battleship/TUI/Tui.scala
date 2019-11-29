@@ -68,9 +68,6 @@ class Tui(controller: Controller) extends Observer {
       if (shipProcess) {
         print(controller.gridToString(0, printGridOption))
       }
-      else {
-        print(controller.gridToString(1, printGridOption))
-      }
     }
     if (playerStatus) {
       print(controller.gridToString(1, printGridOption))

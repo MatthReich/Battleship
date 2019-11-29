@@ -32,7 +32,6 @@ class TuiSpec extends WordSpec with Matchers {
         tui.processLine("getPlayerConfig")
         tui.processLine("getGameStatus")
         tui.processLine("0 0")
-        tui.playerStatus = false
         tui.processLine("0 0")
       }
 

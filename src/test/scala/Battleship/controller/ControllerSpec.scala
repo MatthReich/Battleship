@@ -53,6 +53,13 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp should be(PlayerStatus.PLAYER_TWO)
       }
 
+      "checkState" in {
+        var state = GameStatus.message(GameStatus.IDLE)
+        state should be("")
+        state = PlayerStatus.message(PlayerStatus.PLAYER_ONE)
+        state should be("player_01's turn")
+      }
+
     }
 
   }

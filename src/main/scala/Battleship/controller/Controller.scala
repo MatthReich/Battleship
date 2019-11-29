@@ -1,6 +1,7 @@
 package Battleship.controller
 
 import Battleship.controller.GameStatus._
+import Battleship.controller.PlayerStatus._
 import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.{Observable, UndoManager}
 
@@ -15,6 +16,7 @@ class Controller(var grid_player01: Grid, var grid_player02: Grid) extends Obser
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
   var gameStatus: GameStatus = IDLE
+  var playerStatus: PlayerStatus = PLAYER_ONE
   private val undoManager = new UndoManager
 
   def checkShipSetting(playerInput: String): Array[Int] = {

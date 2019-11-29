@@ -1,6 +1,6 @@
 package Battleship.TUI
 
-import Battleship.controller.{Controller, GameStatus}
+import Battleship.controller.{Controller, GameStatus, PlayerStatus}
 import Battleship.util.Observer
 
 import scala.collection.mutable
@@ -11,9 +11,9 @@ class Tui(controller: Controller) extends Observer {
   var tui = new TUIInterface(controller)
 
   val gridPrint = false // grid will print without placed ships
-  var playerStatus = true // true = player 1, false = player2
   var firstTime = true
   var shipProcess = true
+
 
 
   def printGrid(int: Int): Unit = {
@@ -48,16 +48,16 @@ class Tui(controller: Controller) extends Observer {
   def processLine(input: String): Unit = {
 
     input match {
-      // @TODO println hier in dem Zweck erlaubt?
       case "q" => // exit game
       case "getPlayerConfig" => print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
       case "getGameStatus" => print(controller.gameStatus + "\n")
+      case "getPlayerStatus" => print(controller.playerStatus + "\n")
       case _ => // grid nur mit spiel makierungen ausgeben
-        if (playerStatus) {
-          playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player02)
+        if (controller.playerStatus == PlayerStatus.PLAYER_ONE) {
+          controller.playerStatus = controller.checkGuess(input, controller.grid_player02)
         }
         else {
-          playerStatus = controller.checkGuess(input, playerStatus, controller.grid_player01)
+          controller.playerStatus = controller.checkGuess(input, controller.grid_player01)
         }
         update
     }
@@ -69,13 +69,12 @@ class Tui(controller: Controller) extends Observer {
         print(controller.gridToString(0, printGridOption))
       }
     }
-    if (playerStatus) {
+    if (controller.playerStatus == PlayerStatus.PLAYER_ONE) {
       print(controller.gridToString(1, printGridOption))
     }
     else {
       print(controller.gridToString(0, printGridOption))
     }
-    // @TODO ist das so okay gemacht? -> winstatmenet aus grid benutzen für gamestatus
     if (controller.grid_player01.winStatement() || controller.grid_player02.winStatement()) {
       controller.gameStatus = GameStatus.SOLVED
     } else {

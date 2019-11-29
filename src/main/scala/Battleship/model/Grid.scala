@@ -1,5 +1,8 @@
 package Battleship.model
 
+import Battleship.controller.PlayerStatus
+import Battleship.controller.PlayerStatus.PlayerStatus
+
 import scala.collection.mutable
 
 //Standard  0
@@ -85,9 +88,16 @@ case class Grid(size: Int) {
   }
 
   //noinspection ScalaStyle
-  def toString(player: Player, sortOfPrint: Boolean): String = { //sortOfPrint true = with setted ships
+  def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerStatus): String = { //sortOfPrint true = with setted ships
     val stringOfGrid = new mutable.StringBuilder("") // false = without setted ships
-    stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
+
+    playerStatus match {
+      case PlayerStatus.PLAYER_ONE =>
+        stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
+      case _ =>
+        stringOfGrid ++= ("Field of: " + Console.CYAN + player.name + Console.RESET + "\n")
+    }
+
     stringOfGrid ++= "   "
     var ids = 0
     while (ids < this.size) {

@@ -1,6 +1,5 @@
 package Battleship.TUI
 
-import Battleship.Game.controller
 import Battleship.controller.{Controller, GameStatus}
 import Battleship.util.Observer
 

@@ -24,6 +24,10 @@ class TUIInterfaceTest extends WordSpec with Matchers {
         // can't be tested
       }
 
+      "printWelcomeX" in {
+        interface.printWelcomeX()
+      }
+
     }
   }
 

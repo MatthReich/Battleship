@@ -9,8 +9,11 @@ class TUIInterface(controller: Controller) extends Observer {
 
   controller.add(this)
 
-  def setPlayers(): Unit = {
+  def printWelcomeX(): Unit = {
     print(printWelcome(controller.creator_01, controller.creator_02))
+  }
+
+  def setPlayers(): Unit = {
     print(printSetPlayer(1))
     controller.player_01 = setPlayer(1)
     print(printSetPlayer(2))

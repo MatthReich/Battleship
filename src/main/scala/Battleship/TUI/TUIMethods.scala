@@ -6,16 +6,6 @@ import scala.collection.mutable
 
 object TUIMethods {
 
-  def printWelcome(creator_01: Creator, creator_02: Creator): String = {
-    val stringPrint = new mutable.StringBuilder("")
-    val sSharp: String = "#" * 30
-    val sSpace: String = " " * 10
-    val name: String = "Battleship"
-    stringPrint ++= (sSharp + "\n" + sSpace + name + "\n" + sSharp + "\ncreated by:\n\t: " + creator_01.toString +
-      "\n\t: " + creator_02.toString + "\n" + sSharp + "\n\n\n")
-    stringPrint.toString()
-  }
-
   def setPlayer(color: Int): Player = {
     val name = scala.io.StdIn.readLine().toString
     if (name != "") {
@@ -25,6 +15,16 @@ object TUIMethods {
       val player: Player = Player("player_0" + color)
       player
     }
+  }
+
+  def printWelcome(creator_01: Creator, creator_02: Creator): String = {
+    val stringPrint = new mutable.StringBuilder("")
+    val sSharp: String = "#" * 30
+    val sSpace: String = " " * 10
+    val name: String = "Battleship"
+    stringPrint ++= (sSharp + "\n" + sSpace + name + "\n" + sSharp + "\ncreated by:\n\t: " + creator_01.toString +
+      "\n\t: " + creator_02.toString + "\n" + sSharp + "\n\n\n")
+    stringPrint.toString()
   }
 
   def printGetPlayer(player_01: Player, player_02: Player): String = {

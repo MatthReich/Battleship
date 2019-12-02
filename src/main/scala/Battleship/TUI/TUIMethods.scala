@@ -43,15 +43,4 @@ object TUIMethods {
     }
   }
 
-  def printNrOfShips(nr: Array[Int]): String = {
-    val string = new mutable.StringBuilder("")
-    string ++= "Please set your Ships:\n"
-    var idx = 2
-    for (tmp <- nr) {
-      string ++= ("You can still place: " + Console.GREEN + tmp + "x " + Console.RESET + " " + idx + " Block Ship\n")
-      idx += 1
-    }
-    string.toString()
-  }
-
 }

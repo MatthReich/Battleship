@@ -4,6 +4,7 @@ import Battleship.controller.GameStatus._
 import Battleship.controller.PlayerStatus._
 import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.{Observable, UndoManager}
+import scala.util.Try
 
 //noinspection ScalaStyle
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
@@ -48,7 +49,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     hit = false
     val input = playerInput.split(" ")
 
-    try {
+    Try {
       if (input.length == 2) { // schöner mit for <- schleife lösen
         val x = input(0).toInt
         val y = input(1).toInt
@@ -64,9 +65,9 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
         print("Format Error\n")
         hit = true
       }
-    } catch {
-      case _: NumberFormatException => println("you have to input numbers\n")
-        hit = true
+    }.getOrElse {
+      print("you have to input numbers\n")
+      hit = true
     }
 
     if (!hit) {

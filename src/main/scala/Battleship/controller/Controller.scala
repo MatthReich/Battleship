@@ -88,16 +88,20 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   }
 
   def gridToString(int: Int, boolean: Boolean): String = {
-    if (boolean) {
-      int match {
-        case 0 => grid_player01.toString(player_01, boolean, playerStatus)
-        case 1 => grid_player02.toString(player_02, boolean, playerStatus)
-      }
-    } else {
-      int match {
-        case 0 => grid_player01.toString(player_01, boolean, playerStatus)
-        case 1 => grid_player02.toString(player_02, boolean, playerStatus)
-      }
+
+    int match {
+      case 0 =>
+        if (boolean) {
+          grid_player01.toString(player_01, boolean, playerStatus)
+        } else {
+          grid_player01.toString(player_01, boolean, playerStatus)
+        }
+      case 1 =>
+        if (boolean) {
+          grid_player02.toString(player_02, boolean, playerStatus)
+        } else {
+          grid_player02.toString(player_02, boolean, playerStatus)
+        }
     }
   }
 

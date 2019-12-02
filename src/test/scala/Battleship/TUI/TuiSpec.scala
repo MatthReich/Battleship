@@ -24,6 +24,7 @@ class TuiSpec extends WordSpec with Matchers {
       }
 
       "printFirstTimeProcessLine" in {
+        tui.printGridOption = true
         tui.printFirstTimeProcessLine()
       }
 
@@ -31,6 +32,7 @@ class TuiSpec extends WordSpec with Matchers {
         tui.processLine("q")
         tui.processLine("getPlayerConfig")
         tui.processLine("getGameStatus")
+        tui.processLine("getPlayerStatus")
         tui.processLine("0 0")
         tui.processLine("0 0")
       }

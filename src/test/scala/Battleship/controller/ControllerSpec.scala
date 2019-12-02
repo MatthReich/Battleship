@@ -28,10 +28,10 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "gridToString" in {
-        var tmp = controller.gridToString(0, true)
-        tmp = controller.gridToString(0, false)
-        tmp = controller.gridToString(1, true)
-        tmp = controller.gridToString(1, false)
+        var tmp = controller.gridToString(0, boolean = true)
+        tmp = controller.gridToString(0, boolean = false)
+        tmp = controller.gridToString(1, boolean = true)
+        tmp = controller.gridToString(1, boolean = false)
       }
 
       "checkShipSetting" in {

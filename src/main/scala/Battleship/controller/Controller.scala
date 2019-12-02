@@ -47,24 +47,26 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
     hit = false
-    val input = playerInput.split(" ")
 
     Try {
-      if (input.length == 2) { // schöner mit for <- schleife lösen
-        val x = input(0).toInt
-        val y = input(1).toInt
+        playerInput.split("\n").map { entry =>
+          val token = entry.split(" ")
+          if (token.length == 2) {
+            val x = token(0).toInt
+            val y = token(1).toInt
 
-        grid.getValue(x, y) match {
-          case 0 => grid.setField(x, y, 3)
-          case 1 =>
+            grid.getValue(x, y) match {
+              case 0 => grid.setField(x, y, 3)
+              case 1 =>
+                hit = true
+                grid.setField(x, y, 2)
+              case _ =>
+            }
+          } else {
+            print("Format Error\n")
             hit = true
-            grid.setField(x, y, 2)
-          case _ =>
+          }
         }
-      } else {
-        print("Format Error\n")
-        hit = true
-      }
     }.getOrElse {
       print("you have to input numbers\n")
       hit = true

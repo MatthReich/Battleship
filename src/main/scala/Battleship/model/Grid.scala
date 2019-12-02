@@ -12,7 +12,7 @@ import scala.collection.mutable
 
 case class Grid(size: Int) {
   private val matrix = Array.ofDim[Int](size, size)
-  var ships: Array[Ship] = new Array[Ship](10)
+  val ships: Array[Ship] = new Array[Ship](10)
   var shipSize = 0
 
   def getField(x: Int, y: Int): Int = {

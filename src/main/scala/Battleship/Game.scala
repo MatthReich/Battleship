@@ -14,6 +14,7 @@ object Game {
   controller.notifyObservers()
 
   def main(args: Array[String]): Unit = {
+    tuii.printWelcomeX()
     tuii.setPlayers()
     tuii.playerConfiguration()
 

@@ -2,15 +2,19 @@ package Battleship.TUI
 
 import Battleship.controller.Controller
 import Battleship.model.Grid
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
+@RunWith(classOf[JUnitRunner])
 class TuiSpec extends WordSpec with Matchers {
 
   "A Tui" when {
     "new" should {
-      var grid_1 = new Grid(10);
-      var grid_2 = new Grid(10);
+      val grid_1 = Grid(10)
+      val grid_2 = Grid(10)
       val tui = new Tui(new Controller(grid_1, grid_2))
+
       "printGrid" in {
         tui.printGrid(0)
       }
@@ -24,6 +28,7 @@ class TuiSpec extends WordSpec with Matchers {
       }
 
       "printFirstTimeProcessLine" in {
+        tui.printGridOption = true
         tui.printFirstTimeProcessLine()
       }
 
@@ -31,6 +36,7 @@ class TuiSpec extends WordSpec with Matchers {
         tui.processLine("q")
         tui.processLine("getPlayerConfig")
         tui.processLine("getGameStatus")
+        tui.processLine("getPlayerStatus")
         tui.processLine("0 0")
         tui.processLine("0 0")
       }

@@ -6,6 +6,17 @@ import scala.collection.mutable
 
 object TUIMethods {
 
+  def setPlayer(color: Int): Player = {
+    val name = scala.io.StdIn.readLine().toString
+    if (name != "") {
+      val player: Player = Player(name)
+      player
+    } else {
+      val player: Player = Player("player_0" + color)
+      player
+    }
+  }
+
   def printWelcome(creator_01: Creator, creator_02: Creator): String = {
     val stringPrint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
@@ -14,17 +25,6 @@ object TUIMethods {
     stringPrint ++= (sSharp + "\n" + sSpace + name + "\n" + sSharp + "\ncreated by:\n\t: " + creator_01.toString +
       "\n\t: " + creator_02.toString + "\n" + sSharp + "\n\n\n")
     stringPrint.toString()
-  }
-
-  def setPlayer(color: Int): Player = {
-    val name = input()
-    if (name != "") {
-      val player: Player = Player(name)
-      player
-    } else {
-      val player: Player = Player("player_0" + color)
-      player
-    }
   }
 
   def printGetPlayer(player_01: Player, player_02: Player): String = {
@@ -37,29 +37,10 @@ object TUIMethods {
 
   def printSetPlayer(color: Int): String = {
     if (color == 1) {
-      (Console.GREEN + "Please insert player name for player_01\n" + Console.RESET)
+      Console.GREEN + "Please insert player name for player_01\n" + Console.RESET
     } else {
-      (Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
+      Console.CYAN + "Please insert player name for player_02\n" + Console.RESET
     }
-  }
-
-  def printNrOfShips(nr: Array[Int]): String = {
-    val string = new mutable.StringBuilder("")
-    string ++= "Please set your Ships:\n"
-    var idx = 2
-    for (tmp <- nr) {
-      string ++= ("You can still place: " + Console.GREEN + tmp + "x " + Console.RESET + " " + idx + " Block Ship\n")
-      idx += 1
-    }
-    string.toString()
-  }
-
-  def input(): String = {
-    scala.io.StdIn.readLine().toString
-  }
-
-  def output(output: String): Unit = {
-    print(output)
   }
 
 }

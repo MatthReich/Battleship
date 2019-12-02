@@ -37,13 +37,4 @@ class TUIMethodsTest extends WordSpec with Matchers {
     tmp should endWith(Console.RESET)
   }
 
-  "printNrOfShips" in {
-    val list: Array[Int] = Array(0, 2, 5, 0)
-    val tmp = TUIMethods.printNrOfShips(list)
-    tmp should startWith("Please")
-    tmp should include("0")
-    tmp should include("2")
-    tmp should include("5")
-    tmp should endWith("\n")
-  }
 }

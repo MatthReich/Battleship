@@ -65,9 +65,7 @@ class Tui(controller: Controller) extends Observer {
 
   override def update: Boolean = {
     if (shipProcess) {
-      if (shipProcess) {
         print(controller.gridToString(0, printGridOption))
-      }
     }
     if (controller.playerStatus == PlayerStatus.PLAYER_ONE) {
       print(controller.gridToString(1, printGridOption))

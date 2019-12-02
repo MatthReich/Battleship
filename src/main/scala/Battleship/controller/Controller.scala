@@ -4,18 +4,19 @@ import Battleship.controller.GameStatus._
 import Battleship.controller.PlayerStatus._
 import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.{Observable, UndoManager}
+import scala.util.Try
 
 //noinspection ScalaStyle
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
 
   val creator_01: Creator = Creator("Marcel")
   val creator_02: Creator = Creator("Matthias")
-  var player_01 = Player("")
-  var player_02 = Player("")
-  var grid_player01 = this.grid_player_01
-  var grid_player02 = this.grid_player_02
-  var nr: Array[Int] = Array[Int](1, 0, 0, 0)
-  var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var player_01: Player = Player("")
+  var player_02: Player = Player("")
+  val grid_player01: Grid = this.grid_player_01
+  val grid_player02: Grid = this.grid_player_02
+  val nr: Array[Int] = Array[Int](1, 0, 0, 0)
+  val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
   var hit = false
 
@@ -34,7 +35,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
         ship(3) = input(3).toInt
       }
     } catch {
-      case e: NumberFormatException => print("you have to input numbers\n")
+      case _: NumberFormatException => print("you have to input numbers\n")
     }
     ship
   }
@@ -46,28 +47,29 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
     hit = false
-    val input = playerInput.split(" ")
 
-    try {
-      if (input.length == 2) { // schöner mit for <- schleife lösen
-        val x = input(0).toInt
-        val y = input(1).toInt
+    Try {
+        playerInput.split("\n").map { entry =>
+          val token = entry.split(" ")
+          if (token.length == 2) {
+            val x = token(0).toInt
+            val y = token(1).toInt
 
-        grid.getValue(x, y) match {
-          case 0 => grid.setField(x, y, 3)
-          case 1 => {
+            grid.getValue(x, y) match {
+              case 0 => grid.setField(x, y, 3)
+              case 1 =>
+                hit = true
+                grid.setField(x, y, 2)
+              case _ =>
+            }
+          } else {
+            print("Format Error\n")
             hit = true
-            grid.setField(x, y, 2)
           }
-          case _ =>
         }
-      } else {
-        print("Format Error\n")
-        hit = true
-      }
-    } catch {
-      case e: NumberFormatException => println("you have to input numbers\n")
-        hit = true
+    }.getOrElse {
+      print("you have to input numbers\n")
+      hit = true
     }
 
     if (!hit) {
@@ -88,16 +90,20 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   }
 
   def gridToString(int: Int, boolean: Boolean): String = {
-    if (boolean) {
-      int match {
-        case 0 => grid_player01.toString(player_01, boolean, playerStatus)
-        case 1 => grid_player02.toString(player_02, boolean, playerStatus)
-      }
-    } else {
-      int match {
-        case 0 => grid_player01.toString(player_01, boolean, playerStatus)
-        case 1 => grid_player02.toString(player_02, boolean, playerStatus)
-      }
+
+    int match {
+      case 0 =>
+        if (boolean) {
+          grid_player01.toString(player_01, boolean, playerStatus)
+        } else {
+          grid_player01.toString(player_01, boolean, playerStatus)
+        }
+      case 1 =>
+        if (boolean) {
+          grid_player02.toString(player_02, boolean, playerStatus)
+        } else {
+          grid_player02.toString(player_02, boolean, playerStatus)
+        }
     }
   }
 

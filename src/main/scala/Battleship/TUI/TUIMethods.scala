@@ -1,6 +1,6 @@
 package Battleship.TUI
 
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.model.{Creator, Player}
 
 import scala.collection.mutable
 
@@ -35,45 +35,6 @@ object TUIMethods {
     stringPrint.toString()
   }
 
-  def printGrid(grid: Grid, player: Player, sortOfPrint: Boolean): String = {  //sortOfPrint true = with setted ships
-    val stringOfGrid = new mutable.StringBuilder("")                          // false = without setted ships
-    stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
-    stringOfGrid ++= "   "
-    var ids = 0
-    while (ids < grid.size) {
-      stringOfGrid ++= "  " + ids + "  "
-      ids += 1
-    }
-    stringOfGrid ++= "\n"
-    var idy = 0
-    while (idy < grid.size) {
-      var idx = 0
-      stringOfGrid ++= "A" + idy + " "
-      while (idx < grid.size) {
-        val tmp = grid.getField(idx, idy)
-        if (sortOfPrint) {
-          tmp match {
-            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
-            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-          }
-        } else {
-          tmp match {
-            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 1 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-          }
-        }
-        idx += 1
-      }
-      idy += 1
-      stringOfGrid ++= "\n"
-    }
-    stringOfGrid.toString()
-  }
-
   def printSetPlayer(color: Int): String = {
     if (color == 1) {
       (Console.GREEN + "Please insert player name for player_01\n" + Console.RESET)
@@ -91,32 +52,6 @@ object TUIMethods {
       idx += 1
     }
     string.toString()
-  }
-
-  def checkValidShip(input: String): Array[Int] = {
-    val inputInner = input.split(" ")
-    val tmp: Array[Int] = new Array[Int](4)
-    try {
-      if (inputInner.length == 4) {   // schöner mit for <- schleife lösen
-        var idx = 0
-        while (idx < 4) {
-          tmp(idx) = inputInner(idx).toInt
-          idx += 1
-        }
-      } else {
-        print("Format Error\n")
-        tmp(0) = 10
-      }
-    } catch {
-      case e: NumberFormatException => println("you have to input numbers\n", e)
-        tmp(0) = 10
-    }
-    if ((tmp(0) >= 0 && tmp(0) <= 9) && (tmp(1) >= 0 && tmp(1) <= 9) && (tmp(2) >= 0 && tmp(2) <= 9) && (tmp(3) >= 0 && tmp(3) <= 9)) {
-
-    } else {
-      tmp(0) = 10
-    }
-    tmp
   }
 
   def input(): String = {

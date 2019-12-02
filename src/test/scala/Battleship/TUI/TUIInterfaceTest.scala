@@ -1,21 +1,19 @@
 package Battleship.TUI
 
 import Battleship.controller.Controller
-import Battleship.model.{Grid, Player}
+import Battleship.model.Grid
 import org.scalatest.{Matchers, WordSpec}
 
 class TUIInterfaceTest extends WordSpec with Matchers {
 
+  val interface = new TUIInterface(new Controller(new Grid(10), new Grid(10)))
+
   "A TUIInterface" when {
     "new" should {
-      val interface: TUIInterface = new TUIInterface(new Controller())
 
-      "playerConfiguration" in {
-        interface.playerConfiguration()
-      }
-
-      "setShipsPrint" in {
-        interface.setShipsPrint(Player("Marcel"), Grid(10), Array[Int](1, 1, 1, 1))
+      "update" in {
+        val tmp = interface.update
+        tmp should be(true)
       }
 
     }

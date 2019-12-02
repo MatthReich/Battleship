@@ -1,5 +1,10 @@
 package Battleship.model
 
+import Battleship.controller.PlayerStatus
+import Battleship.controller.PlayerStatus.PlayerStatus
+
+import scala.collection.mutable
+
 //Standard  0
 //Ship      1
 //Hit       2
@@ -80,6 +85,53 @@ case class Grid(size: Int) {
       }
     }
     statement
+  }
+
+  //noinspection ScalaStyle
+  def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerStatus): String = { //sortOfPrint true = with setted ships
+    val stringOfGrid = new mutable.StringBuilder("") // false = without setted ships
+
+    playerStatus match {
+      case PlayerStatus.PLAYER_ONE =>
+        stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
+      case _ =>
+        stringOfGrid ++= ("Field of: " + Console.CYAN + player.name + Console.RESET + "\n")
+    }
+
+    stringOfGrid ++= "   "
+    var ids = 0
+    while (ids < this.size) {
+      stringOfGrid ++= "  " + ids + "  "
+      ids += 1
+    }
+    stringOfGrid ++= "\n"
+    var idy = 0
+    while (idy < this.size) {
+      var idx = 0
+      stringOfGrid ++= "A" + idy + " "
+      while (idx < this.size) {
+        val tmp = this.getField(idx, idy)
+        if (sortOfPrint) {
+          tmp match {
+            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+          }
+        } else {
+          tmp match {
+            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 1 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+          }
+        }
+        idx += 1
+      }
+      idy += 1
+      stringOfGrid ++= "\n"
+    }
+    stringOfGrid.toString()
   }
 
 }

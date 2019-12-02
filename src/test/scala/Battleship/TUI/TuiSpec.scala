@@ -2,8 +2,11 @@ package Battleship.TUI
 
 import Battleship.controller.Controller
 import Battleship.model.Grid
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
+@RunWith(classOf[JUnitRunner])
 class TuiSpec extends WordSpec with Matchers {
 
   "A Tui" when {

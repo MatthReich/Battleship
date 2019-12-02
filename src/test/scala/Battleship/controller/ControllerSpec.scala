@@ -2,8 +2,11 @@ package Battleship.controller
 
 import Battleship.model.Grid
 import Battleship.util.Observer
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
+@RunWith(classOf[JUnitRunner])
 class ControllerSpec extends WordSpec with Matchers {
 
   "A Controller" when {
@@ -41,18 +44,28 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp should be(Array[Int](1, 1, 1, 0))
       }
 
-      "checkGuess" in {
+      "checkGuess" in { // redo this test !! change everytime playerstatus not just tmp
+        // no hit -> change one to two
         var tmp = controller.checkGuess("0 0", controller.grid_player01)
         tmp should be(PlayerStatus.PLAYER_TWO)
+        // no hit -> change two to one
         tmp = controller.checkGuess("1 1", controller.grid_player02)
         tmp should be(PlayerStatus.PLAYER_ONE)
+        // to long argument -> hit and repeat -> one to one
         tmp = controller.checkGuess("a b c", controller.grid_player01)
         tmp should be(PlayerStatus.PLAYER_ONE)
+        // ?? -> one to two
         controller.grid_player01.setField(1, 1, 2)
         tmp = controller.checkGuess("1 1", controller.grid_player01)
         tmp should be(PlayerStatus.PLAYER_TWO)
+        // right input length but no int -> two to two
+        controller.playerStatus = PlayerStatus.PLAYER_TWO
         tmp = controller.checkGuess("a 1", controller.grid_player01)
         tmp should be(PlayerStatus.PLAYER_TWO)
+        // no hit in player two -> two to one
+        controller.grid_player01.setField(1, 1, 0)
+        tmp = controller.checkGuess("1 1", controller.grid_player01)
+        tmp should be(PlayerStatus.PLAYER_ONE)
       }
 
       "checkState" in {

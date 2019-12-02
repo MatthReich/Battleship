@@ -16,6 +16,10 @@ class TUIInterfaceTest extends WordSpec with Matchers {
         tmp should be(true)
       }
 
+      "playerConfiguration" in {
+        interface.playerConfiguration()
+      }
+
     }
   }
 

@@ -14,6 +14,7 @@ class TuiSpec extends WordSpec with Matchers {
       val grid_1 = Grid(10)
       val grid_2 = Grid(10)
       val tui = new Tui(new Controller(grid_1, grid_2))
+
       "printGrid" in {
         tui.printGrid(0)
       }

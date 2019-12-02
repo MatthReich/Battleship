@@ -20,6 +20,10 @@ class TUIInterfaceTest extends WordSpec with Matchers {
         interface.playerConfiguration()
       }
 
+      "setPlayers" in {
+        // can't be tested
+      }
+
     }
   }
 

@@ -17,7 +17,7 @@ object TUIMethods {
   }
 
   def setPlayer(color: Int): Player = {
-    val name = input()
+    val name = scala.io.StdIn.readLine().toString
     if (name != "") {
       val player: Player = Player(name)
       player
@@ -52,14 +52,6 @@ object TUIMethods {
       idx += 1
     }
     string.toString()
-  }
-
-  def input(): String = {
-    scala.io.StdIn.readLine().toString
-  }
-
-  def output(output: String): Unit = {
-    print(output)
   }
 
 }

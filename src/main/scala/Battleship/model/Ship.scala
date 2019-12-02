@@ -2,7 +2,7 @@ package Battleship.model
 
 case class Ship(shipCoordinates: Array[Int]) {
   var size = 0
-  var coordinats = Array.ofDim[Int](5, 2)
+  var coordinats: Array[Array[Int]] = Array.ofDim[Int](5, 2)
 
   def setCoordinates(): Unit = {
     if (shipCoordinates(0) == shipCoordinates(2)) {

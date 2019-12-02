@@ -37,9 +37,9 @@ object TUIMethods {
 
   def printSetPlayer(color: Int): String = {
     if (color == 1) {
-      (Console.GREEN + "Please insert player name for player_01\n" + Console.RESET)
+      Console.GREEN + "Please insert player name for player_01\n" + Console.RESET
     } else {
-      (Console.CYAN + "Please insert player name for player_02\n" + Console.RESET)
+      Console.CYAN + "Please insert player name for player_02\n" + Console.RESET
     }
   }
 

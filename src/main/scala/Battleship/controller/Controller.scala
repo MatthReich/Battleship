@@ -10,12 +10,12 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   val creator_01: Creator = Creator("Marcel")
   val creator_02: Creator = Creator("Matthias")
-  var player_01 = Player("")
-  var player_02 = Player("")
-  var grid_player01 = this.grid_player_01
-  var grid_player02 = this.grid_player_02
-  var nr: Array[Int] = Array[Int](1, 0, 0, 0)
-  var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var player_01: Player = Player("")
+  var player_02: Player = Player("")
+  val grid_player01: Grid = this.grid_player_01
+  val grid_player02: Grid = this.grid_player_02
+  val nr: Array[Int] = Array[Int](1, 0, 0, 0)
+  val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
   var hit = false
 
@@ -34,7 +34,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
         ship(3) = input(3).toInt
       }
     } catch {
-      case e: NumberFormatException => print("you have to input numbers\n")
+      case _: NumberFormatException => print("you have to input numbers\n")
     }
     ship
   }
@@ -55,10 +55,9 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
         grid.getValue(x, y) match {
           case 0 => grid.setField(x, y, 3)
-          case 1 => {
+          case 1 =>
             hit = true
             grid.setField(x, y, 2)
-          }
           case _ =>
         }
       } else {
@@ -66,7 +65,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
         hit = true
       }
     } catch {
-      case e: NumberFormatException => println("you have to input numbers\n")
+      case _: NumberFormatException => println("you have to input numbers\n")
         hit = true
     }
 

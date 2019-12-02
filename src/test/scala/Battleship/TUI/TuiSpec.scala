@@ -8,8 +8,8 @@ class TuiSpec extends WordSpec with Matchers {
 
   "A Tui" when {
     "new" should {
-      var grid_1 = new Grid(10);
-      var grid_2 = new Grid(10);
+      val grid_1 = Grid(10)
+      val grid_2 = Grid(10)
       val tui = new Tui(new Controller(grid_1, grid_2))
       "printGrid" in {
         tui.printGrid(0)

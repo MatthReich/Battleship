@@ -49,7 +49,7 @@ class Tui(controller: Controller) extends Observer {
 
     input match {
       case "q" => // exit game
-      case "getPlayerConfig" => print(TUIMethods.printGetPlayer(controller.player_01, controller.player_02))
+      case "getPlayerConfig" => print(tui.printGetPlayer(controller.player_01, controller.player_02))
       case "getGameStatus" => print(controller.gameStatus + "\n")
       case "getPlayerStatus" => print(controller.playerStatus + "\n")
       case _ => // grid nur mit spiel makierungen ausgeben

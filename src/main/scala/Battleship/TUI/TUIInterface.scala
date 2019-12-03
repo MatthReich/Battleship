@@ -15,26 +15,22 @@ class TUIInterface(controller: Controller) extends Observer {
     print(printWelcome(controller.creator_01, controller.creator_02))
   }
 
-  def setPlayers(): Unit = {
-    print(printSetPlayer(1))
-    controller.player_01 = setPlayer(1)
-    print(printSetPlayer(2))
-    controller.player_02 = setPlayer(2)
+  def setPlayers(input: String, color: Int): Unit = {
+    var player: Player = Player(" ")
+    if (input != "") {
+      player = Player(input)
+    } else {
+      player = Player("player_0" + color)
+    }
+    if (color == 1) {
+      controller.player_01 = player
+    } else {
+      controller.player_02 = player
+    }
   }
 
   def playerConfiguration(): Unit = {
     print(printGetPlayer(controller.player_01, controller.player_02))
-  }
-
-  def setPlayer(color: Int): Player = {
-    val name = scala.io.StdIn.readLine().toString
-    if (name != "") {
-      val player: Player = Player(name)
-      player
-    } else {
-      val player: Player = Player("player_0" + color)
-      player
-    }
   }
 
   def printWelcome(creator_01: Creator, creator_02: Creator): String = {

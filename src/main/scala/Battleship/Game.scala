@@ -4,7 +4,7 @@ import Battleship.TUI.{TUIInterface, Tui}
 import Battleship.controller.{Controller, GameStatus, PlayerStatus}
 import Battleship.model.Grid
 
-//noinspection ScalaStyle
+
 object Game {
 
   val fieldSize = 10
@@ -40,7 +40,7 @@ object Game {
     do {
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)
-      if (controller.gameStatus == GameStatus.SOLVED) return
+      if (controller.gameStatus == GameStatus.SOLVED) input = "q"
     } while (input != "q")
 
   }

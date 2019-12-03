@@ -33,8 +33,9 @@ class Tui(controller: Controller) extends Observer {
   }
 
   def shipProcess(input: String, player: Int): Unit = { // player: 0 = player1, 1 = player2
-    val ship = controller.checkShipSetting(input)
-    controller.addShips(player, ship)
+    if (controller.checkShipSetting(input)) {
+      controller.addShips(player, controller.ship)
+    }
   }
 
   def printFirstTimeProcessLine(): Unit = {

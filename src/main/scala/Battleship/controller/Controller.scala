@@ -6,7 +6,6 @@ import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.{Observable, UndoManager}
 import scala.util.Try
 
-//noinspection ScalaStyle
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
 
   val creator_01: Creator = Creator("Marcel")
@@ -18,26 +17,32 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   val nr: Array[Int] = Array[Int](1, 0, 0, 0)
   val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
 
-  var hit = false
-
   var gameStatus: GameStatus = IDLE
   var playerStatus: PlayerStatus = PLAYER_ONE
   private val undoManager = new UndoManager
 
-  def checkShipSetting(playerInput: String): Array[Int] = { //??wenn input (1,1,1,a) => output (1,1,1,0)
-    val input = playerInput.split(" ")
-    val ship: Array[Int] = new Array[Int](4)
-    try {
-      if (input.length == 4) {
-        ship(0) = input(0).toInt
-        ship(1) = input(1).toInt
-        ship(2) = input(2).toInt
-        ship(3) = input(3).toInt
+  def checkShipSetting(playerInput: String): Boolean = {
+    val ship: Array[Int] = Array[Int](0, 0, 0, 0)
+
+    Try {
+      playerInput.split("\n").map { entry =>
+        val input = entry.split(" ")
+        if (input.length == 4) {
+
+          ship(0) = input(0).toInt
+          ship(1) = input(1).toInt
+          ship(2) = input(2).toInt
+          ship(3) = input(3).toInt
+
+          return true
+        } else {
+          print("Format Error\n")
+        }
       }
-    } catch {
-      case _: NumberFormatException => print("you have to input numbers\n")
+    }.getOrElse {
+      print("you have to input numbers\n")
     }
-    ship
+    false
   }
 
   def addShips(int: Int, ship: Array[Int]): Unit = {
@@ -46,7 +51,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   }
 
   def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
-    hit = false
+    var hit = false
 
     Try {
         playerInput.split("\n").map { entry =>

@@ -8,7 +8,7 @@ import scala.collection.mutable
 class Tui(controller: Controller) extends Observer {
 
   var printGridOption = true
-  var tui = new TUIInterface(controller)
+  val tui = new TUIInterface(controller)
 
   val gridPrint = false // grid will print without placed ships
   var firstTime = true

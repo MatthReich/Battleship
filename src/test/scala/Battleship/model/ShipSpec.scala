@@ -21,16 +21,16 @@ class ShipSpec extends WordSpec with Matchers {
 
       "setCoordinates" in {
         shipQuer.setCoordinates()
-        shipQuer.coordinats(0)(0) should be (1)
-        shipQuer.coordinats(0)(1) should be (2)
-        shipQuer.coordinats(1)(0) should be (1)
-        shipQuer.coordinats(1)(1) should be (3)
+        shipQuer.coordinates(0)(0) should be (1)
+        shipQuer.coordinates(0)(1) should be (2)
+        shipQuer.coordinates(1)(0) should be (1)
+        shipQuer.coordinates(1)(1) should be (3)
 
         shipSenk.setCoordinates()
-        shipSenk.coordinats(0)(0) should be (1)
-        shipSenk.coordinats(0)(1) should be (2)
-        shipSenk.coordinats(2)(0) should be (3)
-        shipSenk.coordinats(2)(1) should be (2)
+        shipSenk.coordinates(0)(0) should be (1)
+        shipSenk.coordinates(0)(1) should be (2)
+        shipSenk.coordinates(2)(0) should be (3)
+        shipSenk.coordinates(2)(1) should be (2)
       }
 
       "colidate" in {

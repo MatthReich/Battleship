@@ -111,20 +111,16 @@ case class Grid(size: Int) {
       stringOfGrid ++= "A" + idy + " "
       while (idx < this.size) {
         val tmp = this.getField(idx, idy)
-        if (sortOfPrint) {
-          tmp match {
-            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 1 => stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
-            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-          }
-        } else {
-          tmp match {
-            case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 1 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
-            case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
-            case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
-          }
+        tmp match {
+          case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+          case 1 =>
+            if (sortOfPrint) {
+              stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+            } else {
+              stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            }
+          case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+          case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
         }
         idx += 1
       }

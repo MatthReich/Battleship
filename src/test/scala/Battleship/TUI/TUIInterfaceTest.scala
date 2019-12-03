@@ -24,7 +24,8 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       }
 
       "setPlayers" in {
-        // can't be tested
+        interface.setPlayers("name", 1)
+        interface.setPlayers("", 2)
       }
 
       "printWelcomeX" in {

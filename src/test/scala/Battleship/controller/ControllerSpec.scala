@@ -39,9 +39,9 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "checkShipSetting" in {
         var tmp = controller.checkShipSetting("1 1 1 1")
-        tmp should be(Array[Int](1, 1, 1, 1))
+        tmp should be(true)
         tmp = controller.checkShipSetting("1 1 1 a")
-        tmp should be(Array[Int](1, 1, 1, 0))
+        tmp should be(false)
       }
 
       "checkGuess" in { // redo this test !! change everytime playerstatus not just tmp

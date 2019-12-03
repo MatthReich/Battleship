@@ -18,12 +18,15 @@ object Game {
     var input: String = ""
 
     tuii.printWelcomeX()
+
     print(tuii.printSetPlayer(1))
     input = scala.io.StdIn.readLine().toString
     tuii.setPlayers(input, 1)
+
     print(tuii.printSetPlayer(2))
     input = scala.io.StdIn.readLine().toString
     tuii.setPlayers(input, 2)
+
     tuii.playerConfiguration()
 
     do {

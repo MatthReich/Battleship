@@ -45,11 +45,6 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     false
   }
 
-  def addShips(int: Int, ship: Array[Int]): Unit = {
-    undoManager.addShip(new SetCommand(int, ship, this))
-    notifyObservers()
-  }
-
   def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
     var hit = false
 
@@ -94,8 +89,12 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     }
   }
 
-  def gridToString(int: Int, boolean: Boolean): String = {
+  def addShips(int: Int, ship: Array[Int]): Unit = {
+    undoManager.addShip(new SetCommand(int, ship, this))
+    notifyObservers()
+  }
 
+  def gridToString(int: Int, boolean: Boolean): String = {
     int match {
       case 0 =>
         if (boolean) {

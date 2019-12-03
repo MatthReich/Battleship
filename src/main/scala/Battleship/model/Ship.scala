@@ -53,4 +53,5 @@ case class Ship(shipCoordinates: Array[Int]) {
     }
     output
   }
+
 }

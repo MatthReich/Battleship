@@ -16,13 +16,14 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   val grid_player02: Grid = this.grid_player_02
   val nr: Array[Int] = Array[Int](1, 0, 0, 0)
   val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  val ship: Array[Int] = Array[Int](0, 0, 0, 0)
+
 
   var gameStatus: GameStatus = IDLE
   var playerStatus: PlayerStatus = PLAYER_ONE
   private val undoManager = new UndoManager
 
   def checkShipSetting(playerInput: String): Boolean = {
-    val ship: Array[Int] = Array[Int](0, 0, 0, 0)
 
     Try {
       playerInput.split("\n").map { entry =>

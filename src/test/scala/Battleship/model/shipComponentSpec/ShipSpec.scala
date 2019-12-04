@@ -18,9 +18,15 @@ class ShipSpec extends WordSpec with Matchers {
       val testShipNotCollides: Ship = Ship(Array(5, 5, 5, 7), new StrategyCollideNormal)
       val longShip: Ship = Ship(Array(1, 1, 5, 1), new StrategyCollideNormal)
 
-      "getSize" in {
+      "getSize" in { // also tests if setSize works fine
         ship.getSize should be (2)
         longShip.getSize should be (5)
+      }
+
+      "toString" in { // also tests if setCoordinates works fine
+        ship.toString should be ("0 0 \n0 1 \n")
+        testShipCollide.toString should be ("0 1 \n0 2 \n")
+        longShip.toString should be ("1 1 \n2 1 \n3 1 \n4 1 \n5 1 \n")
       }
 
       "collides + setToGrid" in {
@@ -37,10 +43,9 @@ class ShipSpec extends WordSpec with Matchers {
       }
 
       "getCoordinates" in {
-        ship.toString should be ("0 0 \n0 1 \n")
-        testShipCollide.toString should be ("0 1 \n0 2 \n")
-        longShip.toString should be ("1 1 \n2 1 \n3 1 \n4 1 \n5 1 \n")
+        // theoretically testes in collide
       }
+
     }
   }
 }

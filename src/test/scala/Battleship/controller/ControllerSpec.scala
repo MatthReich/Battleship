@@ -90,6 +90,27 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp should be(PlayerStatus.PLAYER_ONE)
       }
 */
+      "checkGuess" in {
+        // no hit -> one to two
+        var grid = Grid(1)
+        controller.playerStatus = PlayerStatus.PLAYER_ONE
+        controller.playerStatus = controller.checkGuess("0 0", grid)
+        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        // hit -> two two
+        grid.setField(0, 0, 1)
+        controller.playerStatus = controller.checkGuess("0 0", grid)
+        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        // false input
+        controller.playerStatus = controller.checkGuess("0 0 0", grid)
+        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        controller.playerStatus = controller.checkGuess("0 a", grid)
+        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        // no hit -> two to one
+        grid.setField(0, 0,0)
+        controller.playerStatus = controller.checkGuess("0 0", grid)
+        controller.playerStatus should be (PlayerStatus.PLAYER_ONE)
+      }
+
       "checkState" in {
         var state = GameStatus.message(GameStatus.IDLE)
         state should be("")

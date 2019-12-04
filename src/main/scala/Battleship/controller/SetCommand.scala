@@ -9,6 +9,7 @@ class SetCommand(player: PlayerState, ship: Array[Int], controller: Controller) 
 
   override def createShip(): Unit = {
     // controller.ship = Ship(controller.shipCoordsSetting, new StrategyCollideNormal)
+    val x = " "
   }
 
   override def setShip(): Unit = { // player: Int -> 0 = player1, 1 = player2

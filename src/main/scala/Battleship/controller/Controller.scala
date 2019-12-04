@@ -72,20 +72,11 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
       hit = true
     }
 
-    if (!hit) {
-      if (playerStatus == PLAYER_ONE) {
-        PlayerStatus.PLAYER_TWO
-      }
-      else {
-        PlayerStatus.PLAYER_ONE
-      }
+    if (!hit) playerStatus match {
+      case PLAYER_ONE => PlayerStatus.PLAYER_TWO
+      case PLAYER_TWO => PlayerStatus.PLAYER_ONE
     } else {
-      if (playerStatus == PLAYER_ONE) {
-        PlayerStatus.PLAYER_ONE
-      }
-      else {
-        PlayerStatus.PLAYER_TWO
-      }
+      playerStatus
     }
   }
 

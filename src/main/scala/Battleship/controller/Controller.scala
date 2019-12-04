@@ -42,7 +42,8 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
           shipCoordsSetting(3) = input(3).toInt
 
           if (shipCoordsSetting(0) == shipCoordsSetting(1) && shipCoordsSetting(1) == shipCoordsSetting(2)
-            && shipCoordsSetting(2) == shipCoordsSetting(3) && shipCoordsSetting(3) == shipCoordsSetting(4)) {
+            && shipCoordsSetting(2) == shipCoordsSetting(3) && shipCoordsSetting(3) == shipCoordsSetting(0)) {
+            print("too short ship length")
             return false
           }
           return true

@@ -106,8 +106,6 @@ class Tui(controller: Controller) extends Observer {
     }
     if (controller.grid_player01.winStatement() || controller.grid_player02.winStatement()) {
       controller.gameState = GameState.SOLVED
-    } else {
-      controller.gameState = GameState.IDLE
     }
     true
   }

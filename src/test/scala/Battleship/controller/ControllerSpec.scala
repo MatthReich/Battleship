@@ -51,7 +51,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "shipToString" in {
         val ship: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
-        ship.toString should be ("0 0 \n0 1 \n")
+        controller.shipToString(ship) should be ("0 0 \n0 1 \n")
       }
 
       "checkShipSetting" in {
@@ -77,7 +77,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.playerStatus = controller.checkGuess("0 a", grid)
         controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
         // no hit -> two to one
-        grid.setField(0, 0,0)
+        grid.setField(0, 0,2)
         controller.playerStatus = controller.checkGuess("0 0", grid)
         controller.playerStatus should be (PlayerStatus.PLAYER_ONE)
       }

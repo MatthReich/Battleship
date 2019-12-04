@@ -19,8 +19,8 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   var player_02: Player = Player("")
   val grid_player01: Grid = this.grid_player_01
   val grid_player02: Grid = this.grid_player_02
-  val nr: Array[Int] = Array[Int](1, 0, 0, 0)
-  val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var nr: Array[Int] = Array[Int](1, 0, 0, 0)
+  var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
   var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
@@ -92,8 +92,8 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   }
 
   def createShip(): Unit = {
-//    undoManager.createShip(new SetCommand(playerStatus, shipCoordsSetting, this))
-//    notifyObservers()
+    undoManager.createShip(new SetCommand(playerStatus, shipCoordsSetting, this))
+    notifyObservers()
     ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
   }
 

@@ -1,6 +1,8 @@
 package Battleship.controller
 
 import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.shipComponent.advancedShip.Ship
+import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.Observer
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -35,6 +37,11 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp = controller.gridToString(0, boolean = false)
         tmp = controller.gridToString(1, boolean = true)
         tmp = controller.gridToString(1, boolean = false)
+      }
+
+      "shipToString" in {
+        val ship: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
+        ship.toString should be ("0 0 \n0 1 \n")
       }
 
       "checkShipSetting" in {

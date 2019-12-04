@@ -1,7 +1,7 @@
 package Battleship.controller
 
-import Battleship.controller.GameStatus._
-import Battleship.controller.PlayerStatus._
+import Battleship.controller.GameState._
+import Battleship.controller.PlayerState._
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
@@ -25,8 +25,8 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
 
-  var gameStatus: GameStatus = IDLE
-  var playerStatus: PlayerStatus = PLAYER_ONE
+  var gameState: GameState = IDLE
+  var playerState: PlayerState = PLAYER_ONE
   private val undoManager = new UndoManager
 
   def checkShipSetting(playerInput: String): Boolean = {
@@ -56,7 +56,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     false
   }
 
-  def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
+  def checkGuess(playerInput: String, grid: Grid): PlayerState = {
     var hit = false
 
     Try {
@@ -83,22 +83,22 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
       hit = true
     }
 
-    if (!hit) playerStatus match {
-      case PLAYER_ONE => PlayerStatus.PLAYER_TWO
-      case PLAYER_TWO => PlayerStatus.PLAYER_ONE
+    if (!hit) playerState match {
+      case PLAYER_ONE => PlayerState.PLAYER_TWO
+      case PLAYER_TWO => PlayerState.PLAYER_ONE
     } else {
-      playerStatus
+      playerState
     }
   }
 
   def createShip(): Unit = {
-    undoManager.createShip(new SetCommand(playerStatus, shipCoordsSetting, this))
+    undoManager.createShip(new SetCommand(playerState, shipCoordsSetting, this))
     notifyObservers()
     ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
   }
 
   def setShips(): Unit = {
-    undoManager.setShip(new SetCommand(playerStatus, shipCoordsSetting, this))
+    undoManager.setShip(new SetCommand(playerState, shipCoordsSetting, this))
     notifyObservers()
   }
 
@@ -110,15 +110,15 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     int match {
       case 0 =>
         if (boolean) {
-          grid_player01.toString(player_01, boolean, playerStatus)
+          grid_player01.toString(player_01, boolean, playerState)
         } else {
-          grid_player01.toString(player_01, boolean, playerStatus)
+          grid_player01.toString(player_01, boolean, playerState)
         }
       case 1 =>
         if (boolean) {
-          grid_player02.toString(player_02, boolean, playerStatus)
+          grid_player02.toString(player_02, boolean, playerState)
         } else {
-          grid_player02.toString(player_02, boolean, playerStatus)
+          grid_player02.toString(player_02, boolean, playerState)
         }
     }
   }

@@ -29,7 +29,7 @@ class ControllerSpec extends WordSpec with Matchers {
       "createShip" in {
         controller.shipCoordsSetting = Array(0, 0, 0, 2)
         controller.createShip()
-        controller.playerStatus = PlayerStatus.PLAYER_TWO
+        controller.playerState = PlayerState.PLAYER_TWO
         controller.createShip()
         controller.ship.getSize should be (3)
         observer.update should be (true)
@@ -37,7 +37,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "setShip" in {
         controller.setShips()
-        controller.playerStatus = PlayerStatus.PLAYER_ONE
+        controller.playerState = PlayerState.PLAYER_ONE
         controller.setShips()
         observer.update should be (true)
       }
@@ -64,28 +64,28 @@ class ControllerSpec extends WordSpec with Matchers {
       "checkGuess" in {
         // no hit -> one to two
         var grid = Grid(1)
-        controller.playerStatus = PlayerStatus.PLAYER_ONE
-        controller.playerStatus = controller.checkGuess("0 0", grid)
-        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        controller.playerState = PlayerState.PLAYER_ONE
+        controller.playerState = controller.checkGuess("0 0", grid)
+        controller.playerState should be (PlayerState.PLAYER_TWO)
         // hit -> two two
         grid.setField(0, 0, 1)
-        controller.playerStatus = controller.checkGuess("0 0", grid)
-        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        controller.playerState = controller.checkGuess("0 0", grid)
+        controller.playerState should be (PlayerState.PLAYER_TWO)
         // false input
-        controller.playerStatus = controller.checkGuess("0 0 0", grid)
-        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
-        controller.playerStatus = controller.checkGuess("0 a", grid)
-        controller.playerStatus should be (PlayerStatus.PLAYER_TWO)
+        controller.playerState = controller.checkGuess("0 0 0", grid)
+        controller.playerState should be (PlayerState.PLAYER_TWO)
+        controller.playerState = controller.checkGuess("0 a", grid)
+        controller.playerState should be (PlayerState.PLAYER_TWO)
         // no hit -> two to one
         grid.setField(0, 0,2)
-        controller.playerStatus = controller.checkGuess("0 0", grid)
-        controller.playerStatus should be (PlayerStatus.PLAYER_ONE)
+        controller.playerState = controller.checkGuess("0 0", grid)
+        controller.playerState should be (PlayerState.PLAYER_ONE)
       }
 
       "checkState" in {
-        var state = GameStatus.message(GameStatus.IDLE)
+        var state = GameState.message(GameState.IDLE)
         state should be("")
-        state = PlayerStatus.message(PlayerStatus.PLAYER_ONE)
+        state = PlayerState.message(PlayerState.PLAYER_ONE)
         state should be("player_01's turn")
       }
 

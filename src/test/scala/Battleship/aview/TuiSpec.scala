@@ -1,6 +1,6 @@
 package Battleship.aview
 
-import Battleship.controller.{Controller, GameStatus, PlayerStatus}
+import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
@@ -33,7 +33,7 @@ class TuiSpec extends WordSpec with Matchers {
         val controller = new Controller(Grid(10), Grid(10))
 
         val boolean: Boolean = true
-        val shipLenght2: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
+        val shipLength2: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
         val shipLenght3: Ship = Ship(Array(0, 0, 0, 2), new StrategyCollideNormal)
         val shipLenght4: Ship = Ship(Array(0, 0, 0, 3), new StrategyCollideNormal)
         val shipLenght5: Ship = Ship(Array(0, 0, 0, 4), new StrategyCollideNormal)
@@ -41,14 +41,14 @@ class TuiSpec extends WordSpec with Matchers {
         controller.nr = Array(1, 1, 1, 1)
         controller.nr2 = Array(1, 1, 1, 1)
 
-        tui.decreaseShipNumbersToPlace(shipLenght2, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength2, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght3, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght4, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght5, boolean)
 
-        controller.playerStatus = PlayerStatus.PLAYER_TWO
+        controller.playerState = PlayerState.PLAYER_TWO
 
-        tui.decreaseShipNumbersToPlace(shipLenght2, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength2, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght3, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght4, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght5, boolean)
@@ -74,6 +74,8 @@ class TuiSpec extends WordSpec with Matchers {
 
         val controller = new Controller(Grid(1), Grid(1))
         controller.grid_player01.setField(0, 0, 2)
+        tui.update
+        controller.grid_player01.setField(0, 0, 0)
         tui.update
       }
 

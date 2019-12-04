@@ -1,7 +1,7 @@
 package Battleship
 
 import Battleship.aview.{TUIInterface, Tui}
-import Battleship.controller.{Controller, GameStatus, PlayerStatus}
+import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
 
 
@@ -38,7 +38,7 @@ object Game {
       tui.decreaseShipNumbersToPlace(controller.ship, controller.shipSet)
     } while ((controller.nr(0) + controller.nr(1) + controller.nr(2) + controller.nr(3)) != 0)
 
-    controller.playerStatus = PlayerStatus.PLAYER_TWO
+    controller.playerState = PlayerState.PLAYER_TWO
     do {
       controller.shipSet = false
       tui.printGrid(1)
@@ -48,12 +48,12 @@ object Game {
       tui.decreaseShipNumbersToPlace(controller.ship, controller.shipSet)
     } while ((controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3)) != 0)
 
-    controller.playerStatus = PlayerStatus.PLAYER_ONE
+    controller.playerState = PlayerState.PLAYER_ONE
     tui.printFirstTimeProcessLine()
     do {
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)
-      if (controller.gameStatus == GameStatus.SOLVED) input = "q"
+      if (controller.gameState == GameState.SOLVED) input = "q"
     } while (input != "q")
 
   }

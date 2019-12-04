@@ -1,6 +1,6 @@
 package Battleship.model.gridComponent
 
-import Battleship.controller.PlayerStatus.PlayerStatus
+import Battleship.controller.PlayerState.PlayerState
 import Battleship.model.Player
 
 trait InterfaceGrid {
@@ -11,6 +11,6 @@ trait InterfaceGrid {
 
   def getValue(x: Int, y: Int): Int
 
-  def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerStatus): String
+  def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerState): String
 
 }

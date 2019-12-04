@@ -1,7 +1,7 @@
 package Battleship.aview
 
 import Battleship.Game.{controller, tui}
-import Battleship.controller.{Controller, GameStatus, PlayerStatus}
+import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.util.Observer
 
@@ -51,24 +51,24 @@ class Tui(controller: Controller) extends Observer {
       val shipSize: Int = ship.getSize
       shipSize match {
         case 2 =>
-          controller.playerStatus match {
-            case PlayerStatus.PLAYER_ONE => controller.nr(0) -= 1
-            case PlayerStatus.PLAYER_TWO => controller.nr2(0) -= 1
+          controller.playerState match {
+            case PlayerState.PLAYER_ONE => controller.nr(0) -= 1
+            case PlayerState.PLAYER_TWO => controller.nr2(0) -= 1
           }
         case 3 =>
-          controller.playerStatus match {
-            case PlayerStatus.PLAYER_ONE => controller.nr(1) -= 1
-            case PlayerStatus.PLAYER_TWO => controller.nr2(1) -= 1
+          controller.playerState match {
+            case PlayerState.PLAYER_ONE => controller.nr(1) -= 1
+            case PlayerState.PLAYER_TWO => controller.nr2(1) -= 1
           }
         case 4 =>
-          controller.playerStatus match {
-            case PlayerStatus.PLAYER_ONE => controller.nr(2) -= 1
-            case PlayerStatus.PLAYER_TWO => controller.nr2(2) -= 1
+          controller.playerState match {
+            case PlayerState.PLAYER_ONE => controller.nr(2) -= 1
+            case PlayerState.PLAYER_TWO => controller.nr2(2) -= 1
           }
         case 5 =>
-          controller.playerStatus match {
-            case PlayerStatus.PLAYER_ONE => controller.nr(3) -= 1
-            case PlayerStatus.PLAYER_TWO => controller.nr2(3) -= 1
+          controller.playerState match {
+            case PlayerState.PLAYER_ONE => controller.nr(3) -= 1
+            case PlayerState.PLAYER_TWO => controller.nr2(3) -= 1
           }
       }
     }
@@ -81,14 +81,14 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" => // exit game
       case "getPlayerConfig" => print(tui.printGetPlayer(controller.player_01, controller.player_02))
-      case "getGameStatus" => print(controller.gameStatus + "\n")
-      case "getPlayerStatus" => print(controller.playerStatus + "\n")
+      case "getGameStatus" => print(controller.gameState + "\n")
+      case "getPlayerStatus" => print(controller.playerState + "\n")
       case _ => // grid nur mit spiel makierungen ausgeben
-        if (controller.playerStatus == PlayerStatus.PLAYER_ONE) {
-          controller.playerStatus = controller.checkGuess(input, controller.grid_player02)
+        if (controller.playerState == PlayerState.PLAYER_ONE) {
+          controller.playerState = controller.checkGuess(input, controller.grid_player02)
         }
         else {
-          controller.playerStatus = controller.checkGuess(input, controller.grid_player01)
+          controller.playerState = controller.checkGuess(input, controller.grid_player01)
         }
         update
     }
@@ -98,16 +98,16 @@ class Tui(controller: Controller) extends Observer {
     if (shipProcess) {
         print(controller.gridToString(0, printGridOption))
     }
-    if (controller.playerStatus == PlayerStatus.PLAYER_ONE) {
+    if (controller.playerState == PlayerState.PLAYER_ONE) {
       print(controller.gridToString(1, printGridOption))
     }
     else {
       print(controller.gridToString(0, printGridOption))
     }
     if (controller.grid_player01.winStatement() || controller.grid_player02.winStatement()) {
-      controller.gameStatus = GameStatus.SOLVED
+      controller.gameState = GameState.SOLVED
     } else {
-      controller.gameStatus = GameStatus.IDLE
+      controller.gameState = GameState.IDLE
     }
     true
   }

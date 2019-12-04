@@ -43,7 +43,7 @@ class ShipSpec extends WordSpec with Matchers {
       }
 
       "getCoordinates" in {
-        // theoretically testes in collide
+        // tested in collide
       }
 
     }

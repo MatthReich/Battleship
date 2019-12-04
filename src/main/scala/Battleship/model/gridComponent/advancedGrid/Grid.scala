@@ -73,8 +73,19 @@ case class Grid(size: Int) extends InterfaceGrid {
     statement
   }
 
-  //noinspection ScalaStyle
-  def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerStatus): String = { //sortOfPrint true = with setted ships
+  override def setField(x: Int, y: Int, value: Int): Unit = {
+    matrix(x)(y) = value
+  }
+
+  override def getField(x: Int, y: Int): Int = {
+    matrix(x)(y)
+  }
+
+  override def getValue(x: Int, y:Int): Int = {
+    matrix(x)(y)
+  }
+
+  override def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerStatus): String = { //sortOfPrint true = with setted ships
     val stringOfGrid = new mutable.StringBuilder("") // false = without setted ships
 
     playerStatus match {
@@ -114,18 +125,6 @@ case class Grid(size: Int) extends InterfaceGrid {
       stringOfGrid ++= "\n"
     }
     stringOfGrid.toString()
-  }
-
-  override def setField(x: Int, y: Int, value: Int): Unit = {
-    matrix(x)(y) = value
-  }
-
-  override def getField(x: Int, y: Int): Int = {
-    matrix(x)(y)
-  }
-
-  override def getValue(x: Int, y:Int): Int = {
-    matrix(x)(y)
   }
 
 }

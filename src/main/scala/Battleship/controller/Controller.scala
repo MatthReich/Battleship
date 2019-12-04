@@ -2,7 +2,8 @@ package Battleship.controller
 
 import Battleship.controller.GameStatus._
 import Battleship.controller.PlayerStatus._
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.{Creator, Player}
 import Battleship.util.{Observable, UndoManager}
 
 import scala.util.Try

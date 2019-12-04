@@ -1,6 +1,7 @@
 package Battleship.model
 
 import Battleship.controller.PlayerStatus
+import Battleship.model.gridComponent.advancedGrid.Grid
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}

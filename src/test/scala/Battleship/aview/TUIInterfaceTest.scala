@@ -1,7 +1,8 @@
 package Battleship.aview
 
 import Battleship.controller.Controller
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.{Creator, Player}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}

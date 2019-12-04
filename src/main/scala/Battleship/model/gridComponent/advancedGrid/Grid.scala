@@ -1,23 +1,17 @@
-package Battleship.model
+package Battleship.model.gridComponent.advancedGrid
 
 import Battleship.controller.PlayerStatus
 import Battleship.controller.PlayerStatus.PlayerStatus
+import Battleship.model.gridComponent.InterfaceGrid
+import Battleship.model.{Player, Ship}
 
 import scala.collection.mutable
 
-//Standard  0
-//Ship      1
-//Hit       2
-//Watter    3
-
-case class Grid(size: Int) {
+case class Grid(size: Int) extends InterfaceGrid {
   private val matrix = Array.ofDim[Int](size, size)
   val ships: Array[Ship] = new Array[Ship](10)
   var shipSize = 0
 
-  def getField(x: Int, y: Int): Int = {
-    matrix(x)(y)
-  }
 
   def setShip(array: Array[Int], nr: Array[Int]): Array[Int] = {
     var test: Boolean = true
@@ -66,14 +60,6 @@ case class Grid(size: Int) {
         idx += 1
       }
     }
-  }
-
-  def setField(x: Int, y: Int, value: Int): Unit = {
-    matrix(x)(y) = value
-  }
-
-  def getValue(x: Int, y:Int): Int = {
-    matrix(x)(y)
   }
 
   def winStatement(): Boolean = {
@@ -128,6 +114,18 @@ case class Grid(size: Int) {
       stringOfGrid ++= "\n"
     }
     stringOfGrid.toString()
+  }
+
+  override def setField(x: Int, y: Int, value: Int): Unit = {
+    matrix(x)(y) = value
+  }
+
+  override def getField(x: Int, y: Int): Int = {
+    matrix(x)(y)
+  }
+
+  override def getValue(x: Int, y:Int): Int = {
+    matrix(x)(y)
   }
 
 }

@@ -1,0 +1,11 @@
+package Battleship.model.gridComponent
+
+trait InterfaceGrid {
+
+  def setField(x: Int, y: Int, value: Int): Unit
+
+  def getField(x: Int, y: Int): Int
+
+  def getValue(x: Int, y:Int): Int
+  
+}

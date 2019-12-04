@@ -1,6 +1,6 @@
 package Battleship.controller
 
-import Battleship.model.Grid
+import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.util.Observer
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner

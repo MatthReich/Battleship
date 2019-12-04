@@ -32,6 +32,22 @@ class ControllerSpec extends WordSpec with Matchers {
         observer.update should be(true)
       }
 */
+      "createShip" in {
+        controller.shipCoordsSetting = Array(0, 0, 0, 2)
+        controller.createShip()
+        controller.playerStatus = PlayerStatus.PLAYER_TWO
+        controller.createShip()
+        controller.ship.getSize should be (3)
+        observer.update should be (true)
+      }
+
+      "setShip" in {
+        controller.setShips()
+        controller.playerStatus = PlayerStatus.PLAYER_ONE
+        controller.setShips()
+        observer.update should be (true)
+      }
+
       "gridToString" in {
         var tmp = controller.gridToString(0, boolean = true)
         tmp = controller.gridToString(0, boolean = false)
@@ -45,12 +61,11 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "checkShipSetting" in {
-        var tmp = controller.checkShipSetting("1 1 1 1")
-        tmp should be(true)
-        tmp = controller.checkShipSetting("1 1 1 a")
-        tmp should be(false)
+        controller.checkShipSetting("1 1 1 1") should be (false)
+        controller.checkShipSetting("1 1 1 a") should be (false)
+        controller.checkShipSetting("0 0 0 1") should be (true)
       }
-
+/*
       "checkGuess" in { // redo this test !! change everytime playerstatus not just tmp
         // no hit -> change one to two
         var tmp = controller.checkGuess("0 0", controller.grid_player01)
@@ -74,7 +89,7 @@ class ControllerSpec extends WordSpec with Matchers {
         tmp = controller.checkGuess("1 1", controller.grid_player01)
         tmp should be(PlayerStatus.PLAYER_ONE)
       }
-
+*/
       "checkState" in {
         var state = GameStatus.message(GameStatus.IDLE)
         state should be("")

@@ -22,7 +22,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   val nr: Array[Int] = Array[Int](1, 0, 0, 0)
   val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
   var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
-  val shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
+  var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
 
   var gameStatus: GameStatus = IDLE
@@ -101,8 +101,6 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     undoManager.setShip(new SetCommand(playerStatus, shipCoordsSetting, this))
     notifyObservers()
   }
-
-
 
   def shipToString(ship: Ship): String = {
     ship.toString

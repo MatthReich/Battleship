@@ -40,10 +40,6 @@ class TUIInterfaceTest extends WordSpec with Matchers {
         tmp should include(Console.CYAN)
       }
 
-      "addShips" in {
-        // can't be tested
-      }
-
       "printWelcome" in {
         val tmp = interface.printWelcome(Creator("Marcel"), Creator("Matthias"))
         tmp should startWith("#")

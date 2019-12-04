@@ -4,7 +4,10 @@ import Battleship.controller.GameStatus._
 import Battleship.controller.PlayerStatus._
 import Battleship.model.{Creator, Grid, Player}
 import Battleship.util.{Observable, UndoManager}
+
 import scala.util.Try
+import Battleship.model.shipComponent._
+
 
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
 

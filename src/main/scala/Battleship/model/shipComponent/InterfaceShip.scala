@@ -8,6 +8,9 @@ trait InterfaceShip extends StrategyCollide {
 
   def getSize: Int
 
+  def getCoordinates: Array[Array[Int]]
+
   def collide(ship: Ship, grid: Grid): Boolean
 
+  override def toString: String = super.toString
 }

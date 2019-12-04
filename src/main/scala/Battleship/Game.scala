@@ -2,7 +2,7 @@ package Battleship
 
 import Battleship.aview.{TUIInterface, Tui}
 import Battleship.controller.{Controller, GameStatus, PlayerStatus}
-import Battleship.model.Grid
+import Battleship.model.gridComponent.advancedGrid.Grid
 
 
 object Game {

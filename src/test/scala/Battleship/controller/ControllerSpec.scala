@@ -57,6 +57,7 @@ class ControllerSpec extends WordSpec with Matchers {
       "checkShipSetting" in {
         controller.checkShipSetting("1 1 1 1") should be (false)
         controller.checkShipSetting("1 1 1 a") should be (false)
+        controller.checkShipSetting("0 0 0 0 0") should be (false)
         controller.checkShipSetting("0 0 0 1") should be (true)
       }
 

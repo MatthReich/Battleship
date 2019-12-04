@@ -3,11 +3,11 @@ package Battleship.controller
 import Battleship.controller.GameStatus._
 import Battleship.controller.PlayerStatus._
 import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.{Creator, Player}
 import Battleship.util.{Observable, UndoManager}
 
 import scala.util.Try
-import Battleship.model.shipComponent._
 
 
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
@@ -87,6 +87,10 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   def addShips(int: Int, ship: Array[Int]): Unit = {
     undoManager.addShip(new SetCommand(int, ship, this))
     notifyObservers()
+  }
+
+  def shipToString(ship: Ship): String = {
+    ship.toString
   }
 
   def gridToString(int: Int, boolean: Boolean): String = {

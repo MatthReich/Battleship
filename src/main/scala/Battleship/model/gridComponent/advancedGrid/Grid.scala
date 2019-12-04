@@ -3,15 +3,14 @@ package Battleship.model.gridComponent.advancedGrid
 import Battleship.controller.PlayerStatus
 import Battleship.controller.PlayerStatus.PlayerStatus
 import Battleship.model.gridComponent.InterfaceGrid
-import Battleship.model.{Player, Ship}
+import Battleship.model.{Player}
 
 import scala.collection.mutable
 
 case class Grid(size: Int) extends InterfaceGrid {
   private val matrix = Array.ofDim[Int](size, size)
-  val ships: Array[Ship] = new Array[Ship](10)
   var shipSize = 0
-  
+
 
   def winStatement(): Boolean = {
     var statement = true

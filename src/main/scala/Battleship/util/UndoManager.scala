@@ -8,6 +8,6 @@ class UndoManager {
   }
   def createShip(command: Command): Unit = {
     undoStack = command :: undoStack
-    command.setShip()
+    command.createShip()
   }
 }

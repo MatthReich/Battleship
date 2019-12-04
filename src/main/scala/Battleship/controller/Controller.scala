@@ -94,7 +94,6 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   def createShip(): Unit = {
     undoManager.createShip(new SetCommand(playerState, shipCoordsSetting, this))
     notifyObservers()
-    ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
   }
 
   def setShips(): Unit = {

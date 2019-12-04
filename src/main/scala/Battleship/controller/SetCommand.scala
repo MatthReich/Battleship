@@ -8,8 +8,7 @@ import Battleship.util.Command
 class SetCommand(player: PlayerState, ship: Array[Int], controller: Controller) extends Command {
 
   override def createShip(): Unit = {
-    // controller.ship = Ship(controller.shipCoordsSetting, new StrategyCollideNormal)
-    val x = " "
+    controller.ship = Ship(controller.shipCoordsSetting, new StrategyCollideNormal)
   }
 
   override def setShip(): Unit = { // player: Int -> 0 = player1, 1 = player2

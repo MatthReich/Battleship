@@ -1,6 +1,8 @@
 package Battleship.aview
 
+import Battleship.Game.{controller, tui}
 import Battleship.controller.{Controller, GameStatus, PlayerStatus}
+import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.util.Observer
 
 import scala.collection.mutable
@@ -13,8 +15,6 @@ class Tui(controller: Controller) extends Observer {
   val gridPrint = false // grid will print without placed ships
   var firstTime = true
   var shipProcess = true
-
-
 
   def printGrid(int: Int): Unit = {
     print(controller.gridToString(int, printGridOption))
@@ -32,9 +32,10 @@ class Tui(controller: Controller) extends Observer {
     print(string)
   }
 
-  def shipProcess(input: String, player: Int): Unit = { // player: 0 = player1, 1 = player2
+  def shipProcess(input: String): Unit = { // player: 0 = player1, 1 = player2
     if (controller.checkShipSetting(input)) {
-      controller.addShips(player, controller.ship)
+      controller.createShip()
+      controller.setShips()
     }
   }
 
@@ -44,6 +45,35 @@ class Tui(controller: Controller) extends Observer {
 
     update
   }
+
+  def decreaseShipNumbersToPlace(ship: Ship, boolean: Boolean): Unit = {
+    if (boolean) {
+      val shipSize: Int = ship.getSize
+      shipSize match {
+        case 2 =>
+          controller.playerStatus match {
+            case PlayerStatus.PLAYER_ONE => controller.nr(0) -= 1
+            case PlayerStatus.PLAYER_TWO => controller.nr2(0) -= 1
+          }
+        case 3 =>
+          controller.playerStatus match {
+            case PlayerStatus.PLAYER_ONE => controller.nr(1) -= 1
+            case PlayerStatus.PLAYER_TWO => controller.nr2(1) -= 1
+          }
+        case 4 =>
+          controller.playerStatus match {
+            case PlayerStatus.PLAYER_ONE => controller.nr(2) -= 1
+            case PlayerStatus.PLAYER_TWO => controller.nr2(2) -= 1
+          }
+        case 5 =>
+          controller.playerStatus match {
+            case PlayerStatus.PLAYER_ONE => controller.nr(3) -= 1
+            case PlayerStatus.PLAYER_TWO => controller.nr2(3) -= 1
+          }
+      }
+    }
+  }
+
 
 
   def processLine(input: String): Unit = {

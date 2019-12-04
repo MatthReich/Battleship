@@ -25,13 +25,13 @@ class ControllerSpec extends WordSpec with Matchers {
         }
       }
       controller.add(observer)
-
+/*
       "notify its Observer after addShips" in {
         controller.addShips(0, Array[Int](1, 1, 2, 1))
         controller.addShips(1, Array[Int](1, 1, 2, 1))
         observer.update should be(true)
       }
-
+*/
       "gridToString" in {
         var tmp = controller.gridToString(0, boolean = true)
         tmp = controller.gridToString(0, boolean = false)

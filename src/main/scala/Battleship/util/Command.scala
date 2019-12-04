@@ -2,6 +2,7 @@ package Battleship.util
 
 trait Command {
 
-  def addShip(): Unit
+  def setShip(): Unit
 
+  def createShip(): Unit
 }

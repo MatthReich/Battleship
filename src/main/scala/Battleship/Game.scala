@@ -30,18 +30,22 @@ object Game {
     tuii.playerConfiguration()
 
     do {
+      controller.shipSet = false
       tui.printGrid(0)
       tui.printShipSetSettings(controller.nr)
       input = scala.io.StdIn.readLine().toString
-      tui.shipProcess(input, 0) // 0 = player1
+      tui.shipProcess(input)
+      tui.decreaseShipNumbersToPlace(controller.ship, controller.shipSet)
     } while ((controller.nr(0) + controller.nr(1) + controller.nr(2) + controller.nr(3)) != 0)
 
     controller.playerStatus = PlayerStatus.PLAYER_TWO
     do {
+      controller.shipSet = false
       tui.printGrid(1)
       tui.printShipSetSettings(controller.nr2)
       input = scala.io.StdIn.readLine().toString
-      tui.shipProcess(input, 1) // 1 = player2
+      tui.shipProcess(input)
+      tui.decreaseShipNumbersToPlace(controller.ship, controller.shipSet)
     } while ((controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3)) != 0)
 
     controller.playerStatus = PlayerStatus.PLAYER_ONE

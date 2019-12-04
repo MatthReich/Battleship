@@ -22,11 +22,11 @@ class TuiSpec extends WordSpec with Matchers {
       "printShipSetSettings" in {
         tui.printShipSetSettings(Array[Int](1, 0, 0, 0))
       }
-
+/*
       "shipProcess" in {
         tui.shipProcess("0 0 0 1", 0)
       }
-
+*/
       "printFirstTimeProcessLine" in {
         tui.printGridOption = true
         tui.printFirstTimeProcessLine()

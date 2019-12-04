@@ -4,6 +4,7 @@ import Battleship.controller.GameStatus._
 import Battleship.controller.PlayerStatus._
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
+import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.model.{Creator, Player}
 import Battleship.util.{Observable, UndoManager}
 
@@ -20,7 +21,9 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   val grid_player02: Grid = this.grid_player_02
   val nr: Array[Int] = Array[Int](1, 0, 0, 0)
   val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
-  val ship: Array[Int] = Array[Int](0, 0, 0, 0)
+  var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
+  val shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
+  var shipSet: Boolean = false
 
   var gameStatus: GameStatus = IDLE
   var playerStatus: PlayerStatus = PLAYER_ONE
@@ -33,11 +36,15 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
         val input = entry.split(" ")
         if (input.length == 4) {
 
-          ship(0) = input(0).toInt
-          ship(1) = input(1).toInt
-          ship(2) = input(2).toInt
-          ship(3) = input(3).toInt
+          shipCoordsSetting(0) = input(0).toInt
+          shipCoordsSetting(1) = input(1).toInt
+          shipCoordsSetting(2) = input(2).toInt
+          shipCoordsSetting(3) = input(3).toInt
 
+          if (shipCoordsSetting(0) == shipCoordsSetting(1) && shipCoordsSetting(1) == shipCoordsSetting(2)
+            && shipCoordsSetting(2) == shipCoordsSetting(3) && shipCoordsSetting(3) == shipCoordsSetting(4)) {
+            return false
+          }
           return true
         } else {
           print("Format Error\n")
@@ -84,10 +91,18 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     }
   }
 
-  def addShips(int: Int, ship: Array[Int]): Unit = {
-    undoManager.addShip(new SetCommand(int, ship, this))
+  def createShip(): Unit = {
+//    undoManager.createShip(new SetCommand(playerStatus, shipCoordsSetting, this))
+//    notifyObservers()
+    ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
+  }
+
+  def setShips(): Unit = {
+    undoManager.setShip(new SetCommand(playerStatus, shipCoordsSetting, this))
     notifyObservers()
   }
+
+
 
   def shipToString(ship: Ship): String = {
     ship.toString

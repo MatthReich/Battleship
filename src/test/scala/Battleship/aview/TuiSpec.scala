@@ -35,25 +35,25 @@ class TuiSpec extends WordSpec with Matchers {
 
         val boolean: Boolean = true
         val shipLength2: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
-        val shipLenght3: Ship = Ship(Array(0, 0, 0, 2), new StrategyCollideNormal)
-        val shipLenght4: Ship = Ship(Array(0, 0, 0, 3), new StrategyCollideNormal)
-        val shipLenght5: Ship = Ship(Array(0, 0, 0, 4), new StrategyCollideNormal)
+        val shipLength3: Ship = Ship(Array(0, 0, 0, 2), new StrategyCollideNormal)
+        val shipLength4: Ship = Ship(Array(0, 0, 0, 3), new StrategyCollideNormal)
+        val shipLength5: Ship = Ship(Array(0, 0, 0, 4), new StrategyCollideNormal)
 
         controller.nr = Array(1, 1, 1, 1)
         controller.nr2 = Array(1, 1, 1, 1)
 
         tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-        tui.decreaseShipNumbersToPlace(shipLenght3, boolean)
-        tui.decreaseShipNumbersToPlace(shipLenght4, boolean)
-        tui.decreaseShipNumbersToPlace(shipLenght5, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength4, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength5, boolean)
 
         controller.playerState = PlayerState.PLAYER_TWO
 
-        tui.decreaseShipNumbersToPlace(shipLenght3, boolean = false)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean = false)
         tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-        tui.decreaseShipNumbersToPlace(shipLenght3, boolean)
-        tui.decreaseShipNumbersToPlace(shipLenght4, boolean)
-        tui.decreaseShipNumbersToPlace(shipLenght5, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength4, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength5, boolean)
       }
 
       "printFirstTimeProcessLine" in {

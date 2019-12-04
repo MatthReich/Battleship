@@ -19,8 +19,8 @@ class ShipSpec extends WordSpec with Matchers {
       val longShip: Ship = Ship(Array(1, 1, 5, 1), grid, new StrategyCollideNormal)
 
       "getSize" in {
-        // until method is created: then one of [2,3,4,5]
         ship.getSize should be (2)
+        longShip.getSize should be (5)
       }
 
       "collides" in {

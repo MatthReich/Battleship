@@ -1,4 +1,4 @@
-package Battleship.TUI
+package Battleship.aview
 
 import Battleship.controller.Controller
 import Battleship.model.{Creator, Player}

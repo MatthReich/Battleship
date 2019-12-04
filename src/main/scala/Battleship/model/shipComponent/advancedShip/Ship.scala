@@ -6,13 +6,13 @@ import Battleship.model.shipComponent.strategyCollide.StrategyCollide
 
 import scala.collection.mutable
 
-case class Ship(shipCoordinates: Array[Int], grid: Grid, strategyCollide: StrategyCollide) extends InterfaceShip {
+case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) extends InterfaceShip {
   private val SCollides: StrategyCollide = strategyCollide
+  private val size: Int = setSize()
+  private val coordinates = setCoordinates()
 
-  private val size: Int = setSize
-  private val coordinates = setCoordinates
 
-  private def setCoordinates: Array[Array[Int]] = {
+  private def setCoordinates(): Array[Array[Int]] = {
     val coordinate: Array[Array[Int]] = Array.ofDim[Int](size, 2)
     var idx = 0
 
@@ -26,7 +26,6 @@ case class Ship(shipCoordinates: Array[Int], grid: Grid, strategyCollide: Strate
         for (y <- x1 to x2) {
           coordinate(idx)(0) = y
           coordinate(idx)(1) = x
-          grid.setField(y, x, 1)
           idx += 1
         }
       }
@@ -36,7 +35,6 @@ case class Ship(shipCoordinates: Array[Int], grid: Grid, strategyCollide: Strate
         for (y <- y1 to y2) {
           coordinate(idx)(0) = x
           coordinate(idx)(1) = y
-          grid.setField(x, y, 1)
           idx += 1
         }
       }
@@ -55,6 +53,32 @@ case class Ship(shipCoordinates: Array[Int], grid: Grid, strategyCollide: Strate
     } else {
       x2 - x1 + 1
     }
+  }
+
+  override def setToGrid(grid: Grid): Boolean = {
+    var shipSet: Boolean = false
+    if (!collide(this, grid)) {
+      val x1 = shipCoordinates(0)
+      val y1 = shipCoordinates(1)
+      val x2 = shipCoordinates(2)
+      val y2 = shipCoordinates(3)
+
+      if (x1 == x2) {
+        for (x <- y1 to y2) {
+          for (y <- x1 to x2) {
+            grid.setField(y, x, 1)
+          }
+        }
+      } else {
+        for (x <- x1 to x2) {
+          for (y <- y1 to y2) {
+            grid.setField(x, y, 1)
+          }
+        }
+      }
+      shipSet = true
+    }
+    shipSet
   }
 
   override def getSize: Int = size

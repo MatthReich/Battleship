@@ -13,20 +13,27 @@ class ShipSpec extends WordSpec with Matchers {
   "A Ship" when {
     "new" should {
       val grid: Grid = Grid(10)
-      val ship: Ship = Ship(Array(0, 0, 0, 1), grid, new StrategyCollideNormal)
-      val testShipCollide: Ship = Ship(Array(0, 1, 0, 2), grid, new StrategyCollideNormal)
-      val testShipNotCollides: Ship = Ship(Array(5, 5, 5, 7), grid, new StrategyCollideNormal)
-      val longShip: Ship = Ship(Array(1, 1, 5, 1), grid, new StrategyCollideNormal)
+      val ship: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
+      val testShipCollide: Ship = Ship(Array(0, 1, 0, 2), new StrategyCollideNormal)
+      val testShipNotCollides: Ship = Ship(Array(5, 5, 5, 7), new StrategyCollideNormal)
+      val longShip: Ship = Ship(Array(1, 1, 5, 1), new StrategyCollideNormal)
 
       "getSize" in {
         ship.getSize should be (2)
         longShip.getSize should be (5)
       }
 
-      "collides" in {
-        // until method is created: then true
-        ship.collide(testShipCollide, grid) should be (false)
+      "collides + setToGrid" in {
+        ship.setToGrid(grid) should be (true)
+
+        ship.collide(testShipCollide, grid) should be (true)
+        testShipCollide.setToGrid(grid) should be (false)
+
         ship.collide(testShipNotCollides, grid) should be (false)
+        testShipNotCollides.setToGrid(grid) should be (true)
+
+        ship.collide(longShip, grid) should be (false)
+        longShip.setToGrid(grid) should be (true)
       }
 
       "getCoordinates" in {

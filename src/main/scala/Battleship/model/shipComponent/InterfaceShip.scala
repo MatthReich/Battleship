@@ -12,5 +12,7 @@ trait InterfaceShip extends StrategyCollide {
 
   def collide(ship: Ship, grid: Grid): Boolean
 
+  def setToGrid(grid: Grid): Boolean
+
   override def toString: String = super.toString
 }

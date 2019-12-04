@@ -27,6 +27,7 @@ class TuiSpec extends WordSpec with Matchers {
 
       "shipProcess" in {
         tui.shipProcess("0 0 0 1")
+        tui.shipProcess("a")
       }
 
       "decreaseShipNumbersToPlace" in {
@@ -48,6 +49,7 @@ class TuiSpec extends WordSpec with Matchers {
 
         controller.playerState = PlayerState.PLAYER_TWO
 
+        tui.decreaseShipNumbersToPlace(shipLenght3, boolean = false)
         tui.decreaseShipNumbersToPlace(shipLength2, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght3, boolean)
         tui.decreaseShipNumbersToPlace(shipLenght4, boolean)
@@ -56,6 +58,10 @@ class TuiSpec extends WordSpec with Matchers {
 
       "printFirstTimeProcessLine" in {
         tui.printGridOption = true
+        tui.shipProcess = true
+        tui.printFirstTimeProcessLine()
+        tui.printGridOption = false
+        tui.shipProcess = false
         tui.printFirstTimeProcessLine()
       }
 

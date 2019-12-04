@@ -14,7 +14,6 @@ case class Grid(size: Int) extends InterfaceGrid {
 
   def winStatement(): Boolean = {
     var statement = true
-    // while for efficiency if found direct finished with search
     for (i <- 0 until size) {
       for (j <- 0 until size) {
         if (matrix(i)(j) == 1) statement = false

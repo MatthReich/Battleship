@@ -13,9 +13,8 @@ class TuiSpec extends WordSpec with Matchers {
 
   "A Tui" when {
     "new" should {
-      val grid_1 = Grid(10)
-      val grid_2 = Grid(10)
-      val tui = new Tui(new Controller(grid_1, grid_2))
+      val controller = new Controller(Grid(10), Grid(10))
+      val tui = new Tui(controller)
 
       "printGrid" in {
         tui.printGrid(0)
@@ -31,7 +30,6 @@ class TuiSpec extends WordSpec with Matchers {
       }
 
       "decreaseShipNumbersToPlace" in {
-        val controller = new Controller(Grid(10), Grid(10))
 
         val boolean: Boolean = true
         val shipLength2: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)

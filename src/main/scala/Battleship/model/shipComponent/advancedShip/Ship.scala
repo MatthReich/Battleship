@@ -8,18 +8,18 @@ import scala.collection.mutable
 
 case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) extends InterfaceShip {
   private val SCollides: StrategyCollide = strategyCollide
+
+  private var x1 = shipCoordinates(0)
+  private var y1 = shipCoordinates(1)
+  private var x2 = shipCoordinates(2)
+  private var y2 = shipCoordinates(3)
+
   private val size: Int = setSize()
   private val coordinates = setCoordinates()
-
 
   private def setCoordinates(): Array[Array[Int]] = {
     val coordinate: Array[Array[Int]] = Array.ofDim[Int](size, 2)
     var idx = 0
-
-    val x1 = shipCoordinates(0)
-    val y1 = shipCoordinates(1)
-    val x2 = shipCoordinates(2)
-    val y2 = shipCoordinates(3)
 
     if (x1 == x2) {
       for (x <- y1 to y2) {
@@ -42,27 +42,51 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
     }
   }
 
-  private def setSize(): Int = {
-    val x1 = shipCoordinates(0)
-    val y1 = shipCoordinates(1)
-    val x2 = shipCoordinates(2)
-    val y2 = shipCoordinates(3)
+  override def deleteFromGrid(grid: Grid): Unit = {
+    if (!collide(this, grid)) {
+      if (x1 == x2) {
+        for (x <- y1 to y2) {
+          for (y <- x1 to x2) {
+            grid.setField(y, x, 0)
+          }
+        }
+      } else {
+        for (x <- x1 to x2) {
+          for (y <- y1 to y2) {
+            grid.setField(x, y, 0)
+          }
+        }
+      }
+    }
+  }
 
+  private def setSize(): Int = {
     if (x1 == x2) {
-      y2 - y1 + 1
+      val s = y2 - y1 + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val size = y1 - y2 + 1
+        changeParam
+        size
+      }
     } else {
-      x2 - x1 + 1
+      val s = x2 - x1 + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val size = x1 - x2 + 1
+        changeParam
+        size
+      }
     }
   }
 
   override def setToGrid(grid: Grid): Boolean = {
     var shipSet: Boolean = false
     if (!collide(this, grid)) {
-      val x1 = shipCoordinates(0)
-      val y1 = shipCoordinates(1)
-      val x2 = shipCoordinates(2)
-      val y2 = shipCoordinates(3)
-
       if (x1 == x2) {
         for (x <- y1 to y2) {
           for (y <- x1 to x2) {
@@ -79,6 +103,15 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
       shipSet = true
     }
     shipSet
+  }
+
+  private def changeParam: Unit = {
+    var tmp = x1
+    x1 = x2
+    x2 = tmp
+    tmp = y1
+    y1 = y2
+    y2 = tmp
   }
 
   override def getSize: Int = size

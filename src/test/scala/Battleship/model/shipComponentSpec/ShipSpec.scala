@@ -17,10 +17,12 @@ class ShipSpec extends WordSpec with Matchers {
       val testShipCollide: Ship = Ship(Array(0, 1, 0, 2), new StrategyCollideNormal)
       val testShipNotCollides: Ship = Ship(Array(5, 5, 5, 7), new StrategyCollideNormal)
       val longShip: Ship = Ship(Array(1, 1, 5, 1), new StrategyCollideNormal)
+      val backwardsShip: Ship = Ship(Array(2, 2, 2, 0), new StrategyCollideNormal)
 
       "getSize" in { // also tests if setSize works fine
         ship.getSize should be (2)
-        longShip.getSize should be (5)
+        longShip.getSize should be(5)
+        backwardsShip.getSize should be(3)
       }
 
       "toString" in { // also tests if setCoordinates works fine

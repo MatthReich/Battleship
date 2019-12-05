@@ -20,4 +20,12 @@ class SetCommand(player: PlayerState, ship: Array[Int], controller: Controller) 
     }
   }
 
+  override def undoCreate(): Unit = {
+    if (player == PlayerState.PLAYER_ONE) {
+      controller.ship.deleteFromGrid(controller.grid_player01)
+    }
+    else {
+      controller.ship.deleteFromGrid(controller.grid_player02)
+    }
+  }
 }

@@ -19,7 +19,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   var player_02: Player = Player("")
   val grid_player01: Grid = this.grid_player_01
   val grid_player02: Grid = this.grid_player_02
-  var nr: Array[Int] = Array[Int](1, 0, 0, 0)
+  var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
   var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
@@ -101,6 +101,11 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   def setShips(): Unit = {
     undoManager.setShip(new SetCommand(playerState, shipCoordsSetting, this))
+    notifyObservers()
+  }
+
+  def deleteShip(): Unit = {
+    undoManager.undoCreate(new SetCommand(playerState, shipCoordsSetting, this))
     notifyObservers()
   }
 

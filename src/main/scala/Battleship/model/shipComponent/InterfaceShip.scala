@@ -14,6 +14,8 @@ trait InterfaceShip extends StrategyCollide {
 
   def setToGrid(grid: Grid): Boolean
 
+  def deleteFromGrid(grid: Grid): Unit
+
   def toString: String
 
 }

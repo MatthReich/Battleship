@@ -1,6 +1,5 @@
 package Battleship.aview
 
-import Battleship.Game.{controller, tui}
 import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.util.Observer
@@ -32,7 +31,14 @@ class Tui(controller: Controller) extends Observer {
     print(string)
   }
 
-  def shipProcess(input: String): Unit = { // player: 0 = player1, 1 = player2
+  def shipProcessLong(input: String): Unit = {
+    input match {
+      case "delete Ship" => controller.deleteShip()
+      case _ => shipProcess(input)
+    }
+  }
+
+  def shipProcess(input: String): Unit = {
     if (controller.checkShipSetting(input)) {
       controller.createShip()
       controller.setShips()
@@ -74,8 +80,6 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
-
-
   def processLine(input: String): Unit = {
 
     input match {
@@ -83,6 +87,8 @@ class Tui(controller: Controller) extends Observer {
       case "getPlayerConfig" => print(tui.printGetPlayer(controller.player_01, controller.player_02))
       case "getGameStatus" => print(controller.gameState + "\n")
       case "getPlayerStatus" => print(controller.playerState + "\n")
+      case "admin: printGrid 1" => print(controller.grid_player01.toString(controller.player_01, true, controller.playerState))
+      case "admin: printGrid 2" => print(controller.grid_player02.toString(controller.player_02, true, controller.playerState))
       case _ => // grid nur mit spiel makierungen ausgeben
         if (controller.playerState == PlayerState.PLAYER_ONE) {
           controller.playerState = controller.checkGuess(input, controller.grid_player02)

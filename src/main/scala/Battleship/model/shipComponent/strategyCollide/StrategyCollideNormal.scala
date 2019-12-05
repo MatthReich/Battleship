@@ -12,8 +12,9 @@ class StrategyCollideNormal extends StrategyCollide {
     for (x <- 0 until shipCoordinates.length) {
       for (y <- 0 until 2) {
         if (grid.getValue(x, y) == 1)
-          if (equalsShip(x, y, shipCoordinates))
+          if (equalsShip(x, y, shipCoordinates)) {
             collide = true
+          }
       }
     }
     collide

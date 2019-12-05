@@ -1,6 +1,6 @@
 package Battleship.aview
 
-import Battleship.controller.{Controller, GameState, PlayerState}
+import Battleship.controller.{Controller, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
@@ -22,6 +22,11 @@ class TuiSpec extends WordSpec with Matchers {
 
       "printShipSetSettings" in {
         tui.printShipSetSettings(Array[Int](1, 0, 0, 0))
+      }
+
+      "shipProcessLong" in {
+        tui.shipProcessLong("delete Ship")
+        tui.shipProcessLong(" ")
       }
 
       "shipProcess" in {

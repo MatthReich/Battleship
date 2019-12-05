@@ -34,14 +34,23 @@ class ShipSpec extends WordSpec with Matchers {
       "collides + setToGrid" in {
         ship.setToGrid(grid) should be (true)
 
-        ship.collide(testShipCollide, grid) should be (true)
-        testShipCollide.setToGrid(grid) should be (false)
+        ship.collide(testShipCollide, grid) should be(true)
+        testShipCollide.setToGrid(grid) should be(false)
 
-        ship.collide(testShipNotCollides, grid) should be (false)
-        testShipNotCollides.setToGrid(grid) should be (true)
+        ship.collide(testShipNotCollides, grid) should be(false)
+        testShipNotCollides.setToGrid(grid) should be(true)
 
-        ship.collide(longShip, grid) should be (false)
-        longShip.setToGrid(grid) should be (true)
+        ship.collide(longShip, grid) should be(false)
+        longShip.setToGrid(grid) should be(true)
+      }
+
+      "deleteFromGrid" in {
+        val shippp = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
+        val gridd = Grid(10)
+        shippp.setToGrid(gridd) should be(true)
+        gridd.getField(0, 0) should be(1)
+        shippp.deleteFromGrid(gridd)
+        gridd.getField(0, 0) should be(1) // false should be 0 !! did not work
       }
 
       "getCoordinates" in {

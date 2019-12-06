@@ -2,14 +2,14 @@ package Battleship.aview.TUI
 
 import Battleship.controller.Controller
 import Battleship.model.{Creator, Player}
-import Battleship.util.Observer
 
 import scala.collection.mutable
+import scala.swing.Reactor
 
 
-class TUIInterface(controller: Controller) extends Observer {
+class TUIInterface(controller: Controller) extends Reactor {
 
-  controller.add(this)
+  listenTo(controller)
 
   def printWelcomeX(): Unit = {
     print(printWelcome(controller.creator_01, controller.creator_02))
@@ -59,7 +59,7 @@ class TUIInterface(controller: Controller) extends Observer {
     }
   }
 
-  override def update: Boolean = {
+  def update: Boolean = {
     true
   }
 }

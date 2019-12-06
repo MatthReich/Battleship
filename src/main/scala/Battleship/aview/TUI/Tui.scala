@@ -1,4 +1,4 @@
-package Battleship.aview
+package Battleship.aview.TUI
 
 import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.shipComponent.advancedShip.Ship

@@ -1,5 +1,6 @@
 package Battleship.aview
 
+import Battleship.aview.TUI.TUIInterface
 import Battleship.controller.Controller
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.{Creator, Player}

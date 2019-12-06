@@ -1,6 +1,6 @@
 package Battleship
 
-import Battleship.aview.{TUIInterface, Tui}
+import Battleship.aview.TUI.{TUIInterface, Tui}
 import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
 

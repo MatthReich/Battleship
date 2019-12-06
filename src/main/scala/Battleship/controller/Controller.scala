@@ -46,7 +46,11 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
             print("too short ship length")
             return false
           }
-          return true
+          playerState match {
+            case PLAYER_ONE => if (nr(getSize() - 2) > 0) return true
+            case PLAYER_TWO => if (nr2(getSize() - 2) > 0) return true
+          }
+          return false
         } else {
           print("Format Error\n")
         }
@@ -57,15 +61,37 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     false
   }
 
+  private def getSize(): Int = {
+    if (shipCoordsSetting(0) == shipCoordsSetting(2)) {
+      val s = shipCoordsSetting(3) - shipCoordsSetting(1) + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val s = shipCoordsSetting(1) - shipCoordsSetting(3) + 1
+        s
+      }
+    } else {
+      val s = shipCoordsSetting(2) - shipCoordsSetting(0) + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val s = shipCoordsSetting(0) - shipCoordsSetting(2) + 1
+        s
+      }
+    }
+  }
+
   def checkGuess(playerInput: String, grid: Grid): PlayerState = {
     var hit = false
 
     Try {
-        playerInput.split("\n").map { entry =>
-          val token = entry.split(" ")
-          if (token.length == 2) {
-            val x = token(0).toInt
-            val y = token(1).toInt
+      playerInput.split("\n").map { entry =>
+        val token = entry.split(" ")
+        if (token.length == 2) {
+          val x = token(0).toInt
+          val y = token(1).toInt
 
             grid.getValue(x, y) match {
               case 0 => grid.setField(x, y, 3)

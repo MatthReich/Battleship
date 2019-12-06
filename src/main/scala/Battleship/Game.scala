@@ -11,8 +11,8 @@ object Game {
   val fieldSize = 10
   val controller = new Controller(Grid(fieldSize), Grid(fieldSize))
   val tui = new Tui(controller)
-  val gui = new Gui(controller)
   val tuii = new TUIInterface(controller)
+  val gui = new Gui(controller)
   controller.publish(new CellChanged)
 
   def main(args: Array[String]): Unit = {

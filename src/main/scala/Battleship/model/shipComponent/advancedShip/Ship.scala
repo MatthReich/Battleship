@@ -43,18 +43,17 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
   }
 
   override def deleteFromGrid(grid: Grid): Unit = {
-    if (!collide(this, grid)) {
-      if (x1 == x2) {
-        for (x <- y1 to y2) {
-          for (y <- x1 to x2) {
-            grid.setField(y, x, 0)
-          }
+
+    if (x1 == x2) {
+      for (x <- y1 to y2) {
+        for (y <- x1 to x2) {
+          grid.setField(y, x, 0)
         }
-      } else {
-        for (x <- x1 to x2) {
-          for (y <- y1 to y2) {
-            grid.setField(x, y, 0)
-          }
+      }
+    } else {
+      for (x <- x1 to x2) {
+        for (y <- y1 to y2) {
+          grid.setField(x, y, 0)
         }
       }
     }

@@ -24,6 +24,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
+  var shipDelete: Boolean = false
 
   var gameState: GameState = IDLE
   var playerState: PlayerState = PLAYER_ONE

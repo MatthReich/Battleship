@@ -52,29 +52,33 @@ class Tui(controller: Controller) extends Observer {
     update
   }
 
-  def decreaseShipNumbersToPlace(ship: Ship, boolean: Boolean): Unit = {
-    if (boolean) {
+  def decreaseShipNumbersToPlace(ship: Ship, boolean: Boolean, increase: Boolean): Unit = {
+    if (boolean || increase) {
       val shipSize: Int = ship.getSize
+      var x: Int = -1
+      if (increase) {
+        x = 1
+      }
       shipSize match {
         case 2 =>
           controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(0) -= 1
-            case PlayerState.PLAYER_TWO => controller.nr2(0) -= 1
+            case PlayerState.PLAYER_ONE => controller.nr(0) += x
+            case PlayerState.PLAYER_TWO => controller.nr2(0) += x
           }
         case 3 =>
           controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(1) -= 1
-            case PlayerState.PLAYER_TWO => controller.nr2(1) -= 1
+            case PlayerState.PLAYER_ONE => controller.nr(1) += x
+            case PlayerState.PLAYER_TWO => controller.nr2(1) += x
           }
         case 4 =>
           controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(2) -= 1
-            case PlayerState.PLAYER_TWO => controller.nr2(2) -= 1
+            case PlayerState.PLAYER_ONE => controller.nr(2) += x
+            case PlayerState.PLAYER_TWO => controller.nr2(2) += x
           }
         case 5 =>
           controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(3) -= 1
-            case PlayerState.PLAYER_TWO => controller.nr2(3) -= 1
+            case PlayerState.PLAYER_ONE => controller.nr(3) += x
+            case PlayerState.PLAYER_TWO => controller.nr2(3) += x
           }
       }
     }

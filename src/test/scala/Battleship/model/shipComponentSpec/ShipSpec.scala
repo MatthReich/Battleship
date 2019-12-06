@@ -50,7 +50,7 @@ class ShipSpec extends WordSpec with Matchers {
         shippp.setToGrid(gridd) should be(true)
         gridd.getField(0, 0) should be(1)
         shippp.deleteFromGrid(gridd)
-        gridd.getField(0, 0) should be(1) // false should be 0 !! did not work
+        gridd.getField(0, 0) should be(0) // false should be 0 !! did not work
       }
 
       "getCoordinates" in {

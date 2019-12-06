@@ -1,6 +1,6 @@
 package Battleship.aview
 
-import Battleship.controller.{Controller, PlayerState}
+import Battleship.controller.Controller
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
@@ -44,19 +44,20 @@ class TuiSpec extends WordSpec with Matchers {
 
         controller.nr = Array(1, 1, 1, 1)
         controller.nr2 = Array(1, 1, 1, 1)
+        /*
+                tui.decreaseShipNumbersToPlace(shipLength2, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength3, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength4, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength5, boolean)
 
-        tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-        tui.decreaseShipNumbersToPlace(shipLength3, boolean)
-        tui.decreaseShipNumbersToPlace(shipLength4, boolean)
-        tui.decreaseShipNumbersToPlace(shipLength5, boolean)
+                controller.playerState = PlayerState.PLAYER_TWO
 
-        controller.playerState = PlayerState.PLAYER_TWO
-
-        tui.decreaseShipNumbersToPlace(shipLength3, boolean = false)
-        tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-        tui.decreaseShipNumbersToPlace(shipLength3, boolean)
-        tui.decreaseShipNumbersToPlace(shipLength4, boolean)
-        tui.decreaseShipNumbersToPlace(shipLength5, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength3, boolean = false)
+                tui.decreaseShipNumbersToPlace(shipLength2, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength3, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength4, boolean)
+                tui.decreaseShipNumbersToPlace(shipLength5, boolean)
+        */
       }
 
       "printFirstTimeProcessLine" in {

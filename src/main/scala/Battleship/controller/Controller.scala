@@ -6,12 +6,13 @@ import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.model.{Creator, Player}
-import Battleship.util.{Observable, UndoManager}
+import Battleship.util.UndoManager
 
+import scala.swing.Publisher
 import scala.util.{Failure, Success, Try}
 
 
-class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
+class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Publisher {
 
   val creator_01: Creator = Creator("Marcel")
   val creator_02: Creator = Creator("Matthias")
@@ -104,7 +105,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   def checkGuess(playerInput: String, grid: Grid): Unit = {
     undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
-    notifyObservers()
+    publish(new CellChanged)
   }
 
   def setLastGuess(string: String): Unit = {
@@ -113,7 +114,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   def undoGuess(playerInput: String, grid: Grid): Unit = {
     undoManager.undoStep(new ProcessCommand(lastGuess, grid, playerState, this))
-    notifyObservers()
+    publish(new CellChanged)
   }
 
   def createShip(): Unit = {
@@ -123,12 +124,12 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
 
   def setShips(): Unit = {
     undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
-    notifyObservers()
+    publish(new CellChanged)
   }
 
   def deleteShip(): Unit = {
     undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
-    notifyObservers()
+    publish(new CellChanged)
   }
 
   def shipToString(ship: Ship): String = {

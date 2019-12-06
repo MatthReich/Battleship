@@ -1,5 +1,6 @@
 package Battleship
 
+import Battleship.aview.GUI.Gui
 import Battleship.aview.TUI.{TUIInterface, Tui}
 import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
@@ -10,6 +11,7 @@ object Game {
   val fieldSize = 10
   val controller = new Controller(Grid(fieldSize), Grid(fieldSize))
   val tui = new Tui(controller)
+  val gui = new Gui(controller)
   val tuii = new TUIInterface(controller)
   controller.notifyObservers()
 

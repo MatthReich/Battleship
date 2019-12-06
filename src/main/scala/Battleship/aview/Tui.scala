@@ -10,7 +10,6 @@ class Tui(controller: Controller) extends Observer {
 
   var printGridOption = true
   val tui = new TUIInterface(controller)
-
   val gridPrint = false // grid will print without placed ships
   var firstTime = true
   var shipProcess = true

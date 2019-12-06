@@ -2,7 +2,7 @@ package Battleship
 
 import Battleship.aview.GUI.Gui
 import Battleship.aview.TUI.{TUIInterface, Tui}
-import Battleship.controller.{Controller, GameState, PlayerState}
+import Battleship.controller.{CellChanged, Controller, GameState, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
 
 
@@ -13,7 +13,7 @@ object Game {
   val tui = new Tui(controller)
   val gui = new Gui(controller)
   val tuii = new TUIInterface(controller)
-  controller.notifyObservers()
+  controller.publish(new CellChanged)
 
   def main(args: Array[String]): Unit = {
 

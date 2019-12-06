@@ -120,6 +120,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
   def createShip(): Unit = {
     shipDelete = false
     ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
+    publish(new CellChanged)
   }
 
   def setShips(): Unit = {

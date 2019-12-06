@@ -2,12 +2,12 @@ package Battleship.aview.TUI
 
 import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.shipComponent.advancedShip.Ship
-import Battleship.util.Observer
 
 import scala.collection.mutable
+import scala.swing.Reactor
 
-class Tui(controller: Controller) extends Observer {
-
+class Tui(controller: Controller) extends Reactor {
+  listenTo(controller)
   var printGridOption = true
   val tui = new TUIInterface(controller)
   val gridPrint = false // grid will print without placed ships
@@ -112,9 +112,9 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
-  override def update: Boolean = {
+  def update: Boolean = {
     if (shipProcess) {
-        print(controller.gridToString(0, printGridOption))
+      print(controller.gridToString(0, printGridOption))
     }
     if (controller.playerState == PlayerState.PLAYER_ONE) {
       print(controller.gridToString(1, printGridOption))

@@ -24,7 +24,7 @@ class ControllerSpec extends WordSpec with Matchers {
           updated
         }
       }
-      controller.add(observer)
+      //controller.add(observer)
 
       "createShip" in {
         controller.shipCoordsSetting = Array(0, 0, 0, 2)

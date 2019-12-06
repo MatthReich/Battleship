@@ -3,21 +3,16 @@ package Battleship.util
 class UndoManager {
   private var undoStack: List[Command] = Nil
 
-  def setShip(command: Command): Unit = {
+  def setValue(command: Command): Unit = {
     undoStack = command :: undoStack
-    command.setShip()
+    command.setValue()
   }
 
-  def createShip(command: Command): Unit = {
-    undoStack = command :: undoStack
-    command.createShip()
-  }
-
-  def undoCreate(command: Command): Unit = {
+  def undoStep(command: Command): Unit = {
     undoStack match {
       case Nil =>
       case head :: stack => {
-        head.undoCreate()
+        head.undoStep()
         undoStack = stack
       }
     }

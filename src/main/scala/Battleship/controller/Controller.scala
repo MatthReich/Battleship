@@ -25,6 +25,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
   var shipDelete: Boolean = false
+  var lastGuess: String = ""
 
   var gameState: GameState = IDLE
   var playerState: PlayerState = PLAYER_ONE
@@ -84,55 +85,32 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
     }
   }
 
-  def checkGuess(playerInput: String, grid: Grid): PlayerState = {
-    var hit = false
-
-    Try {
-      playerInput.split("\n").map { entry =>
-        val token = entry.split(" ")
-        if (token.length == 2) {
-          val x = token(0).toInt
-          val y = token(1).toInt
-
-            grid.getValue(x, y) match {
-              case 0 => grid.setField(x, y, 3)
-              case 1 =>
-                hit = true
-                grid.setField(x, y, 2)
-              case _ =>
-            }
-          } else {
-            print("Format Error\n")
-            hit = true
-          }
-        }
-    }.getOrElse {
-      print("you have to input numbers\n")
-      hit = true
-    }
-
-    if (!hit) {
-      playerState match {
-        case PLAYER_ONE => PlayerState.PLAYER_TWO
-        case PLAYER_TWO => PlayerState.PLAYER_ONE
-      }
-    } else {
-      playerState
-    }
-  }
-
-  def createShip(): Unit = {
-    undoManager.createShip(new SetCommand(playerState, shipCoordsSetting, this))
+  def checkGuess(playerInput: String, grid: Grid): Unit = {
+    undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
     notifyObservers()
   }
 
+  def setLastGuess(string: String): Unit = {
+    lastGuess = string
+  }
+
+  def undoGuess(playerInput: String, grid: Grid): Unit = {
+    undoManager.undoStep(new ProcessCommand(lastGuess, grid, playerState, this))
+    notifyObservers()
+  }
+
+  def createShip(): Unit = {
+    shipDelete = false
+    ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
+  }
+
   def setShips(): Unit = {
-    undoManager.setShip(new SetCommand(playerState, shipCoordsSetting, this))
+    undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
     notifyObservers()
   }
 
   def deleteShip(): Unit = {
-    undoManager.undoCreate(new SetCommand(playerState, shipCoordsSetting, this))
+    undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
     notifyObservers()
   }
 

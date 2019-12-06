@@ -91,14 +91,23 @@ class Tui(controller: Controller) extends Observer {
       case "getPlayerConfig" => print(tui.printGetPlayer(controller.player_01, controller.player_02))
       case "getGameStatus" => print(controller.gameState + "\n")
       case "getPlayerStatus" => print(controller.playerState + "\n")
+      case "undo Guess" =>
+        if (controller.playerState == PlayerState.PLAYER_ONE) {
+          controller.undoGuess(input, controller.grid_player02)
+        } else {
+          controller.undoGuess(input, controller.grid_player01)
+        }
+        update
       case "admin: printGrid 1" => print(controller.grid_player01.toString(controller.player_01, true, controller.playerState))
       case "admin: printGrid 2" => print(controller.grid_player02.toString(controller.player_02, true, controller.playerState))
       case _ => // grid nur mit spiel makierungen ausgeben
         if (controller.playerState == PlayerState.PLAYER_ONE) {
-          controller.playerState = controller.checkGuess(input, controller.grid_player02)
+          controller.checkGuess(input, controller.grid_player02)
+          controller.setLastGuess(input)
         }
         else {
-          controller.playerState = controller.checkGuess(input, controller.grid_player01)
+          controller.checkGuess(input, controller.grid_player01)
+          controller.setLastGuess(input)
         }
         update
     }

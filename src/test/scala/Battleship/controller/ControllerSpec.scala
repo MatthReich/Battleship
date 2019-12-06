@@ -60,7 +60,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.checkShipSetting("0 0 0 0 0") should be (false)
         controller.checkShipSetting("0 0 0 1") should be (true)
       }
-
+/*
       "checkGuess" in {
         // no hit -> one to two
         var grid = Grid(1)
@@ -81,7 +81,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.playerState = controller.checkGuess("0 0", grid)
         controller.playerState should be (PlayerState.PLAYER_ONE)
       }
-
+*/
       "checkState" in {
         var state = GameState.message(GameState.IDLE)
         state should be("")

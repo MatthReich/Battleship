@@ -48,6 +48,7 @@ object Game {
       tui.decreaseShipNumbersToPlace(controller.ship, controller.shipSet, controller.shipDelete)
     } while ((controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3)) != 0)
 
+
     controller.playerState = PlayerState.PLAYER_ONE
     tui.printFirstTimeProcessLine()
     do {

@@ -8,7 +8,7 @@ import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.model.{Creator, Player}
 import Battleship.util.{Observable, UndoManager}
 
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
@@ -32,8 +32,26 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
   private val undoManager = new UndoManager
 
   def checkShipSetting(playerInput: String): Boolean = {
+    var functionable: Boolean = true
+    val myString = playerInput.split(" ")
 
-    Try {
+    val convertDoubles = myString.map { x =>
+      Try(x.toInt)
+    }
+
+    val convertedArray = convertDoubles.map {
+      case Success(res) => res
+      case Failure(f) => None
+    }
+
+    for (x <- convertedArray) {
+      if (x == None) {
+        functionable = false
+        print("wrong input")
+      }
+    }
+
+    if (functionable) {
       playerInput.split("\n").map { entry =>
         val input = entry.split(" ")
         if (input.length == 4) {
@@ -56,9 +74,8 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Obs
         } else {
           print("Format Error\n")
         }
+        true
       }
-    }.getOrElse {
-      print("you have to input numbers\n")
     }
     false
   }

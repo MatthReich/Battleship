@@ -5,7 +5,7 @@ import Battleship.util.Command
 
 class SetCommand(player: PlayerState, ship: Array[Int], controller: Controller) extends Command {
 
-  override def setValue(): Unit = { // player: Int -> 0 = player1, 1 = player2
+  override def setValue(): Unit = {
     controller.shipDelete = false
     if (player == PlayerState.PLAYER_ONE) {
       controller.shipSet = controller.ship.setToGrid(controller.grid_player01)

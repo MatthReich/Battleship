@@ -8,7 +8,12 @@ import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
 class FieldPanel(row: Int, column: Int, controller: Controller) extends FlowPanel {
 
   val field = new BoxPanel(Orientation.Vertical) {
-    contents += new Label(myField.toString)
+    myField match {
+      case 0 => contents += new Label("~")
+      case 1 => contents += new Label("x")
+      case 2 => contents += new Label("x")
+      case 3 => contents += new Label("0")
+    }
     border = Swing.LineBorder(java.awt.Color.BLACK, 1)
     listenTo(mouse.clicks)
     listenTo(controller)

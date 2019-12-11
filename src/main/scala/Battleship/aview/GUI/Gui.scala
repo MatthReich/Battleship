@@ -15,12 +15,25 @@ class Gui(controller: Controller) extends Frame {
   val gridSize = controller.grid_player_01.size
   var fields = Array.ofDim[FieldPanel](gridSize, gridSize)
 
-  def gridPanel = new GridPanel(gridSize, gridSize) {
+  def gridPanel = new GridPanel(gridSize + 1, gridSize) {
     border = Swing.LineBorder(java.awt.Color.BLACK, 1)
+    for {
+      row <- 0 until gridSize + 1
+    } {
+      if (row == 0) {
+        contents += new Label("")
+      } else {
+        contents += new Label("" + row)
+      }
+    }
     for {
       row <- 0 until gridSize
       column <- 0 until gridSize
     } {
+      if (column == 0) {
+        contents += new Label("A" + (row + 1))
+
+      }
       val fieldPanel = new FieldPanel(row, column, controller)
       contents += fieldPanel.field
       fields(row)(column) = fieldPanel

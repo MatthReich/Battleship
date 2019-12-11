@@ -32,6 +32,22 @@ class Gui(controller: Controller) extends Frame {
     add(gridPanel, BorderPanel.Position.Center)
   }
 
+  menuBar = new MenuBar {
+    contents += new Menu("File") {
+      contents += new MenuItem(Action("New") {
+        /*@TODO Action New*/
+      })
+      contents += new MenuItem(Action("Quit") {
+        System.exit(0)
+      })
+    }
+    contents += new Menu("Edit") {
+      contents += new MenuItem(Action("Undo") {
+        /*@TODO Action Undo*/
+      })
+    }
+  }
+
   visible = true
   //redraw
 

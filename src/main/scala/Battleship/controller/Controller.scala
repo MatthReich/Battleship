@@ -14,8 +14,8 @@ import scala.util.{Failure, Success, Try}
 
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Publisher {
 
-  val creator_01: Creator = Creator("Marcel")
-  val creator_02: Creator = Creator("Matthias")
+  val creator_01: Creator = Creator("Marcel Gaiser")
+  val creator_02: Creator = Creator("Matthias Reichenbach")
   var player_01: Player = Player("")
   var player_02: Player = Player("")
   val grid_player01: Grid = this.grid_player_01

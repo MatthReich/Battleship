@@ -5,6 +5,7 @@ import java.io.File
 
 import Battleship.controller.Controller
 import Battleship.model.Player
+
 import javax.imageio.ImageIO
 import javax.swing.JTextField
 
@@ -22,13 +23,16 @@ class startGUI(controller: Controller) extends MainFrame {
 
   val backgroundIMG = ImageIO.read(new File("src/main/scala/Battleship/aview/GUI/BattleShipPicture.jpg"))
 
+  val imageLabel = new ImagePanel {
+    imagePath(backgroundIMG)
+    preferredSize = new Dimension(dimWidth, dimHeight)
+  }
+
   val startButton = new GridBagPanel() {
     val ButtonStartGame = new Button("start game")
 
     ButtonStartGame.background = Color.BLACK
     ButtonStartGame.foreground = Color.WHITE
-    ButtonStartGame.verticalAlignment = Alignment.Center
-    ButtonStartGame.verticalTextPosition = Alignment.Bottom
 
     add(ButtonStartGame, constraintsFor(ButtonStartGame) )
 
@@ -77,6 +81,8 @@ class startGUI(controller: Controller) extends MainFrame {
   }
 
   contents = new BorderPanel {
+    iconImage = backgroundIMG
+    add(imageLabel, BorderPanel.Position.North)
     add(startButton, BorderPanel.Position.Center)
   }
   centerOnScreen()

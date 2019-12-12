@@ -16,10 +16,10 @@ import java.io.File
 
 class startGUI(controller: Controller) extends MainFrame {
 
-  val dimWidth = 800
-  val dimHeight = 600
-  // val dimWidth = 1600
-  // val dimHeight = 900
+  //val dimWidth = 800
+  // val dimHeight = 600
+   val dimWidth = 1600
+   val dimHeight = 900
   // val dimWidth = 1920
   // val dimHeight = 1080
 

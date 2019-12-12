@@ -51,7 +51,7 @@ class Gui(controller: Controller) extends Frame {
         /*@TODO Action New*/
       })
       contents += new MenuItem(Action("Quit") {
-        System.exit(0)
+        closeMe()
       })
     }
     contents += new Menu("Edit") {
@@ -76,5 +76,14 @@ class Gui(controller: Controller) extends Frame {
       fields(row)(column).redraw
     }
     repaint()
+  }
+
+  def closeMe() {
+    val res = Dialog.showConfirmation(contents.head,
+      "Do you really want to quit?",
+      optionType = Dialog.Options.YesNo,
+      title = title)
+    if (res == Dialog.Result.Ok)
+      sys.exit(0)
   }
 }

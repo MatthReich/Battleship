@@ -33,6 +33,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
   private val undoManager = new UndoManager
 
   def checkShipSetting(playerInput: String): Boolean = {
+    // @TODO look if its functionable
     var functionable: Boolean = true
     val myString = playerInput.split(" ")
 

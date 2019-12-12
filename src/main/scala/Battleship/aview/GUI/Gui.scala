@@ -12,6 +12,7 @@ class Gui(controller: Controller) extends Frame {
   listenTo(controller)
 
   title = "Battleship"
+  preferredSize = new Dimension(800, 600)
   val gridSize = controller.grid_player_01.size
   var fields = Array.ofDim[FieldPanel](gridSize, gridSize)
 
@@ -86,4 +87,7 @@ class Gui(controller: Controller) extends Frame {
     if (res == Dialog.Result.Ok)
       sys.exit(0)
   }
+
+  centerOnScreen()
+
 }

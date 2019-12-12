@@ -1,16 +1,18 @@
 package Battleship.aview.GUI
 
+
+import Battleship.controller.Controller
+import Battleship.model.Player
+
+import scala.swing._
+import scala.swing.event.ButtonClicked
+
+import javax.imageio.ImageIO
+import javax.swing.JTextField
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File
 
-import Battleship.controller.Controller
-import Battleship.model.Player
-import javax.imageio.ImageIO
-import javax.swing.JTextField
-
-import scala.swing._
-import scala.swing.event.ButtonClicked
 
 class startGUI(controller: Controller) extends MainFrame {
 

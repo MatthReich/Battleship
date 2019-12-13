@@ -32,12 +32,5 @@ class FieldPanel(row: Int, column: Int, controller: Controller) extends FlowPane
       }
     }
   }
-
-  def redraw = {
-    contents.clear()
-    contents += new Label(myField.toString)
-    repaint
-  }
-
   def myField: Int = controller.grid_player_01.getValue(row, column)
 }

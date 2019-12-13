@@ -40,8 +40,9 @@ class Gui(controller: Controller) extends Frame {
     }
   }
 
-  contents = new BorderPanel {
-    add(gridPanel, BorderPanel.Position.Center)
+  contents = new GridPanel(1, 2) {
+    contents += gridPanel
+    contents += gridPanel
   }
 
   menuBar = new MenuBar {
@@ -68,8 +69,9 @@ class Gui(controller: Controller) extends Frame {
   }
 
   def redraw = {
-    contents = new BorderPanel {
-      add(gridPanel, BorderPanel.Position.Center)
+    contents = new GridPanel(1, 2) {
+      contents += gridPanel
+      contents += gridPanel
     }
   }
 

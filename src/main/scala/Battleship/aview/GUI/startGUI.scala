@@ -17,6 +17,8 @@ import scala.swing.event.ButtonClicked
 
 class startGUI(controller: Controller) extends MainFrame {
 
+  listenTo(controller)
+
   //val dimWidth = 800
   // val dimHeight = 600
   val dimWidth = 1600

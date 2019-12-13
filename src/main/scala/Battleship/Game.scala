@@ -21,29 +21,7 @@ object Game {
     var input: String = ""
 
     tuii.printWelcomeX()
-/*
 
-without print functionable
-    print(tuii.printSetPlayer(1))
-    print(tuii.printSetPlayer(2))
-
-    tuii.playerConfiguration()
-
-    do {
-
-      tui.printGrid(0)
-      tui.printShipSetSettings(controller.nr)
-
-    }
-
-    controller.playerState = PlayerState.PLAYER_TWO
-    do {
-      tui.printGrid(1)
-      tui.printShipSetSettings(controller.nr2)
-    }
-
-    tui.printFirstTimeProcessLine()
-*/
     do {
 
       controller.gameState match {
@@ -54,9 +32,20 @@ without print functionable
           }
         }
         case GameState.SHIPSETTING => {
-
+          controller.playerState match {
+            case PlayerState.PLAYER_ONE => {
+              tui.printGrid(0)
+              tui.printShipSetSettings(controller.nr)
+            }
+            case PlayerState.PLAYER_TWO => {
+              tui.printGrid(1)
+              tui.printShipSetSettings(controller.nr2)
+            }
+          }
         }
-        case GameState.IDLE => {}
+        case GameState.IDLE => {
+          tui.printFirstTimeProcessLine()
+        }
         case GameState.SOLVED => {}
       }
 

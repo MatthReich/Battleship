@@ -93,29 +93,45 @@ class Tui(controller: Controller) extends Reactor {
   def processLine(input: String): Unit = {
 
     input match {
-      case "q" => // exit game
+      case "q" => System.exit(0)
       case "getPlayerConfig" => print(tui.printGetPlayer(controller.player_01, controller.player_02))
       case "getGameStatus" => print(controller.gameState + "\n")
       case "getPlayerStatus" => print(controller.playerState + "\n")
-      case "undo Guess" =>
-        if (controller.playerState == PlayerState.PLAYER_ONE) {
-          controller.undoGuess(input, controller.grid_player02)
-        } else {
-          controller.undoGuess(input, controller.grid_player01)
-        }
-        update
       case "admin: printGrid 1" => print(controller.grid_player01.toString(controller.player_01, true, controller.playerState))
       case "admin: printGrid 2" => print(controller.grid_player02.toString(controller.player_02, true, controller.playerState))
-      case _ => // grid nur mit spiel makierungen ausgeben
-        if (controller.playerState == PlayerState.PLAYER_ONE) {
-          controller.checkGuess(input, controller.grid_player02)
-          controller.setLastGuess(input)
+      case _ => {
+        controller.gameState match {
+          case GameState.PLAYERSETTING => {
+            controller.setPlayers(input)
+          }
+          case GameState.SHIPSETTING => {
+            controller.shipSet = false
+            shipProcessLong(input)
+            decreaseShipNumbersToPlace(controller.ship, controller.shipSet, controller.shipDelete)
+          }
+          case GameState.IDLE => input match {
+
+            case "undo Guess" =>
+              if (controller.playerState == PlayerState.PLAYER_ONE) {
+                controller.undoGuess(input, controller.grid_player02)
+              } else {
+                controller.undoGuess(input, controller.grid_player01)
+              }
+              update
+            case _ => // grid nur mit spiel makierungen ausgeben
+              if (controller.playerState == PlayerState.PLAYER_ONE) {
+                controller.checkGuess(input, controller.grid_player02)
+                controller.setLastGuess(input)
+              }
+              else {
+                controller.checkGuess(input, controller.grid_player01)
+                controller.setLastGuess(input)
+              }
+              update
+          }
+          case GameState.SOLVED => System.exit(0)
         }
-        else {
-          controller.checkGuess(input, controller.grid_player01)
-          controller.setLastGuess(input)
-        }
-        update
+      }
     }
   }
 

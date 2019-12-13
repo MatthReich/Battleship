@@ -15,19 +15,41 @@ class Gui(controller: Controller) extends Frame {
   val gridSize = controller.grid_player_01.size
 
   def redraw = {
-    contents = new GridPanel(1, 2) {
-      you = true
-      contents += gridPanel
-      you = false
-      contents += gridPanel
+    contents = new BorderPanel {
+      add(playGrid, BorderPanel.Position.Center)
+      add(textGrid, BorderPanel.Position.North)
     }
   }
 
-  contents = new GridPanel(1, 2) {
+  def playGrid = new GridPanel(1, 2) {
     you = true
     contents += gridPanel
     you = false
     contents += gridPanel
+  }
+
+  def gridPanel = new GridPanel(gridSize + 1, gridSize) {
+    border = Swing.LineBorder(java.awt.Color.BLACK, 1)
+    for {
+      row <- 0 until gridSize
+    } {
+      if (row == 0) {
+        contents += new Label("")
+      }
+        contents += new Label("" + row)
+    }
+    for {
+      row <- 0 until gridSize
+      column <- 0 until gridSize
+    } {
+      if (column == 0) {
+        contents += new Label("A" + (row))
+
+      }
+      val fieldPanel = new FieldPanel(you, column, row, controller)
+      contents += fieldPanel.field
+      listenTo(fieldPanel)
+    }
   }
 
   menuBar = new MenuBar {
@@ -53,29 +75,9 @@ class Gui(controller: Controller) extends Frame {
     case event: CellChanged => redraw
   }
 
-  def gridPanel = new GridPanel(gridSize + 1, gridSize) {
-    border = Swing.LineBorder(java.awt.Color.BLACK, 1)
-    for {
-      row <- 0 until gridSize + 1
-    } {
-      if (row == 0) {
-        contents += new Label("")
-      } else {
-        contents += new Label("" + row)
-      }
-    }
-    for {
-      row <- 0 until gridSize
-      column <- 0 until gridSize
-    } {
-      if (column == 0) {
-        contents += new Label("A" + (row + 1))
-
-      }
-      val fieldPanel = new FieldPanel(you, column, row, controller)
-      contents += fieldPanel.field
-      listenTo(fieldPanel)
-    }
+  def textGrid = new GridPanel(1, 2) {
+    contents += new TextArea("You")
+    contents += new TextArea("Enemy")
   }
 
   def closeMe() {

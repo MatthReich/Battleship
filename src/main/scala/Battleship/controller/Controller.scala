@@ -168,9 +168,10 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
     }
     if (playerState == PLAYER_ONE) {
       player_01 = player
-      publish(new PlayerChanged)
+      playerState = PLAYER_TWO
     } else if (playerState == PLAYER_TWO) {
       player_02 = player
+      playerState = PLAYER_ONE
       publish(new PlayerChanged)
     }
   }

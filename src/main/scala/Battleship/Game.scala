@@ -13,8 +13,6 @@ object Game {
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)
   val gui = new startGUI(controller)
-  controller.publish(new CellChanged)
-  controller.publish(new PlayerChanged)
 
   def main(args: Array[String]): Unit = {
 

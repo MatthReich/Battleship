@@ -4,9 +4,6 @@ import Battleship.aview.GUI.panel.FieldPanel
 import Battleship.controller.{CellChanged, Controller}
 
 import scala.swing._
-import scala.swing.event._
-
-class CellClicked(val row: Int, val column: Int) extends Event
 
 class Gui(controller: Controller) extends Frame {
 

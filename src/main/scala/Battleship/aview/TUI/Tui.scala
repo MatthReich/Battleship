@@ -1,6 +1,6 @@
 package Battleship.aview.TUI
 
-import Battleship.controller.{Controller, GameState, PlayerState}
+import Battleship.controller._
 import Battleship.model.shipComponent.advancedShip.Ship
 
 import scala.collection.mutable
@@ -9,6 +9,11 @@ import scala.swing.Reactor
 class Tui(controller: Controller) extends Reactor {
 
   listenTo(controller)
+
+  reactions += {
+    case event: CellChanged =>
+    case event: PlayerChanged =>
+  }
 
   var printGridOption = true
   val tui = new TUIInterface(controller)

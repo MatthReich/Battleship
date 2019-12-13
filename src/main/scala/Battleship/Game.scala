@@ -58,6 +58,7 @@ object Game {
     controller.gameState == GameState.IDLE
     controller.playerState = PlayerState.PLAYER_ONE
     tui.printFirstTimeProcessLine()
+
     do {
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)

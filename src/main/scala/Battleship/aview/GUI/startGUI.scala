@@ -72,7 +72,7 @@ class startGUI(controller: Controller) extends MainFrame {
     if (res == Dialog.Result.Ok) {
       // controller.fieldsize = sizeOfField @TODO import somehow customization of field
       controller.setPlayers(player_one.getText())
-      controller.setPlayers(player_two.toString)
+      controller.setPlayers(player_two.getText())
       controller.gameState = GameState.SHIPSETTING
     }
     res

@@ -1,5 +1,7 @@
 package Battleship.aview.GUI
 
+import java.awt.Color
+
 import Battleship.controller.{CellChanged, Controller}
 
 import scala.swing.event.MouseClicked
@@ -9,10 +11,14 @@ class FieldPanel(row: Int, column: Int, controller: Controller) extends FlowPane
 
   val field = new BoxPanel(Orientation.Vertical) {
     myField match {
-      case 0 => contents += new Label("~")
-      case 1 => contents += new Label("x")
-      case 2 => contents += new Label("x")
-      case 3 => contents += new Label("0")
+      case 0 => background = Color.BLUE
+        contents += new Label("~")
+      case 1 => background = Color.GREEN
+        contents += new Label("x")
+      case 2 => background = Color.RED
+        contents += new Label("x")
+      case 3 => background = Color.BLUE
+        contents += new Label("0")
     }
     border = Swing.LineBorder(java.awt.Color.BLACK, 1)
     listenTo(mouse.clicks)

@@ -63,7 +63,7 @@ class Gui(controller: Controller) extends Frame {
   }
 
   visible = true
-  //redraw
+  redraw
 
   reactions += {
     case event: CellChanged => redraw

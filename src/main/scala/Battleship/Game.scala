@@ -46,6 +46,19 @@ without print functionable
 */
     do {
 
+      controller.gameState match {
+        case GameState.PLAYERSETTING => {
+          controller.playerState match {
+            case PlayerState.PLAYER_ONE => print(tuii.printSetPlayer(1))
+            case PlayerState.PLAYER_TWO => print(tuii.printSetPlayer(2))
+          }
+        }
+        case GameState.SHIPSETTING => {
+
+        }
+        case GameState.IDLE => {}
+        case GameState.SOLVED => {}
+      }
 
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)

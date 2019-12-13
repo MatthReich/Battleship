@@ -7,7 +7,9 @@ import scala.collection.mutable
 import scala.swing.Reactor
 
 class Tui(controller: Controller) extends Reactor {
+
   listenTo(controller)
+
   var printGridOption = true
   val tui = new TUIInterface(controller)
   val gridPrint = false // grid will print without placed ships

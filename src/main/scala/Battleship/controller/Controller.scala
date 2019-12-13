@@ -28,7 +28,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
   var shipDelete: Boolean = false
   var lastGuess: String = ""
 
-  var gameState: GameState = IDLE
+  var gameState: GameState = PLAYERSETTING
   var playerState: PlayerState = PLAYER_ONE
   private val undoManager = new UndoManager
 
@@ -152,6 +152,26 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
         } else {
           grid_player02.toString(player_02, boolean, playerState)
         }
+    }
+  }
+
+  def setPlayers(input: String): Unit = {
+    var player: Player = Player(" ")
+    if (input != "") {
+      player = Player(input)
+    } else {
+      if (playerState == PLAYER_ONE) {
+        player = Player("player_0" + 1)
+      } else if (playerState == PLAYER_TWO) {
+        player = Player("player_0" + 2)
+      }
+    }
+    if (playerState == PLAYER_ONE) {
+      player_01 = player
+      publish(new PlayerChanged)
+    } else if (playerState == PLAYER_TWO) {
+      player_02 = player
+      publish(new PlayerChanged)
     }
   }
 

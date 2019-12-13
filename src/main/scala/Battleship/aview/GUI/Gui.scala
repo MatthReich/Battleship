@@ -14,7 +14,6 @@ class Gui(controller: Controller) extends Frame {
   title = "Battleship"
   preferredSize = new Dimension(800, 600)
   val gridSize = controller.grid_player_01.size
-  var fields = Array.ofDim[FieldPanel](gridSize, gridSize)
 
   def gridPanel = new GridPanel(gridSize + 1, gridSize) {
     border = Swing.LineBorder(java.awt.Color.BLACK, 1)
@@ -35,9 +34,8 @@ class Gui(controller: Controller) extends Frame {
         contents += new Label("A" + (row + 1))
 
       }
-      val fieldPanel = new FieldPanel(row, column, controller)
+      val fieldPanel = new FieldPanel(column, row, controller)
       contents += fieldPanel.field
-      fields(row)(column) = fieldPanel
       listenTo(fieldPanel)
     }
   }

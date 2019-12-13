@@ -7,7 +7,7 @@ import Battleship.controller.{CellChanged, Controller}
 import scala.swing.event.MouseClicked
 import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
 
-class FieldPanel(row: Int, column: Int, controller: Controller) extends FlowPanel {
+class FieldPanel(column: Int, row: Int, controller: Controller) extends FlowPanel {
 
   val field = new BoxPanel(Orientation.Vertical) {
     myField match {
@@ -32,5 +32,6 @@ class FieldPanel(row: Int, column: Int, controller: Controller) extends FlowPane
       }
     }
   }
-  def myField: Int = controller.grid_player_01.getValue(row, column)
+
+  def myField: Int = controller.grid_player_01.getValue(column, row)
 }

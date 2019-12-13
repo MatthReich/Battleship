@@ -6,15 +6,15 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import Battleship.aview.GUI.panel.ImagePanel
-import Battleship.controller.{Controller, GameState}
+import Battleship.controller.{Controller, GameState, PlayerChanged}
 import javax.imageio.ImageIO
 import javax.swing.JTextField
 
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
-
 class startGUI(controller: Controller) extends MainFrame {
+  listenTo(controller)
 
   //val dimWidth = 800
   // val dimHeight = 600
@@ -33,6 +33,15 @@ class startGUI(controller: Controller) extends MainFrame {
   val imageLabel: ImagePanel = new ImagePanel {
     imagePath(backgroundIMG)
     preferredSize = new Dimension(dimWidth, dimHeight)
+  }
+
+  reactions += {
+    case event: PlayerChanged =>
+      if (visible == true) {
+        val gui = new Gui(controller)
+        gui.visible = true
+        startGUI.this.visible = false
+      }
   }
 
   val startButton: Panel = new FlowPanel {

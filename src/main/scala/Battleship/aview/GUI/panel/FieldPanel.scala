@@ -1,4 +1,4 @@
-package Battleship.aview.GUI
+package Battleship.aview.GUI.panel
 
 import Battleship.controller.{CellChanged, Controller}
 

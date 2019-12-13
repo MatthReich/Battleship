@@ -1,5 +1,6 @@
 package Battleship.aview.GUI
 
+import Battleship.aview.GUI.panel.FieldPanel
 import Battleship.controller.{CellChanged, Controller}
 
 import scala.swing._

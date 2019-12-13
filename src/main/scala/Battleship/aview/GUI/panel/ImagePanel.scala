@@ -1,13 +1,13 @@
-package Battleship.aview.GUI
+package Battleship.aview.GUI.panel
 
 import java.awt.image.BufferedImage
+
 import scala.swing._
 
 class ImagePanel extends Panel {
-  private var bufferedImage:BufferedImage = null
+  private var bufferedImage: BufferedImage = null
 
-  def imagePath(bufferedImageInsert: BufferedImage)
-  {
+  def imagePath(bufferedImageInsert: BufferedImage) {
     bufferedImage = bufferedImageInsert
   }
 

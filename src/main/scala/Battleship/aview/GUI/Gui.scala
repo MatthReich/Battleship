@@ -71,13 +71,9 @@ class Gui(controller: Controller) extends Frame {
   }
 
   def redraw = {
-    for {
-      row <- 0 until gridSize
-      column <- 0 until gridSize
-    } {
-      fields(row)(column).redraw
+    contents = new BorderPanel {
+      add(gridPanel, BorderPanel.Position.Center)
     }
-    repaint()
   }
 
   def closeMe() {

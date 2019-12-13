@@ -60,10 +60,6 @@ class startGUI(controller: Controller) extends MainFrame {
 
         if (b == ButtonStartGame) {
           if (chooseStart() == Dialog.Result.Ok) {
-
-            val gui = new Gui(controller)
-            gui.visible = true
-            startGUI.this.visible = false
           }
         }
     }

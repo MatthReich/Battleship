@@ -2,8 +2,8 @@ package Battleship.model.gridComponent.advancedGrid
 
 import Battleship.controller.PlayerState
 import Battleship.controller.PlayerState.PlayerState
+import Battleship.model.Player
 import Battleship.model.gridComponent.InterfaceGrid
-import Battleship.model.{Player}
 
 import scala.collection.mutable
 
@@ -27,7 +27,11 @@ case class Grid(size: Int) extends InterfaceGrid {
   }
 
   override def getField(x: Int, y: Int): Int = {
-    matrix(x)(y)
+    var tmp = matrix(x)(y)
+    if (tmp == 1) {
+      tmp = 0
+    }
+    tmp
   }
 
   override def getValue(x: Int, y:Int): Int = {

@@ -17,7 +17,7 @@ class FieldPanel(column: Int, row: Int, controller: Controller) extends FlowPane
         contents += new Label("x")
       case 2 => background = Color.RED
         contents += new Label("x")
-      case 3 => background = Color.BLUE
+      case 3 => background = new Color(148, 197, 229)
         contents += new Label("0")
     }
     border = Swing.LineBorder(java.awt.Color.BLACK, 1)

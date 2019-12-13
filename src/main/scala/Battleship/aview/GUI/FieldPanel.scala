@@ -2,7 +2,7 @@ package Battleship.aview.GUI
 
 import java.awt.Color
 
-import Battleship.controller.{CellChanged, Controller}
+import Battleship.controller.{CellChanged, Controller, PlayerState}
 
 import scala.swing.event.MouseClicked
 import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
@@ -33,5 +33,11 @@ class FieldPanel(column: Int, row: Int, controller: Controller) extends FlowPane
     }
   }
 
-  def myField: Int = controller.grid_player_01.getValue(column, row)
+  def myField: Int = {
+    if (controller.playerState == PlayerState.PLAYER_ONE) {
+      controller.grid_player_01.getValue(column, row)
+    } else {
+      controller.grid_player02.getValue(column, row)
+    }
+  }
 }

@@ -60,7 +60,7 @@ case class Grid(size: Int) extends InterfaceGrid {
       var idx = 0
       stringOfGrid ++= "A" + idy + " "
       while (idx < this.size) {
-        val tmp = this.getField(idx, idy)
+        val tmp = this.getValue(idx, idy)
         tmp match {
           case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
           case 1 =>

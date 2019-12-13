@@ -92,6 +92,7 @@ class startGUI(controller: Controller) extends MainFrame {
     add(imageLabel, BorderPanel.Position.Center)
     add(startButton, BorderPanel.Position.South)
   }
+
   centerOnScreen()
 
 }

@@ -21,18 +21,14 @@ object Game {
     var input: String = ""
 
     tuii.printWelcomeX()
+/*
 
+without print functionable
     print(tuii.printSetPlayer(1))
-    input = scala.io.StdIn.readLine().toString
-    controller.setPlayers(input)
-
     print(tuii.printSetPlayer(2))
-    input = scala.io.StdIn.readLine().toString
-    controller.setPlayers(input)
-
 
     tuii.playerConfiguration()
-    controller.gameState = GameState.SHIPSETTING
+
 
     do {
       controller.shipSet = false
@@ -56,10 +52,19 @@ object Game {
     controller.gameState == GameState.IDLE
     controller.playerState = PlayerState.PLAYER_ONE
     tui.printFirstTimeProcessLine()
-
+*/
     do {
+
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)
+
+      if ((controller.nr(0) + controller.nr(1) + controller.nr(2) + controller.nr(3)) == 0) {
+        controller.playerState = PlayerState.PLAYER_TWO
+      }
+      if (controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3) == 0) {
+        controller.playerState = PlayerState.PLAYER_ONE
+        controller.gameState = GameState.IDLE
+      }
       if (controller.gameState == GameState.SOLVED) input = "q"
     } while (input != "q")
 

@@ -172,6 +172,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
     } else if (playerState == PLAYER_TWO) {
       player_02 = player
       playerState = PLAYER_ONE
+      gameState = SHIPSETTING
       publish(new PlayerChanged)
     }
   }

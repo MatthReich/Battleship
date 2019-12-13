@@ -24,12 +24,12 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       "playerConfiguration" in {
         interface.playerConfiguration()
       }
-
+/*
       "setPlayers" in {
         interface.setPlayers("name", 1)
         interface.setPlayers("", 2)
       }
-
+*/
       "printWelcomeX" in {
         interface.printWelcomeX()
       }

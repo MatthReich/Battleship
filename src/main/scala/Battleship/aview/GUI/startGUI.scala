@@ -1,25 +1,25 @@
 package Battleship.aview.GUI
 
 
-import Battleship.controller.Controller
-import Battleship.model.Player
-
-import scala.swing._
-import scala.swing.event.ButtonClicked
-
-import javax.imageio.ImageIO
-import javax.swing.JTextField
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File
+
+import Battleship.aview.GUI.panel.ImagePanel
+import Battleship.controller.{Controller, GameState}
+import javax.imageio.ImageIO
+import javax.swing.JTextField
+
+import scala.swing._
+import scala.swing.event.ButtonClicked
 
 
 class startGUI(controller: Controller) extends MainFrame {
 
   //val dimWidth = 800
   // val dimHeight = 600
-   val dimWidth = 1600
-   val dimHeight = 900
+  val dimWidth = 1600
+  val dimHeight = 900
   // val dimWidth = 1920
   // val dimHeight = 1080
 
@@ -28,7 +28,7 @@ class startGUI(controller: Controller) extends MainFrame {
   preferredSize = new Dimension(dimWidth, dimHeight) // maybe fullscreen setting / 1600 * 900 / 800 * 600
 
   val backgroundIMG: BufferedImage =
-    ImageIO.read(new File("src/main/scala/Battleship/aview/GUI/BattleShipPicture.jpg"))
+    ImageIO.read(new File("src/main/scala/Battleship/aview/GUI/media/BattleShipPicture.jpg"))
 
   val imageLabel: ImagePanel = new ImagePanel {
     imagePath(backgroundIMG)
@@ -51,7 +51,7 @@ class startGUI(controller: Controller) extends MainFrame {
 
         if (b == ButtonStartGame) {
           if (chooseStart() == Dialog.Result.Ok) {
-            print(controller.player_01)
+
             val gui = new Gui(controller)
             gui.visible = true
             startGUI.this.visible = false
@@ -71,8 +71,9 @@ class startGUI(controller: Controller) extends MainFrame {
       title = title)
     if (res == Dialog.Result.Ok) {
       // controller.fieldsize = sizeOfField @TODO import somehow customization of field
-      controller.player_01 = Player(player_one.getText())
-      controller.player_02 = Player(player_two.getText())
+      controller.setPlayers(player_one.getText())
+      controller.setPlayers(player_two.toString)
+      controller.gameState = GameState.SHIPSETTING
     }
     res
   }

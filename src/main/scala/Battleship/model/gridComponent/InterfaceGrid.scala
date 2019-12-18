@@ -1,7 +1,7 @@
 package Battleship.model.gridComponent
 
 import Battleship.controller.PlayerState.PlayerState
-import Battleship.model.Player
+import Battleship.model.Person.Player
 
 trait InterfaceGrid {
 

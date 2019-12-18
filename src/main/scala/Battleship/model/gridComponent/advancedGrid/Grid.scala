@@ -2,7 +2,7 @@ package Battleship.model.gridComponent.advancedGrid
 
 import Battleship.controller.PlayerState
 import Battleship.controller.PlayerState.PlayerState
-import Battleship.model.Player
+import Battleship.model.Person.Player
 import Battleship.model.gridComponent.InterfaceGrid
 
 import scala.collection.mutable

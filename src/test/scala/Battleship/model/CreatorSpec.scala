@@ -1,5 +1,6 @@
 package Battleship.model
 
+import Battleship.model.Person.Creator
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}

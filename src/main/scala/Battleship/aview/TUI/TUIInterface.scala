@@ -1,7 +1,7 @@
 package Battleship.aview.TUI
 
 import Battleship.controller.Controller
-import Battleship.model.{Creator, Player}
+import Battleship.model.Person.{Creator, Player}
 
 import scala.collection.mutable
 import scala.swing.Reactor

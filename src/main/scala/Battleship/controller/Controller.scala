@@ -2,10 +2,10 @@ package Battleship.controller
 
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
+import Battleship.model.Person.{Creator, Player}
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
-import Battleship.model.{Creator, Player}
 import Battleship.util.UndoManager
 
 import scala.swing.Publisher

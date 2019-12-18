@@ -9,18 +9,15 @@ import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.UndoManager
 
-import scala.swing.Publisher
 import scala.util.{Failure, Success, Try}
 
 
-class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: InterfaceGrid) extends Publisher {
+class Controller(val grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid) extends InterfaceController {
 
   val creator_02: InterfacePerson = Creator("Matthias Reichenbach")
   var creator_01: InterfacePerson = Creator("Marcel Gaiser")
   var player_01: InterfacePerson = Player("")
   var player_02: InterfacePerson = Player("")
-  val grid_player01: InterfaceGrid = this.grid_player_01
-  val grid_player02: InterfaceGrid = this.grid_player_02
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
   var ship: InterfaceShip = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
@@ -33,7 +30,7 @@ class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: Interfac
   var playerState: PlayerState = PLAYER_ONE
   private val undoManager = new UndoManager
 
-  def checkShipSetting(playerInput: String): Boolean = {
+  override def checkShipSetting(playerInput: String): Boolean = {
     // @TODO look if its functionable
     var functionable: Boolean = true
     val myString = playerInput.split(" ")
@@ -105,41 +102,41 @@ class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: Interfac
     }
   }
 
-  def checkGuess(playerInput: String, grid: InterfaceGrid): Unit = {
+  override def checkGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
     publish(new CellChanged)
   }
 
-  def setLastGuess(string: String): Unit = {
+  override def setLastGuess(string: String): Unit = {
     lastGuess = string
   }
 
-  def undoGuess(playerInput: String, grid: InterfaceGrid): Unit = {
+  override def undoGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.undoStep(new ProcessCommand(lastGuess, grid, playerState, this))
     publish(new CellChanged)
   }
 
-  def createShip(): Unit = {
+  override def createShip(): Unit = {
     shipDelete = false
     ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
     publish(new CellChanged)
   }
 
-  def setShips(): Unit = {
+  override def setShips(): Unit = {
     undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
     publish(new CellChanged)
   }
 
-  def deleteShip(): Unit = {
+  override def deleteShip(): Unit = {
     undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
     publish(new CellChanged)
   }
 
-  def shipToString(ship: InterfaceShip): String = {
+  override def shipToString(ship: InterfaceShip): String = {
     ship.toString
   }
 
-  def gridToString(int: Int, boolean: Boolean): String = {
+  override def gridToString(int: Int, boolean: Boolean): String = {
     int match {
       case 0 =>
         if (boolean) {
@@ -156,7 +153,7 @@ class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: Interfac
     }
   }
 
-  def setPlayers(input: String): Unit = {
+  override def setPlayers(input: String): Unit = {
     var player: Player = Player(" ")
     if (input != "") {
       player = Player(input)
@@ -178,4 +175,29 @@ class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: Interfac
     }
   }
 
+  override def getGridPlayer1: InterfaceGrid = grid_player01
+
+  override def getGridPlayer2: InterfaceGrid = grid_player02
+
+  override def getPlayerState: PlayerState = playerState
+
+  override def getCreator1: InterfacePerson = creator_01
+
+  override def getCreator2: InterfacePerson = creator_02
+
+  override def getPlayer1: InterfacePerson = ???
+
+  override def getPlayer2: InterfacePerson = ???
+
+  override def getGameState: GameState = ???
+
+  override def setGameState(gameState: GameState): Unit = this.gameState = gameState
+
+  override def shipSet(boolean: Boolean): Unit = ???
+
+  override def getShipSet: Boolean = ???
+
+  override def getShip: InterfaceShip = ???
+
+  override def getShipDelete: Boolean = ???
 }

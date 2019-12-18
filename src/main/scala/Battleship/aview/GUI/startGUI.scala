@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import Battleship.aview.GUI.panel.ImagePanel
-import Battleship.controller.{Controller, GameState, PlayerChanged}
+import Battleship.controller.{GameState, InterfaceController, PlayerChanged}
 import javax.imageio.ImageIO
 import javax.swing.JTextField
 
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
-class startGUI(controller: Controller) extends MainFrame {
+class startGUI(controller: InterfaceController) extends MainFrame {
   listenTo(controller)
 
   //val dimWidth = 800
@@ -78,17 +78,17 @@ class startGUI(controller: Controller) extends MainFrame {
       // controller.fieldsize = sizeOfField @TODO import somehow customization of field
       controller.setPlayers(player_one.getText())
       controller.setPlayers(player_two.getText())
-      controller.gameState = GameState.SHIPSETTING
+      controller.setGameState(GameState.SHIPSETTING)
     }
     res
   }
 
   menuBar = new MenuBar {
     contents += new Menu("Creators") {
-      contents += new MenuItem(scala.swing.Action(controller.creator_01.toString) {
+      contents += new MenuItem(scala.swing.Action(controller.getCreator1.toString) {
       })
       contents += new Separator()
-      contents += new MenuItem(scala.swing.Action(controller.creator_02.toString) {
+      contents += new MenuItem(scala.swing.Action(controller.getCreator2.toString) {
       })
     }
   }

@@ -1,22 +1,22 @@
 package Battleship.aview.TUI
 
-import Battleship.controller.Controller
+import Battleship.controller.InterfaceController
 import Battleship.model.Person.InterfacePerson
 
 import scala.collection.mutable
 import scala.swing.Reactor
 
 
-class TUIInterface(controller: Controller) extends Reactor {
+class TUIInterface(controller: InterfaceController) extends Reactor {
 
   listenTo(controller)
 
   def printWelcomeX(): Unit = {
-    print(printWelcome(controller.creator_01, controller.creator_02))
+    print(printWelcome(controller.getCreator1, controller.getCreator2))
   }
 
   def playerConfiguration(): Unit = {
-    print(printGetPlayer(controller.player_01, controller.player_02))
+    print(printGetPlayer(controller.getPlayer1, controller.getPlayer2))
   }
 
   def printWelcome(creator_01: InterfacePerson, creator_02: InterfacePerson): String = {

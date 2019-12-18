@@ -1,18 +1,18 @@
 package Battleship.aview.GUI
 
 import Battleship.aview.GUI.panel.FieldPanel
-import Battleship.controller.{CellChanged, Controller}
+import Battleship.controller.{CellChanged, InterfaceController}
 
 import scala.swing._
 
-class Gui(controller: Controller) extends Frame {
+class Gui(controller: InterfaceController) extends Frame {
 
   listenTo(controller)
 
   var you: Boolean = true
   title = "Battleship"
   preferredSize = new Dimension(800, 600)
-  val gridSize = controller.grid_player_01.getSize
+  val gridSize = controller.getGridPlayer1.getSize
 
   def redraw = {
     contents = new BorderPanel {

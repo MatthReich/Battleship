@@ -4,6 +4,7 @@ import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
 import Battleship.model.Person.{Creator, InterfacePerson, Player}
 import Battleship.model.gridComponent.InterfaceGrid
+import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.UndoManager
@@ -22,7 +23,7 @@ class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: Interfac
   val grid_player02: InterfaceGrid = this.grid_player_02
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
-  var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
+  var ship: InterfaceShip = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
   var shipDelete: Boolean = false
@@ -134,7 +135,7 @@ class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: Interfac
     publish(new CellChanged)
   }
 
-  def shipToString(ship: Ship): String = {
+  def shipToString(ship: InterfaceShip): String = {
     ship.toString
   }
 

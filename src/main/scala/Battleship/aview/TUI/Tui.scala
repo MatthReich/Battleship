@@ -1,7 +1,7 @@
 package Battleship.aview.TUI
 
 import Battleship.controller._
-import Battleship.model.shipComponent.advancedShip.Ship
+import Battleship.model.shipComponent.InterfaceShip
 
 import scala.collection.mutable
 import scala.swing.Reactor
@@ -58,7 +58,7 @@ class Tui(controller: Controller) extends Reactor {
     update
   }
 
-  def decreaseShipNumbersToPlace(ship: Ship, boolean: Boolean, increase: Boolean): Unit = {
+  def decreaseShipNumbersToPlace(ship: InterfaceShip, boolean: Boolean, increase: Boolean): Unit = {
     if (boolean || increase) {
       val shipSize: Int = ship.getSize
       var x: Int = -1

@@ -2,7 +2,7 @@ package Battleship.controller
 
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
-import Battleship.model.Person.{InterfacePerson, Player}
+import Battleship.model.Person.{Creator, InterfacePerson, Player}
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
@@ -14,8 +14,8 @@ import scala.util.{Failure, Success, Try}
 
 class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Publisher {
 
-  val creator_02: InterfacePerson = creator_02.newCreator("Matthias Reichenbach")
-  var creator_01: InterfacePerson = creator_01.newCreator("Marcel Gaiser")
+  val creator_02: InterfacePerson = Creator("Matthias Reichenbach")
+  var creator_01: InterfacePerson = Creator("Marcel Gaiser")
   var player_01: InterfacePerson = Player("")
   var player_02: InterfacePerson = Player("")
   val grid_player01: Grid = this.grid_player_01
@@ -156,7 +156,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
   }
 
   def setPlayers(input: String): Unit = {
-    var player: InterfacePerson = Player(" ")
+    var player: Player = Player(" ")
     if (input != "") {
       player = Player(input)
     } else {

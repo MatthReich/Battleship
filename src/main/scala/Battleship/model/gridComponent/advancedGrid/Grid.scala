@@ -2,7 +2,7 @@ package Battleship.model.gridComponent.advancedGrid
 
 import Battleship.controller.PlayerState
 import Battleship.controller.PlayerState.PlayerState
-import Battleship.model.Person.Player
+import Battleship.model.Person.InterfacePerson
 import Battleship.model.gridComponent.InterfaceGrid
 
 import scala.collection.mutable
@@ -38,14 +38,14 @@ case class Grid(size: Int) extends InterfaceGrid {
     matrix(x)(y)
   }
 
-  override def toString(player: Player, sortOfPrint: Boolean, playerStatus: PlayerState): String = { //sortOfPrint true = with setted ships
+  override def toString(player: InterfacePerson, sortOfPrint: Boolean, playerStatus: PlayerState): String = { //sortOfPrint true = with setted ships
     val stringOfGrid = new mutable.StringBuilder("") // false = without setted ships
 
     playerStatus match {
       case PlayerState.PLAYER_ONE =>
-        stringOfGrid ++= ("Field of: " + Console.GREEN + player.name + Console.RESET + "\n")
+        stringOfGrid ++= ("Field of: " + Console.GREEN + player.toString + Console.RESET + "\n")
       case _ =>
-        stringOfGrid ++= ("Field of: " + Console.CYAN + player.name + Console.RESET + "\n")
+        stringOfGrid ++= ("Field of: " + Console.CYAN + player.toString + Console.RESET + "\n")
     }
 
     stringOfGrid ++= "   "

@@ -1,7 +1,7 @@
 package Battleship.aview.TUI
 
 import Battleship.controller.Controller
-import Battleship.model.Person.{Creator, Player}
+import Battleship.model.Person.InterfacePerson
 
 import scala.collection.mutable
 import scala.swing.Reactor
@@ -19,7 +19,7 @@ class TUIInterface(controller: Controller) extends Reactor {
     print(printGetPlayer(controller.player_01, controller.player_02))
   }
 
-  def printWelcome(creator_01: Creator, creator_02: Creator): String = {
+  def printWelcome(creator_01: InterfacePerson, creator_02: InterfacePerson): String = {
     val stringPrint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
     val sSpace: String = " " * 10
@@ -29,11 +29,11 @@ class TUIInterface(controller: Controller) extends Reactor {
     stringPrint.toString()
   }
 
-  def printGetPlayer(player_01: Player, player_02: Player): String = {
+  def printGetPlayer(player_01: InterfacePerson, player_02: InterfacePerson): String = {
     val stringPrint = new mutable.StringBuilder("")
     stringPrint ++= ("Actual player-configuration\n" +
-      "\tPlayer One: " + Console.GREEN + player_01.name + "\n" + Console.RESET +
-      "\tPlayer Two: " + Console.CYAN + player_02.name + "\n\n" + Console.RESET)
+      "\tPlayer One: " + Console.GREEN + player_01.toString + "\n" + Console.RESET +
+      "\tPlayer Two: " + Console.CYAN + player_02.toString + "\n\n" + Console.RESET)
     stringPrint.toString()
   }
 

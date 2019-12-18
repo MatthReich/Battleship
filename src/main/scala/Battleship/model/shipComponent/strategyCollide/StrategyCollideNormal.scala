@@ -1,12 +1,12 @@
 package Battleship.model.shipComponent.strategyCollide
 
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.advancedShip.Ship
 
 class StrategyCollideNormal extends StrategyCollide {
 
 
-  override def collide(newShip: Ship, grid: Grid): Boolean = {
+  override def collide(newShip: Ship, grid: InterfaceGrid): Boolean = {
     val shipCoordinates = newShip.getCoordinates
     var collide = false
     for (x <- 0 until shipCoordinates.length) {

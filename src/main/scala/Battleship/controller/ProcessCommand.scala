@@ -1,12 +1,12 @@
 package Battleship.controller
 
 import Battleship.controller.PlayerState.{PLAYER_ONE, PLAYER_TWO, PlayerState}
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.util.Command
 
 import scala.util.{Failure, Success, Try}
 
-class ProcessCommand(playerInput: String, grid: Grid, playerState: PlayerState, controller: Controller) extends Command {
+class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: PlayerState, controller: Controller) extends Command {
 
   override def setValue(): Unit = {
     var hit = false

@@ -13,4 +13,8 @@ trait InterfaceGrid {
 
   def toString(player: InterfacePerson, sortOfPrint: Boolean, playerStatus: PlayerState): String
 
+  def getSize: Int
+
+  def winStatement(): Boolean
+
 }

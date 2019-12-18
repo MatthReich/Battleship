@@ -1,6 +1,6 @@
 package Battleship.model.shipComponent.advancedShip
 
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.strategyCollide.StrategyCollide
 
@@ -42,7 +42,7 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
     }
   }
 
-  override def deleteFromGrid(grid: Grid): Unit = {
+  override def deleteFromGrid(grid: InterfaceGrid): Unit = {
 
     if (x1 == x2) {
       for (x <- y1 to y2) {
@@ -83,7 +83,7 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
     }
   }
 
-  override def setToGrid(grid: Grid): Boolean = {
+  override def setToGrid(grid: InterfaceGrid): Boolean = {
     var shipSet: Boolean = false
     if (!collide(this, grid)) {
       if (x1 == x2) {
@@ -117,7 +117,7 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
 
   override def getCoordinates: Array[Array[Int]] = coordinates
 
-  override def collide(ship: Ship, grid: Grid): Boolean = SCollides.collide(ship, grid)
+  override def collide(ship: Ship, grid: InterfaceGrid): Boolean = SCollides.collide(ship, grid)
 
   override def toString: String = {
     val stringOfGrid = new mutable.StringBuilder("")
@@ -130,5 +130,4 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
     }
     stringOfGrid.toString()
   }
-
 }

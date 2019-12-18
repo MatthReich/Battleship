@@ -12,7 +12,7 @@ class Gui(controller: Controller) extends Frame {
   var you: Boolean = true
   title = "Battleship"
   preferredSize = new Dimension(800, 600)
-  val gridSize = controller.grid_player_01.size
+  val gridSize = controller.grid_player_01.getSize
 
   def redraw = {
     contents = new BorderPanel {

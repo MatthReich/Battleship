@@ -12,7 +12,7 @@ case class Grid(size: Int) extends InterfaceGrid {
   var shipSize = 0
 
 
-  def winStatement(): Boolean = {
+  override def winStatement(): Boolean = {
     var statement = true
     for (i <- 0 until size) {
       for (j <- 0 until size) {
@@ -80,4 +80,5 @@ case class Grid(size: Int) extends InterfaceGrid {
     stringOfGrid.toString()
   }
 
+  override def getSize: Int = this.size
 }

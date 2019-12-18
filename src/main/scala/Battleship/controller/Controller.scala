@@ -3,7 +3,7 @@ package Battleship.controller
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
 import Battleship.model.Person.{Creator, InterfacePerson, Player}
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.UndoManager
@@ -12,14 +12,14 @@ import scala.swing.Publisher
 import scala.util.{Failure, Success, Try}
 
 
-class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Publisher {
+class Controller(val grid_player_01: InterfaceGrid, var grid_player_02: InterfaceGrid) extends Publisher {
 
   val creator_02: InterfacePerson = Creator("Matthias Reichenbach")
   var creator_01: InterfacePerson = Creator("Marcel Gaiser")
   var player_01: InterfacePerson = Player("")
   var player_02: InterfacePerson = Player("")
-  val grid_player01: Grid = this.grid_player_01
-  val grid_player02: Grid = this.grid_player_02
+  val grid_player01: InterfaceGrid = this.grid_player_01
+  val grid_player02: InterfaceGrid = this.grid_player_02
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
   var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
@@ -104,7 +104,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
     }
   }
 
-  def checkGuess(playerInput: String, grid: Grid): Unit = {
+  def checkGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
     publish(new CellChanged)
   }
@@ -113,7 +113,7 @@ class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Pub
     lastGuess = string
   }
 
-  def undoGuess(playerInput: String, grid: Grid): Unit = {
+  def undoGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.undoStep(new ProcessCommand(lastGuess, grid, playerState, this))
     publish(new CellChanged)
   }

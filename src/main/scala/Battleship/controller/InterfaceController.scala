@@ -56,4 +56,8 @@ trait InterfaceController extends Publisher {
 
   def getShipDelete: Boolean
 
+  def setNrPlayer1(int: Int, value: Int): Unit
+
+  def setNrPlayer2(int: Int, value: Int): Unit
+
 }

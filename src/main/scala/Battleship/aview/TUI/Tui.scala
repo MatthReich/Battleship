@@ -113,23 +113,23 @@ class Tui(controller: InterfaceController) extends Reactor {
       shipSize match {
         case 2 =>
           controller.getPlayerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(0) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(0) += x
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(0, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(0, x)
           }
         case 3 =>
           controller.getPlayerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(1) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(1) += x
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(1, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(1, x)
           }
         case 4 =>
           controller.getPlayerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(2) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(2) += x
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(2, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(2, x)
           }
         case 5 =>
           controller.getPlayerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(3) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(3) += x
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(3, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(3, x)
           }
       }
     }

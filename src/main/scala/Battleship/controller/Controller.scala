@@ -185,19 +185,23 @@ class Controller(val grid_player01: InterfaceGrid, var grid_player02: InterfaceG
 
   override def getCreator2: InterfacePerson = creator_02
 
-  override def getPlayer1: InterfacePerson = ???
+  override def getPlayer1: InterfacePerson = player_01
 
-  override def getPlayer2: InterfacePerson = ???
+  override def getPlayer2: InterfacePerson = player_02
 
-  override def getGameState: GameState = ???
+  override def getGameState: GameState = gameState
 
   override def setGameState(gameState: GameState): Unit = this.gameState = gameState
 
-  override def shipSet(boolean: Boolean): Unit = ???
+  override def shipSet(boolean: Boolean): Unit = shipSet = boolean
 
-  override def getShipSet: Boolean = ???
+  override def getShipSet: Boolean = shipSet
 
-  override def getShip: InterfaceShip = ???
+  override def getShip: InterfaceShip = ship
 
-  override def getShipDelete: Boolean = ???
+  override def getShipDelete: Boolean = shipDelete
+
+  override def setNrPlayer1(int: Int, value: Int): Unit = nr(int) += value
+
+  override def setNrPlayer2(int: Int, value: Int): Unit = nr2(int) += value
 }

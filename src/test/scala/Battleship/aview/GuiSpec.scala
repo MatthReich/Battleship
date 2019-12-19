@@ -17,10 +17,6 @@ class GuiSpec() extends WordSpec with Matchers {
         imagePanel.imagePath(startGui.backgroundIMG)
       }
 
-      "chooseStart" in {
-        startGui.chooseStart()
-      }
-
     }
   }
 }

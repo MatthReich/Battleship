@@ -45,7 +45,7 @@ class ShipSpec extends WordSpec with Matchers {
         val shippp = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
         val gridd = Grid(10)
         shippp.setToGrid(gridd) should be(true)
-        gridd.getField(0, 0) should be(1)
+        gridd.getField(0, 0) should be(0)
         shippp.deleteFromGrid(gridd)
         gridd.getField(0, 0) should be(0) // false should be 0 !! did not work
       }

@@ -3,11 +3,8 @@ package Battleship.controller
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
-@RunWith(classOf[JUnitRunner])
 class ControllerSpec extends WordSpec with Matchers {
 
   "A Controller" when {

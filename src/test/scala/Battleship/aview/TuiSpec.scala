@@ -1,15 +1,12 @@
 package Battleship.aview
 
 import Battleship.aview.TUI.Tui
-import Battleship.controller.Controller
+import Battleship.controller.{Controller, GameState, PlayerState}
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
-@RunWith(classOf[JUnitRunner])
 class TuiSpec extends WordSpec with Matchers {
 
   "A Tui" when {
@@ -45,20 +42,18 @@ class TuiSpec extends WordSpec with Matchers {
 
         controller.nr = Array(1, 1, 1, 1)
         controller.nr2 = Array(1, 1, 1, 1)
-        /*
-                tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength3, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength4, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength5, boolean)
+        tui.decreaseShipNumbersToPlace(shipLength2, boolean, true)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength4, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength5, boolean, false)
 
-                controller.playerState = PlayerState.PLAYER_TWO
+        controller.playerState = PlayerState.PLAYER_TWO
 
-                tui.decreaseShipNumbersToPlace(shipLength3, boolean = false)
-                tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength3, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength4, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength5, boolean)
-        */
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean = false, false)
+        tui.decreaseShipNumbersToPlace(shipLength2, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength4, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength5, boolean, false)
       }
 
       "printFirstTimeProcessLine" in {
@@ -71,11 +66,24 @@ class TuiSpec extends WordSpec with Matchers {
       }
 
       "processLine" in {
-        tui.processLine("q")
         tui.processLine("getPlayerConfig")
         tui.processLine("getGameStatus")
         tui.processLine("getPlayerStatus")
+        tui.processLine("admin: printGrid 1")
+        tui.processLine("admin: printGrid 2")
+        controller.gameState = GameState.PLAYERSETTING
+        tui.processLine("Name")
+        controller.gameState = GameState.SHIPSETTING
+        tui.processLine("0 0 1 0")
+        controller.gameState = GameState.IDLE
         tui.processLine("0 0")
+        controller.playerState = PlayerState.PLAYER_ONE
+        controller.gameState = GameState.IDLE
+        tui.processLine("undo Guess")
+        controller.playerState = PlayerState.PLAYER_TWO
+        controller.gameState = GameState.IDLE
+        tui.processLine("undo Guess")
+        controller.gameState = GameState.IDLE
         tui.processLine("0 0")
       }
 
@@ -87,6 +95,8 @@ class TuiSpec extends WordSpec with Matchers {
         controller.grid_player01.setField(0, 0, 2)
         tui.update
         controller.grid_player01.setField(0, 0, 0)
+        tui.update
+        controller.playerState = PlayerState.PLAYER_TWO
         tui.update
       }
 

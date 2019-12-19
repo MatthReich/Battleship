@@ -4,11 +4,8 @@ import Battleship.aview.TUI.TUIInterface
 import Battleship.controller.Controller
 import Battleship.model.Person.{Creator, Player}
 import Battleship.model.gridComponent.advancedGrid.Grid
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
-@RunWith(classOf[JUnitRunner])
 class TUIInterfaceTest extends WordSpec with Matchers {
 
   val interface = new TUIInterface(new Controller(Grid(10), Grid(10)))
@@ -24,12 +21,7 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       "playerConfiguration" in {
         interface.playerConfiguration()
       }
-/*
-      "setPlayers" in {
-        interface.setPlayers("name", 1)
-        interface.setPlayers("", 2)
-      }
-*/
+
       "printWelcomeX" in {
         interface.printWelcomeX()
       }

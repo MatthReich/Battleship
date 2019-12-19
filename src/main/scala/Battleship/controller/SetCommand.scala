@@ -1,12 +1,28 @@
 package Battleship.controller
 
+import Battleship.controller.PlayerState.PlayerState
 import Battleship.util.Command
 
-class SetCommand(player: Int, ship: Array[Int], controller: Controller) extends Command {
+class SetCommand(player: PlayerState, ship: Array[Int], controller: Controller) extends Command {
 
-  override def addShip(): Unit = {
-    if (player == 0) controller.grid_player01.setShip(ship, controller.nr) // player: Int -> 0 = player1, 1 = player2
-    else controller.grid_player02.setShip(ship, controller.nr2)
+  override def setValue(): Unit = {
+    controller.shipDelete = false
+    if (player == PlayerState.PLAYER_ONE) {
+      controller.shipSet = controller.ship.setToGrid(controller.grid_player01)
+    }
+    else {
+      controller.shipSet = controller.ship.setToGrid(controller.grid_player02)
+    }
   }
 
+  override def undoStep(): Unit = {
+    if (player == PlayerState.PLAYER_ONE) {
+      controller.ship.deleteFromGrid(controller.grid_player01)
+    }
+    else {
+      controller.ship.deleteFromGrid(controller.grid_player02)
+    }
+    controller.shipSet = false
+    controller.shipDelete = true
+  }
 }

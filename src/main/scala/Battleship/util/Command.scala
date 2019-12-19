@@ -2,6 +2,8 @@ package Battleship.util
 
 trait Command {
 
-  def addShip(): Unit
+  def setValue(): Unit
+
+  def undoStep(): Unit
 
 }

@@ -1,46 +1,22 @@
-import Battleship.model.Grid
+import scala.util.{Failure, Success, Try}
 
-import scala.util.Try
+val maybeDoubles = Array("5", "1.0", "8.5", "10.0", "item1", "item2")
 
-val string:String = "1 2"
-
-def parseCSV(csv: String) = {
-  try {
-    Some {
-      csv.split("\n").map { entry =>
-        val token = entry.split(" ")
-        val x = token(0).toInt
-        val y = token(1).toInt
-        print(x + " + " + y)
-      }
-    }
-  } catch {
-    case _: NumberFormatException => println("you have to input numbers\n")
-  }
+val convertDoubles = maybeDoubles.map { x =>
+  Try(x.toInt)
 }
 
-
-def parseCSV2(csv: String, grid: Grid) = {
-  Try {
-    csv.split("\n").map { entry =>
-      val token = entry.split(" ")
-      val x = token(0).toInt
-      val y = token(1).toInt
-      grid.getValue(x, y) match {
-        case 0 => grid.setField(x, y, 3)
-          print(grid.getValue(x, y))
-        case 1 =>
-          grid.setField(x, y, 2)
-          print(grid.getValue(x, y))
-        case _ =>
-          print(x + " + " + y)
-      }
-    }
-  }.getOrElse {
-    print(false)
-  }
+val convertedArray = convertDoubles.map {
+  case Success(res) => res
+  case Failure(f) => None
 }
 
-parseCSV(string)
+convertedArray
 
-parseCSV2(string, Grid(10))
+
+
+for (
+  value <- convertedArray) yield value match {
+  case Some(value) => print(value)
+  case None => println("Found None")
+}

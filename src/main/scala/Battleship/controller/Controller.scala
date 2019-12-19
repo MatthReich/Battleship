@@ -1,109 +1,179 @@
 package Battleship.controller
 
-import Battleship.controller.GameStatus._
-import Battleship.controller.PlayerStatus._
-import Battleship.model.{Creator, Grid, Player}
-import Battleship.util.{Observable, UndoManager}
-import scala.util.Try
+import Battleship.controller.GameState._
+import Battleship.controller.PlayerState._
+import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.shipComponent.advancedShip.Ship
+import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
+import Battleship.model.{Creator, Player}
+import Battleship.util.UndoManager
 
-//noinspection ScalaStyle
-class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Observable {
+import scala.swing.Publisher
+import scala.util.{Failure, Success, Try}
 
-  val creator_01: Creator = Creator("Marcel")
-  val creator_02: Creator = Creator("Matthias")
+
+class Controller(val grid_player_01: Grid, var grid_player_02: Grid) extends Publisher {
+
+  val creator_01: Creator = Creator("Marcel Gaiser")
+  val creator_02: Creator = Creator("Matthias Reichenbach")
   var player_01: Player = Player("")
   var player_02: Player = Player("")
   val grid_player01: Grid = this.grid_player_01
   val grid_player02: Grid = this.grid_player_02
-  val nr: Array[Int] = Array[Int](1, 0, 0, 0)
-  val nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var nr: Array[Int] = Array[Int](2, 0, 0, 0)
+  var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var ship: Ship = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
+  var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
+  var shipSet: Boolean = false
+  var shipDelete: Boolean = false
+  var lastGuess: String = ""
 
-  var hit = false
-
-  var gameStatus: GameStatus = IDLE
-  var playerStatus: PlayerStatus = PLAYER_ONE
+  var gameState: GameState = PLAYERSETTING
+  var playerState: PlayerState = PLAYER_ONE
   private val undoManager = new UndoManager
 
-  def checkShipSetting(playerInput: String): Array[Int] = { //??wenn input (1,1,1,a) => output (1,1,1,0)
-    val input = playerInput.split(" ")
-    val ship: Array[Int] = new Array[Int](4)
-    try {
-      if (input.length == 4) {
-        ship(0) = input(0).toInt
-        ship(1) = input(1).toInt
-        ship(2) = input(2).toInt
-        ship(3) = input(3).toInt
+  def checkShipSetting(playerInput: String): Boolean = {
+    // @TODO look if its functionable
+    var functionable: Boolean = true
+    val myString = playerInput.split(" ")
+
+    val convertDoubles = myString.map { x =>
+      Try(x.toInt)
+    }
+
+    val convertedArray = convertDoubles.map {
+      case Success(res) => res
+      case Failure(f) => None
+    }
+
+    for (x <- convertedArray) {
+      if (x == None) {
+        functionable = false
+        print("wrong input")
       }
-    } catch {
-      case _: NumberFormatException => print("you have to input numbers\n")
     }
-    ship
-  }
 
-  def addShips(int: Int, ship: Array[Int]): Unit = {
-    undoManager.addShip(new SetCommand(int, ship, this))
-    notifyObservers()
-  }
+    if (functionable) {
+      playerInput.split("\n").map { entry =>
+        val input = entry.split(" ")
+        if (input.length == 4) {
 
-  def checkGuess(playerInput: String, grid: Grid): PlayerStatus = {
-    hit = false
+          shipCoordsSetting(0) = input(0).toInt
+          shipCoordsSetting(1) = input(1).toInt
+          shipCoordsSetting(2) = input(2).toInt
+          shipCoordsSetting(3) = input(3).toInt
 
-    Try {
-        playerInput.split("\n").map { entry =>
-          val token = entry.split(" ")
-          if (token.length == 2) {
-            val x = token(0).toInt
-            val y = token(1).toInt
-
-            grid.getValue(x, y) match {
-              case 0 => grid.setField(x, y, 3)
-              case 1 =>
-                hit = true
-                grid.setField(x, y, 2)
-              case _ =>
-            }
-          } else {
-            print("Format Error\n")
-            hit = true
+          if ((shipCoordsSetting(0) == shipCoordsSetting(2) && shipCoordsSetting(1) == shipCoordsSetting(3))
+            || (!(shipCoordsSetting(0) == shipCoordsSetting(2)) && !(shipCoordsSetting(1) == shipCoordsSetting(3)))) {
+            print("too short ship length")
+            return false
           }
+          playerState match {
+            case PLAYER_ONE => if (nr(getSize() - 2) > 0) return true
+            case PLAYER_TWO => if (nr2(getSize() - 2) > 0) return true
+          }
+          return false
+        } else {
+          print("Format Error\n")
         }
-    }.getOrElse {
-      print("you have to input numbers\n")
-      hit = true
+        true
+      }
     }
+    false
+  }
 
-    if (!hit) {
-      if (playerStatus == PLAYER_ONE) {
-        PlayerStatus.PLAYER_TWO
+  private def getSize(): Int = {
+    if (shipCoordsSetting(0) == shipCoordsSetting(2)) {
+      val s = shipCoordsSetting(3) - shipCoordsSetting(1) + 1
+      if (s > 0) {
+        s
       }
       else {
-        PlayerStatus.PLAYER_ONE
+        val s = shipCoordsSetting(1) - shipCoordsSetting(3) + 1
+        s
       }
     } else {
-      if (playerStatus == PLAYER_ONE) {
-        PlayerStatus.PLAYER_ONE
+      val s = shipCoordsSetting(2) - shipCoordsSetting(0) + 1
+      if (s > 0) {
+        s
       }
       else {
-        PlayerStatus.PLAYER_TWO
+        val s = shipCoordsSetting(0) - shipCoordsSetting(2) + 1
+        s
       }
     }
+  }
+
+  def checkGuess(playerInput: String, grid: Grid): Unit = {
+    undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
+    publish(new CellChanged)
+  }
+
+  def setLastGuess(string: String): Unit = {
+    lastGuess = string
+  }
+
+  def undoGuess(playerInput: String, grid: Grid): Unit = {
+    undoManager.undoStep(new ProcessCommand(lastGuess, grid, playerState, this))
+    publish(new CellChanged)
+  }
+
+  def createShip(): Unit = {
+    shipDelete = false
+    ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
+    publish(new CellChanged)
+  }
+
+  def setShips(): Unit = {
+    undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
+    publish(new CellChanged)
+  }
+
+  def deleteShip(): Unit = {
+    undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
+    publish(new CellChanged)
+  }
+
+  def shipToString(ship: Ship): String = {
+    ship.toString
   }
 
   def gridToString(int: Int, boolean: Boolean): String = {
-
     int match {
       case 0 =>
         if (boolean) {
-          grid_player01.toString(player_01, boolean, playerStatus)
+          grid_player01.toString(player_01, boolean, playerState)
         } else {
-          grid_player01.toString(player_01, boolean, playerStatus)
+          grid_player01.toString(player_01, boolean, playerState)
         }
       case 1 =>
         if (boolean) {
-          grid_player02.toString(player_02, boolean, playerStatus)
+          grid_player02.toString(player_02, boolean, playerState)
         } else {
-          grid_player02.toString(player_02, boolean, playerStatus)
+          grid_player02.toString(player_02, boolean, playerState)
         }
+    }
+  }
+
+  def setPlayers(input: String): Unit = {
+    var player: Player = Player(" ")
+    if (input != "") {
+      player = Player(input)
+    } else {
+      if (playerState == PLAYER_ONE) {
+        player = Player("player_0" + 1)
+      } else if (playerState == PLAYER_TWO) {
+        player = Player("player_0" + 2)
+      }
+    }
+    if (playerState == PLAYER_ONE) {
+      player_01 = player
+      playerState = PLAYER_TWO
+    } else if (playerState == PLAYER_TWO) {
+      player_02 = player
+      playerState = PLAYER_ONE
+      gameState = SHIPSETTING
+      publish(new PlayerChanged)
     }
   }
 

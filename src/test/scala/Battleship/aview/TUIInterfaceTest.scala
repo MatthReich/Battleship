@@ -1,7 +1,9 @@
-package Battleship.TUI
+package Battleship.aview
 
+import Battleship.aview.TUI.TUIInterface
 import Battleship.controller.Controller
-import Battleship.model.{Creator, Grid, Player}
+import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.{Creator, Player}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
@@ -22,11 +24,12 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       "playerConfiguration" in {
         interface.playerConfiguration()
       }
-
+/*
       "setPlayers" in {
-        // can't be tested
+        interface.setPlayers("name", 1)
+        interface.setPlayers("", 2)
       }
-
+*/
       "printWelcomeX" in {
         interface.printWelcomeX()
       }
@@ -36,10 +39,6 @@ class TUIInterfaceTest extends WordSpec with Matchers {
         tmp should include(Console.GREEN)
         tmp = interface.printSetPlayer(2)
         tmp should include(Console.CYAN)
-      }
-
-      "addShips" in {
-        // can't be tested
       }
 
       "printWelcome" in {

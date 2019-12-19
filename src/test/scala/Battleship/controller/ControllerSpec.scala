@@ -3,7 +3,6 @@ package Battleship.controller
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
-import Battleship.util.Observer
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
@@ -14,32 +13,18 @@ class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
       val controller = new Controller(Grid(10), Grid(10))
-      val observer: Observer = new Observer {
-        var updated: Boolean = false
-
-        def isUpdated: Boolean = updated
-
-        override def update: Boolean = {
-          updated = true
-          updated
-        }
-      }
-      //controller.add(observer)
-
       "createShip" in {
         controller.shipCoordsSetting = Array(0, 0, 0, 2)
         controller.createShip()
         controller.playerState = PlayerState.PLAYER_TWO
         controller.createShip()
         controller.ship.getSize should be (3)
-        observer.update should be (true)
       }
 
       "setShip" in {
         controller.setShips()
         controller.playerState = PlayerState.PLAYER_ONE
         controller.setShips()
-        observer.update should be (true)
       }
 
       "gridToString" in {

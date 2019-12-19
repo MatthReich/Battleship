@@ -12,7 +12,7 @@ import Battleship.util.UndoManager
 import scala.util.{Failure, Success, Try}
 
 
-class Controller(val grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid) extends InterfaceController {
+class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid) extends InterfaceController {
 
   val creator_02: InterfacePerson = Creator("Matthias Reichenbach")
   var creator_01: InterfacePerson = Creator("Marcel Gaiser")

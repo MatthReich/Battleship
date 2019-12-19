@@ -40,33 +40,46 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "checkShipSetting" in {
-        controller.checkShipSetting("1 1 1 1") should be (false)
-        controller.checkShipSetting("1 1 1 a") should be (false)
-        controller.checkShipSetting("0 0 0 0 0") should be (false)
-        controller.checkShipSetting("0 0 0 1") should be (true)
-      }
-/*
-      "checkGuess" in {
-        // no hit -> one to two
-        var grid = Grid(1)
         controller.playerState = PlayerState.PLAYER_ONE
-        controller.playerState = controller.checkGuess("0 0", grid)
-        controller.playerState should be (PlayerState.PLAYER_TWO)
-        // hit -> two two
-        grid.setField(0, 0, 1)
-        controller.playerState = controller.checkGuess("0 0", grid)
-        controller.playerState should be (PlayerState.PLAYER_TWO)
-        // false input
-        controller.playerState = controller.checkGuess("0 0 0", grid)
-        controller.playerState should be (PlayerState.PLAYER_TWO)
-        controller.playerState = controller.checkGuess("0 a", grid)
-        controller.playerState should be (PlayerState.PLAYER_TWO)
-        // no hit -> two to one
-        grid.setField(0, 0,2)
-        controller.playerState = controller.checkGuess("0 0", grid)
-        controller.playerState should be (PlayerState.PLAYER_ONE)
+        controller.checkShipSetting("1 1 1 1") should be(false)
+        controller.playerState = PlayerState.PLAYER_TWO
+        controller.checkShipSetting("1 1 1 1") should be(false)
+        controller.checkShipSetting("1 1 1 a") should be(false)
+        controller.checkShipSetting("0 0 0 0 0") should be(false)
+        controller.checkShipSetting("0 0 0 1") should be(true)
+        controller.checkShipSetting("1 1 2 1") should be(true)
+        controller.checkShipSetting("1 4 1 3") should be(true)
+        controller.checkShipSetting("4 1 3 1") should be(true)
       }
-*/
+
+      "checkGuess" in {
+        controller.checkGuess("1 1", Grid(10))
+      }
+
+      "undoGuess" in {
+        controller.undoGuess("1 1", Grid(10))
+      }
+
+      "setLastGuess" in {
+        controller.setLastGuess("1 1")
+        controller.lastGuess should be("1 1")
+      }
+
+      "deleteShip" in {
+        controller.deleteShip()
+      }
+
+      "setPlayers" in {
+        controller.playerState = PlayerState.PLAYER_ONE
+        controller.setPlayers("Marcel")
+        controller.playerState = PlayerState.PLAYER_TWO
+        controller.setPlayers("Matthias")
+        controller.playerState = PlayerState.PLAYER_ONE
+        controller.setPlayers("")
+        controller.playerState = PlayerState.PLAYER_TWO
+        controller.setPlayers("")
+      }
+
       "checkState" in {
         var state = GameState.message(GameState.IDLE)
         state should be("")

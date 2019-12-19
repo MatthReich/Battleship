@@ -70,7 +70,6 @@ class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceG
             case PLAYER_ONE => if (nr(getSize() - 2) > 0) return true
             case PLAYER_TWO => if (nr2(getSize() - 2) > 0) return true
           }
-          return false
         } else {
           print("Format Error\n")
         }

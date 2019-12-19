@@ -22,7 +22,7 @@ class GridSpec extends WordSpec with Matchers {
 
       "setField" in {
         grid.setField(0, 0, 1)
-        val tmp = grid.getField(0, 0)
+        val tmp = grid.getValue(0, 0)
         tmp should be(1)
       }
 
@@ -68,6 +68,10 @@ class GridSpec extends WordSpec with Matchers {
         tmp should include(Console.RED + "  x  " + Console.RESET)
         tmp should include("0")
         tmp should endWith("\n")
+      }
+
+      "getSize" in {
+        grid.getSize should be(grid.size)
       }
 
     }

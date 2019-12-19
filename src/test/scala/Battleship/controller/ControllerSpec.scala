@@ -74,6 +74,81 @@ class ControllerSpec extends WordSpec with Matchers {
         state should be("player_01's turn")
       }
 
+      "getGridPlayer1" in {
+        val grid = controller.getGridPlayer1
+        grid should be(controller.grid_player01)
+      }
+
+      "getGridPlayer2" in {
+        val grid = controller.getGridPlayer2
+        grid should be(controller.grid_player02)
+      }
+
+      "getPlayerState" in {
+        val playerSt = controller.getPlayerState
+        playerSt should be(controller.playerState)
+      }
+
+      "getCreator1" in {
+        val creator = controller.getCreator1
+        creator should be(controller.creator_01)
+      }
+
+      "getCreator2" in {
+        val creator = controller.getCreator2
+        creator should be(controller.creator_02)
+      }
+
+      "getPlayer1" in {
+        val player = controller.getPlayer1
+        player should be(controller.player_01)
+      }
+
+      "getPlayer2" in {
+        val player = controller.getPlayer2
+        player should be(controller.player_02)
+      }
+
+      "getGameState" in {
+        val gameSt = controller.getGameState
+        gameSt should be(controller.gameState)
+      }
+
+      "getShipSet" in {
+        val ship = controller.getShipSet
+        ship should be(controller.shipSet)
+      }
+
+      "getShipDetelte" in {
+        val ship = controller.getShipDelete
+        ship should be(controller.shipDelete)
+      }
+
+      "getShip" in {
+        val ship = controller.getShip
+        ship should be(controller.ship)
+      }
+
+      "setGameState" in {
+        controller.setGameState(GameState.SHIPSETTING)
+        controller.gameState should be(GameState.SHIPSETTING)
+      }
+
+      "shipSet" in {
+        controller.shipSet(true)
+        controller.shipSet should be(true)
+      }
+
+      "setNrPlayer1" in {
+        controller.setNrPlayer1(0, 1)
+        controller.nr(0) should be(3)
+      }
+
+      "setNrPlayer2" in {
+        controller.setNrPlayer2(0, 1)
+        controller.nr2(0) should be(2)
+      }
+
     }
 
   }

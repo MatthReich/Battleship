@@ -9,7 +9,7 @@ import Battleship.model.gridComponent.advancedGrid.Grid
 object Game {
 
   val fieldSize = 10
-  val controller = new Controller(Grid(fieldSize), Grid(fieldSize))
+  var controller = new Controller(Grid(fieldSize), Grid(fieldSize))
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)
   val gui = new startGUI(controller)
@@ -62,5 +62,6 @@ object Game {
       if (controller.gameState == GameState.SOLVED) input = "q"
     } while (input != "q")
 
+    sys.exit(0)
   }
 }

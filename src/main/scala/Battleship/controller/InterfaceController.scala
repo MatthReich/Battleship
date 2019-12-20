@@ -60,4 +60,6 @@ trait InterfaceController extends Publisher {
 
   def setNrPlayer2(int: Int, value: Int): Unit
 
+  def getLastGuess(): String
+
 }

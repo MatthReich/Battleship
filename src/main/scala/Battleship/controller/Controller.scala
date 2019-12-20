@@ -18,8 +18,8 @@ class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceG
   var creator_01: InterfacePerson = Creator("Marcel Gaiser")
   var player_01: InterfacePerson = Player("")
   var player_02: InterfacePerson = Player("")
-  var nr: Array[Int] = Array[Int](2, 0, 0, 0)
-  var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var nr: Array[Int] = Array[Int](1, 1, 0, 0)
+  var nr2: Array[Int] = Array[Int](1, 1, 0, 0)
   var ship: InterfaceShip = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
@@ -203,4 +203,6 @@ class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceG
   override def setNrPlayer1(int: Int, value: Int): Unit = nr(int) += value
 
   override def setNrPlayer2(int: Int, value: Int): Unit = nr2(int) += value
+
+  override def getLastGuess(): String = lastGuess
 }

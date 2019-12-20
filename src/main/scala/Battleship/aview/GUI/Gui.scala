@@ -104,5 +104,4 @@ class Gui(controller: InterfaceController) extends Frame {
   }
 
   centerOnScreen()
-
 }

@@ -3,13 +3,13 @@ package Battleship
 import Battleship.aview.GUI.startGUI
 import Battleship.aview.TUI.{TUIInterface, Tui}
 import Battleship.controller._
-import Battleship.model.gridComponent.advancedGrid.Grid
+import com.google.inject.Guice
 
 
 object Game {
-
+  val injector = Guice.createInjector(new GameModule)
   val fieldSize = 10
-  val controller = new Controller(Grid(fieldSize), Grid(fieldSize))
+  val controller = injector.getInstance(classOf[InterfaceController]) //new Controller(Grid(fieldSize), Grid(fieldSize))
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)
   val gui = new startGUI(controller)

@@ -36,6 +36,8 @@ trait InterfaceController extends Publisher {
 
   def getPlayerState: PlayerState
 
+  def setPlayerState(playerState: PlayerState): Unit
+
   def setGameState(gameState: GameState): Unit
 
   def getCreator1: InterfacePerson
@@ -59,5 +61,9 @@ trait InterfaceController extends Publisher {
   def setNrPlayer1(int: Int, value: Int): Unit
 
   def setNrPlayer2(int: Int, value: Int): Unit
+
+  def getNrPlayer1(): Array[Int]
+
+  def getNrPlayer2(): Array[Int]
 
 }

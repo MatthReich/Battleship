@@ -203,4 +203,10 @@ class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceG
   override def setNrPlayer1(int: Int, value: Int): Unit = nr(int) += value
 
   override def setNrPlayer2(int: Int, value: Int): Unit = nr2(int) += value
+
+  override def getNrPlayer1(): Array[Int] = nr
+
+  override def getNrPlayer2(): Array[Int] = nr2
+
+  override def setPlayerState(playerState: PlayerState): Unit = this.playerState = playerState
 }

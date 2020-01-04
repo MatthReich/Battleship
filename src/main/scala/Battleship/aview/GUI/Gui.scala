@@ -1,7 +1,12 @@
 package Battleship.aview.GUI
 
+import java.awt.image.BufferedImage
+import java.io.File
+
 import Battleship.aview.GUI.panel.FieldPanel
-import Battleship.controller.{CellChanged, InterfaceController}
+import Battleship.controller.{CellChanged, ExitGame, InterfaceController, PlayerState}
+import Battleship.model.gridComponent.InterfaceGrid
+import javax.imageio.ImageIO
 
 import scala.swing._
 
@@ -54,8 +59,8 @@ class Gui(controller: InterfaceController) extends Frame {
 
   menuBar = new MenuBar {
     contents += new Menu("File") {
-      contents += new MenuItem(Action("New") {
-        /*@TODO Action New*/
+      contents += new MenuItem(Action("New Game same Player") {
+        /*@TODO Action Undo*/
       })
       contents += new MenuItem(Action("Quit") {
         closeMe()
@@ -63,16 +68,25 @@ class Gui(controller: InterfaceController) extends Frame {
     }
     contents += new Menu("Edit") {
       contents += new MenuItem(Action("Undo") {
-        /*@TODO Action Undo*/
+        val grid: InterfaceGrid = controller.getPlayerState match {
+          case PlayerState.PLAYER_ONE => controller.getGridPlayer2
+          case PlayerState.PLAYER_TWO => controller.getGridPlayer1
+        }
+        controller.undoGuess(controller.getLastGuess(), grid)
       })
     }
   }
 
+  val backgroundIMG: BufferedImage =
+    ImageIO.read(new File("src/main/scala/Battleship/aview/GUI/media/BattleShipPicture.jpg"))
+
+  iconImage = backgroundIMG
   visible = true
   redraw
 
   reactions += {
     case event: CellChanged => redraw
+    case event: ExitGame => sys.exit(0)
   }
 
   def textGrid = new GridPanel(1, 2) {
@@ -90,5 +104,4 @@ class Gui(controller: InterfaceController) extends Frame {
   }
 
   centerOnScreen()
-
 }

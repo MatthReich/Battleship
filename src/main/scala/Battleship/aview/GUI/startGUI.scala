@@ -46,13 +46,19 @@ class startGUI(controller: InterfaceController) extends MainFrame {
 
   val startButton: Panel = new FlowPanel {
     val ButtonStartGame = new Button("start game")
+    val exitButton = new Button("exit game")
 
     ButtonStartGame.background = Color.BLACK
     ButtonStartGame.foreground = Color.WHITE
 
+    exitButton.background = Color.BLACK
+    exitButton.foreground = Color.WHITE
+
     contents += ButtonStartGame
+    contents += exitButton
 
     listenTo(ButtonStartGame)
+    listenTo(exitButton)
 
     val buttons: List[Button] = List(ButtonStartGame)
     reactions += {
@@ -61,6 +67,8 @@ class startGUI(controller: InterfaceController) extends MainFrame {
         if (b == ButtonStartGame) {
           if (chooseStart() == Dialog.Result.Ok) {
           }
+        } else if (b == exitButton) {
+          sys.exit(0)
         }
     }
   }
@@ -98,6 +106,6 @@ class startGUI(controller: InterfaceController) extends MainFrame {
     add(imageLabel, BorderPanel.Position.Center)
     add(startButton, BorderPanel.Position.South)
   }
-  centerOnScreen()
 
+  centerOnScreen()
 }

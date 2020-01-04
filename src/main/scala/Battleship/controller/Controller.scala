@@ -1,6 +1,5 @@
 package Battleship.controller
 
-import Battleship.Game.injector
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
 import Battleship.model.Person.{Creator, InterfacePerson, Player}
@@ -217,4 +216,6 @@ class Controller @Inject() extends InterfaceController {
   override def setgrid_player01(interfaceGrid: InterfaceGrid): Unit = grid_player01 = interfaceGrid
 
   override def setgrid_player02(interfaceGrid: InterfaceGrid): Unit = grid_player02 = interfaceGrid
+
+  override def getLastGuess(): String = lastGuess
 }

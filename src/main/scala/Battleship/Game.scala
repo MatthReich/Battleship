@@ -63,5 +63,6 @@ object Game {
       if (controller.getGameState == GameState.SOLVED) input = "q"
     } while (input != "q")
 
+    sys.exit(0)
   }
 }

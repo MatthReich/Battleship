@@ -1,84 +1,33 @@
 package Battleship.model.shipComponent.advancedShip
 
+import Battleship.GameModule
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.strategyCollide.StrategyCollide
+import com.google.inject.Guice
 
 import scala.collection.mutable
 
-case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) extends InterfaceShip {
+case class Ship() extends InterfaceShip {
+  val injector = Guice.createInjector(new GameModule)
+  val strategyCollide: StrategyCollide = injector.getInstance(classOf[StrategyCollide])
   private val SCollides: StrategyCollide = strategyCollide
-
-  private var x1 = shipCoordinates(0)
-  private var y1 = shipCoordinates(1)
-  private var x2 = shipCoordinates(2)
-  private var y2 = shipCoordinates(3)
-
-  private val size: Int = setSize()
+  var shipCoordinates: Array[Int] = Array(0, 0, 0, 0)
   private val coordinates = setCoordinates()
-
-  private def setCoordinates(): Array[Array[Int]] = {
-    val coordinate: Array[Array[Int]] = Array.ofDim[Int](size, 2)
-    var idx = 0
-
-    if (x1 == x2) {
-      for (x <- y1 to y2) {
-        for (y <- x1 to x2) {
-          coordinate(idx)(0) = y
-          coordinate(idx)(1) = x
-          idx += 1
-        }
-      }
-      coordinate
-    } else {
-      for (x <- x1 to x2) {
-        for (y <- y1 to y2) {
-          coordinate(idx)(0) = x
-          coordinate(idx)(1) = y
-          idx += 1
-        }
-      }
-      coordinate
-    }
-  }
 
   override def deleteFromGrid(grid: InterfaceGrid): Unit = {
 
-    if (x1 == x2) {
-      for (x <- y1 to y2) {
-        for (y <- x1 to x2) {
+    if (shipCoordinates(0) == shipCoordinates(2)) {
+      for (x <- shipCoordinates(1) to shipCoordinates(3)) {
+        for (y <- shipCoordinates(0) to shipCoordinates(2)) {
           grid.setField(y, x, 0)
         }
       }
     } else {
-      for (x <- x1 to x2) {
-        for (y <- y1 to y2) {
+      for (x <- shipCoordinates(0) to shipCoordinates(2)) {
+        for (y <- shipCoordinates(1) to shipCoordinates(3)) {
           grid.setField(x, y, 0)
         }
-      }
-    }
-  }
-
-  private def setSize(): Int = {
-    if (x1 == x2) {
-      val s = y2 - y1 + 1
-      if (s > 0) {
-        s
-      }
-      else {
-        val size = y1 - y2 + 1
-        changeParam
-        size
-      }
-    } else {
-      val s = x2 - x1 + 1
-      if (s > 0) {
-        s
-      }
-      else {
-        val size = x1 - x2 + 1
-        changeParam
-        size
       }
     }
   }
@@ -86,15 +35,15 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
   override def setToGrid(grid: InterfaceGrid): Boolean = {
     var shipSet: Boolean = false
     if (!collide(this, grid)) {
-      if (x1 == x2) {
-        for (x <- y1 to y2) {
-          for (y <- x1 to x2) {
+      if (shipCoordinates(0) == shipCoordinates(2)) {
+        for (x <- shipCoordinates(1) to shipCoordinates(3)) {
+          for (y <- shipCoordinates(0) to shipCoordinates(2)) {
             grid.setField(y, x, 1)
           }
         }
       } else {
-        for (x <- x1 to x2) {
-          for (y <- y1 to y2) {
+        for (x <- shipCoordinates(0) to shipCoordinates(2)) {
+          for (y <- shipCoordinates(1) to shipCoordinates(3)) {
             grid.setField(x, y, 1)
           }
         }
@@ -104,16 +53,58 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
     shipSet
   }
 
-  private def changeParam: Unit = {
-    var tmp = x1
-    x1 = x2
-    x2 = tmp
-    tmp = y1
-    y1 = y2
-    y2 = tmp
+  override def setCoordinates(array: Array[Int]): Unit = shipCoordinates = array
+
+  private def setCoordinates(): Array[Array[Int]] = {
+    val coordinate: Array[Array[Int]] = Array.ofDim[Int](getSize, 2)
+    var idx = 0
+
+    if (shipCoordinates(0) == shipCoordinates(2)) {
+      for (x <- shipCoordinates(1) to shipCoordinates(3)) {
+        for (y <- shipCoordinates(0) to shipCoordinates(2)) {
+          coordinate(idx)(0) = y
+          coordinate(idx)(1) = x
+          idx += 1
+        }
+      }
+      coordinate
+    } else {
+      for (x <- shipCoordinates(0) to shipCoordinates(2)) {
+        for (y <- shipCoordinates(1) to shipCoordinates(3)) {
+          coordinate(idx)(0) = x
+          coordinate(idx)(1) = y
+          idx += 1
+        }
+      }
+      coordinate
+    }
   }
 
-  override def getSize: Int = size
+  override def getSize: Int = setSize()
+
+  private def setSize(): Int = {
+    if (shipCoordinates(0) == shipCoordinates(2)) {
+      val s = shipCoordinates(3) - shipCoordinates(1) + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val size = shipCoordinates(1) - shipCoordinates(3) + 1
+        changeParam
+        size
+      }
+    } else {
+      val s = shipCoordinates(2) - shipCoordinates(0) + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val size = shipCoordinates(0) - shipCoordinates(2) + 1
+        changeParam
+        size
+      }
+    }
+  }
 
   override def getCoordinates: Array[Array[Int]] = coordinates
 
@@ -129,5 +120,14 @@ case class Ship(shipCoordinates: Array[Int], strategyCollide: StrategyCollide) e
       stringOfGrid ++= "\n"
     }
     stringOfGrid.toString()
+  }
+
+  private def changeParam: Unit = {
+    var tmp = shipCoordinates(0)
+    shipCoordinates(0) = shipCoordinates(2)
+    shipCoordinates(2) = tmp
+    tmp = shipCoordinates(1)
+    shipCoordinates(1) = shipCoordinates(3)
+    shipCoordinates(3) = tmp
   }
 }

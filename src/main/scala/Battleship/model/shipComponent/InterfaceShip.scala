@@ -18,4 +18,6 @@ trait InterfaceShip extends StrategyCollide {
 
   def toString: String
 
+  def setCoordinates(array: Array[Int]): Unit
+
 }

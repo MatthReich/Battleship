@@ -1,6 +1,8 @@
 package Battleship.model.Person
 
-case class Creator(var name: String) extends InterfacePerson {
+case class Creator() extends InterfacePerson {
+  var name: String = ""
+
   override def toString: String = name
 
   override def addName(name: String): Unit = this.name = name

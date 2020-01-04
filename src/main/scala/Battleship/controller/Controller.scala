@@ -6,8 +6,6 @@ import Battleship.controller.PlayerState._
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
-import Battleship.model.shipComponent.advancedShip.Ship
-import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.UndoManager
 import com.google.inject.{Guice, Inject}
 
@@ -19,16 +17,12 @@ class Controller @Inject() extends InterfaceController {
   var grid_player02: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
   var grid_player01: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
   val creator_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  creator_02.addName("Matthias Reichenbach")
   var creator_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  creator_02.addName("Marcel Gaiser")
   var player_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  creator_02.addName("")
   var player_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  creator_02.addName("")
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
-  var ship: InterfaceShip = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
+  var ship: InterfaceShip = injector.getInstance(classOf[InterfaceShip]) //Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
   var shipDelete: Boolean = false
@@ -37,6 +31,11 @@ class Controller @Inject() extends InterfaceController {
   var gameState: GameState = PLAYERSETTING
   var playerState: PlayerState = PLAYER_ONE
   private val undoManager = new UndoManager
+
+  override def init(): Unit = {
+    creator_01.addName("Marcel Gaiser")
+    creator_02.addName("Matthias Reichenbach")
+  }
 
   override def checkShipSetting(playerInput: String): Boolean = {
     // @TODO look if its functionable
@@ -125,7 +124,8 @@ class Controller @Inject() extends InterfaceController {
 
   override def createShip(): Unit = {
     shipDelete = false
-    ship = Ship(shipCoordsSetting, new StrategyCollideNormal)
+    ship = injector.getInstance(classOf[InterfaceShip])
+    ship.setCoordinates(shipCoordsSetting)
     publish(new CellChanged)
   }
 

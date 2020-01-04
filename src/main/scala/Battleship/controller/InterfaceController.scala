@@ -73,4 +73,5 @@ trait InterfaceController extends Publisher {
   def setgrid_player02(interfaceGrid: InterfaceGrid): Unit
 
 
+  def init(): Unit
 }

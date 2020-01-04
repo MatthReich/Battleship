@@ -1,6 +1,7 @@
 package Battleship.model.Person
 
-case class Player(var name: String) extends InterfacePerson {
+case class Player() extends InterfacePerson {
+  var name: String = ""
 
   override def toString: String = name
 

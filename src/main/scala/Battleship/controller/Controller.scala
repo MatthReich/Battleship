@@ -1,5 +1,6 @@
 package Battleship.controller
 
+import Battleship.Game.injector
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
 import Battleship.model.Person.{Creator, InterfacePerson, Player}
@@ -8,12 +9,15 @@ import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.UndoManager
+import com.google.inject.Inject
 
 import scala.util.{Failure, Success, Try}
 
 
-class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid) extends InterfaceController {
+class Controller @Inject() extends InterfaceController {
 
+  var grid_player02: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
+  var grid_player01: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
   val creator_02: InterfacePerson = Creator("Matthias Reichenbach")
   var creator_01: InterfacePerson = Creator("Marcel Gaiser")
   var player_01: InterfacePerson = Player("")
@@ -209,4 +213,8 @@ class Controller(var grid_player01: InterfaceGrid, var grid_player02: InterfaceG
   override def getNrPlayer2(): Array[Int] = nr2
 
   override def setPlayerState(playerState: PlayerState): Unit = this.playerState = playerState
+
+  override def setgrid_player01(interfaceGrid: InterfaceGrid): Unit = grid_player01 = interfaceGrid
+
+  override def setgrid_player02(interfaceGrid: InterfaceGrid): Unit = grid_player02 = interfaceGrid
 }

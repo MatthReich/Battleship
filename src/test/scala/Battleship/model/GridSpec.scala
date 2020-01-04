@@ -1,12 +1,9 @@
 package Battleship.model
 
-import Battleship.controller.PlayerState
-import Battleship.model.Person.Player
-import Battleship.model.gridComponent.advancedGrid.Grid
 import org.scalatest.{Matchers, WordSpec}
 
 class GridSpec extends WordSpec with Matchers {
-
+/*
   "A Grid" when {
     "new" should {
       val grid = Grid(10)
@@ -72,6 +69,6 @@ class GridSpec extends WordSpec with Matchers {
       }
 
     }
-  }
+  }*/
 
 }

@@ -7,7 +7,8 @@ import Battleship.model.gridComponent.InterfaceGrid
 
 import scala.collection.mutable
 
-case class Grid(size: Int) extends InterfaceGrid {
+case class Grid() extends InterfaceGrid {
+  val size: Int = 10
   private val matrix = Array.ofDim[Int](size, size)
   var shipSize = 0
 

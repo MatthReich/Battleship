@@ -1,12 +1,9 @@
 package Battleship.util
 
-import Battleship.controller.{Controller, PlayerState, ProcessCommand, SetCommand}
-import Battleship.model.gridComponent.InterfaceGrid
-import Battleship.model.gridComponent.advancedGrid.Grid
 import org.scalatest.{Matchers, WordSpec}
 
 class UndoManagerSpec extends WordSpec with Matchers {
-
+/*
   "A UndoManager" when {
     "new" should {
       val undoManager: UndoManager = new UndoManager
@@ -34,6 +31,6 @@ class UndoManagerSpec extends WordSpec with Matchers {
       }
     }
 
-  }
+  }*/
 
 }

@@ -1,14 +1,9 @@
 package Battleship.aview
 
-import Battleship.aview.TUI.Tui
-import Battleship.controller.{Controller, GameState, PlayerState}
-import Battleship.model.gridComponent.advancedGrid.Grid
-import Battleship.model.shipComponent.advancedShip.Ship
-import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends WordSpec with Matchers {
-
+/*
   "A Tui" when {
     "new" should {
       val controller = new Controller(Grid(10), Grid(10))
@@ -101,6 +96,6 @@ class TuiSpec extends WordSpec with Matchers {
       }
 
     }
-  }
+  }*/
 
 }

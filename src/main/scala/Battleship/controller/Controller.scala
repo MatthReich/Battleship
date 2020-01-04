@@ -1,26 +1,31 @@
 package Battleship.controller
 
+import Battleship.GameModule
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
-import Battleship.model.Person.{Creator, InterfacePerson, Player}
+import Battleship.model.Person.InterfacePerson
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
 import Battleship.util.UndoManager
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject}
 
 import scala.util.{Failure, Success, Try}
 
 
 class Controller @Inject() extends InterfaceController {
-
+  val injector = Guice.createInjector(new GameModule)
   var grid_player02: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
   var grid_player01: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
-  val creator_02: InterfacePerson = Creator("Matthias Reichenbach")
-  var creator_01: InterfacePerson = Creator("Marcel Gaiser")
-  var player_01: InterfacePerson = Player("")
-  var player_02: InterfacePerson = Player("")
+  val creator_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+  creator_02.addName("Matthias Reichenbach")
+  var creator_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+  creator_02.addName("Marcel Gaiser")
+  var player_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+  creator_02.addName("")
+  var player_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+  creator_02.addName("")
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
   var ship: InterfaceShip = Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
@@ -156,21 +161,22 @@ class Controller @Inject() extends InterfaceController {
   }
 
   override def setPlayers(input: String): Unit = {
-    var player: Player = Player(" ")
     if (input != "") {
-      player = Player(input)
+      if (playerState == PLAYER_ONE) {
+        player_01.addName(input)
+      } else if (playerState == PLAYER_TWO) {
+        player_02.addName(input)
+      }
     } else {
       if (playerState == PLAYER_ONE) {
-        player = Player("player_0" + 1)
+        player_01.addName("player_0" + 1)
       } else if (playerState == PLAYER_TWO) {
-        player = Player("player_0" + 2)
+        player_02.addName("player_0" + 2)
       }
     }
     if (playerState == PLAYER_ONE) {
-      player_01 = player
       playerState = PLAYER_TWO
     } else if (playerState == PLAYER_TWO) {
-      player_02 = player
       playerState = PLAYER_ONE
       gameState = SHIPSETTING
       publish(new PlayerChanged)

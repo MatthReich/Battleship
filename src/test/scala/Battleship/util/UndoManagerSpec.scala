@@ -1,16 +1,20 @@
 package Battleship.util
 
+import Battleship.GameModule
+import Battleship.controller.{InterfaceController, PlayerState, ProcessCommand, SetCommand}
+import Battleship.model.gridComponent.InterfaceGrid
+import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
 
 class UndoManagerSpec extends WordSpec with Matchers {
-/*
   "A UndoManager" when {
     "new" should {
       val undoManager: UndoManager = new UndoManager
-      val grid1: InterfaceGrid = Grid(10)
-      val grid2: InterfaceGrid = Grid(10)
+      val injector = Guice.createInjector(new GameModule)
+      val grid1: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
+      val grid2: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
       val shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
-      val controller: Controller = new Controller(grid1, grid2)
+      val controller: InterfaceController = injector.getInstance(classOf[InterfaceController])
 
       "setValue" in {
         //SetCommand
@@ -30,7 +34,5 @@ class UndoManagerSpec extends WordSpec with Matchers {
         undoManager.undoStep(new ProcessCommand("1 1", grid2, PlayerState.PLAYER_TWO, controller))
       }
     }
-
-  }*/
-
+  }
 }

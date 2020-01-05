@@ -6,7 +6,7 @@ import Battleship.util.Command
 
 import scala.util.{Failure, Success, Try}
 
-class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: PlayerState, controller: Controller) extends Command {
+class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: PlayerState, controller: InterfaceController) extends Command {
 
   override def setValue(): Unit = {
     var hit = false
@@ -57,11 +57,11 @@ class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: Play
 
     if (!hit) {
       playerState match {
-        case PLAYER_ONE => controller.playerState = PlayerState.PLAYER_TWO
-        case PLAYER_TWO => controller.playerState = PlayerState.PLAYER_ONE
+        case PLAYER_ONE => controller.setPlayerState(PlayerState.PLAYER_TWO)
+        case PLAYER_TWO => controller.setPlayerState(PlayerState.PLAYER_ONE)
       }
     } else {
-      controller.playerState = playerState
+      controller.setPlayerState(playerState)
     }
 
   }

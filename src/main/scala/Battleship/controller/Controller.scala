@@ -224,4 +224,8 @@ class Controller @Inject() extends InterfaceController {
   override def setgrid_player02(interfaceGrid: InterfaceGrid): Unit = grid_player02 = interfaceGrid
 
   override def getLastGuess(): String = lastGuess
+
+  override def setShipSet(boolean: Boolean): Unit = shipSet = boolean
+
+  override def setShipDelete(boolean: Boolean): Unit = shipDelete = boolean
 }

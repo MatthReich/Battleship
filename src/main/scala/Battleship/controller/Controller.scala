@@ -228,4 +228,8 @@ class Controller @Inject() extends InterfaceController {
   override def setShipSet(boolean: Boolean): Unit = shipSet = boolean
 
   override def setShipDelete(boolean: Boolean): Unit = shipDelete = boolean
+
+  override def setWholeNrPlayer1(array: Array[Int]): Unit = nr = array
+
+  override def setWholeNrPlayer2(array: Array[Int]): Unit = nr2 = array
 }

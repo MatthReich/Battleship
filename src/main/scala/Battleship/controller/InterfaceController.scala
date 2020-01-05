@@ -62,6 +62,10 @@ trait InterfaceController extends Publisher {
 
   def setNrPlayer2(int: Int, value: Int): Unit
 
+  def setWholeNrPlayer1(array: Array[Int]): Unit
+
+  def setWholeNrPlayer2(array: Array[Int]): Unit
+
   def getLastGuess(): String
 
   def getNrPlayer1(): Array[Int]

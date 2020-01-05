@@ -13,7 +13,6 @@ case class Ship() extends InterfaceShip {
   val strategyCollide: StrategyCollide = injector.getInstance(classOf[StrategyCollide])
   private val SCollides: StrategyCollide = strategyCollide
   var shipCoordinates: Array[Int] = Array(0, 0, 0, 0)
-  private val coordinates = setCoordinates()
 
   override def deleteFromGrid(grid: InterfaceGrid): Unit = {
 
@@ -106,12 +105,13 @@ case class Ship() extends InterfaceShip {
     }
   }
 
-  override def getCoordinates: Array[Array[Int]] = coordinates
+  override def getCoordinates: Array[Array[Int]] = setCoordinates()
 
   override def collide(ship: Ship, grid: InterfaceGrid): Boolean = SCollides.collide(ship, grid)
 
   override def toString: String = {
     val stringOfGrid = new mutable.StringBuilder("")
+    val coordinates = setCoordinates()
     for (x <- 0 until coordinates.length) {
       for (y <- 0 until 2) {
         stringOfGrid ++= coordinates(x)(y).toString

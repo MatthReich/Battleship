@@ -15,6 +15,8 @@ trait InterfaceGrid {
 
   def getSize: Int
 
+  def setSize(int: Int): Unit
+
   def winStatement(): Boolean
 
 }

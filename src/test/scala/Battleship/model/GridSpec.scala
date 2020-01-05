@@ -1,13 +1,19 @@
 package Battleship.model
 
+import Battleship.GameModule
+import Battleship.controller.PlayerState
+import Battleship.model.Person.InterfacePerson
+import Battleship.model.gridComponent.InterfaceGrid
+import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
 
 class GridSpec extends WordSpec with Matchers {
-/*
+
   "A Grid" when {
     "new" should {
-      val grid = Grid(10)
-      val gridShort = Grid(1)
+      val injector = Guice.createInjector(new GameModule)
+      val grid = injector.getInstance(classOf[InterfaceGrid])
+      val gridShort = injector.getInstance(classOf[InterfaceGrid])
 
       "getField" in {
         val tmp = grid.getField(0, 0)
@@ -36,12 +42,14 @@ class GridSpec extends WordSpec with Matchers {
       }
 
       "toString" in {
-        val grid: Grid = Grid(10)
+        val grid = injector.getInstance(classOf[InterfaceGrid])
         grid.setField(1, 1, 1)
         grid.setField(2, 2, 2)
         grid.setField(3, 3, 3)
 
-        var tmp = grid.toString(Player("Marcel"), sortOfPrint = true, PlayerState.PLAYER_ONE)
+        var person = injector.getInstance(classOf[InterfacePerson])
+        person.addName("Marcel")
+        var tmp = grid.toString(person, sortOfPrint = true, PlayerState.PLAYER_ONE)
 
         tmp should startWith("Field of:")
         tmp should include("Marcel")
@@ -51,8 +59,8 @@ class GridSpec extends WordSpec with Matchers {
         tmp should include(Console.RED + "  x  " + Console.RESET)
         tmp should include("0")
         tmp should endWith("\n")
-
-        tmp = grid.toString(Player("Matthias"), sortOfPrint = false, PlayerState.PLAYER_TWO)
+        person.addName("Matthias")
+        tmp = grid.toString(person, sortOfPrint = false, PlayerState.PLAYER_TWO)
 
         tmp should startWith("Field of:")
         tmp should include("Matthias")
@@ -65,10 +73,10 @@ class GridSpec extends WordSpec with Matchers {
       }
 
       "getSize" in {
-        grid.getSize should be(grid.size)
+        grid.getSize should be(grid.getSize)
       }
 
     }
-  }*/
+  }
 
 }

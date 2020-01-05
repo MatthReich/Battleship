@@ -15,6 +15,7 @@ class UndoManagerSpec extends WordSpec with Matchers {
       val grid2: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
       val shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
       val controller: InterfaceController = injector.getInstance(classOf[InterfaceController])
+      controller.init()
 
       "setValue" in {
         //SetCommand

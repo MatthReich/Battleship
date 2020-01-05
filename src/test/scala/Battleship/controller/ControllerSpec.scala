@@ -1,18 +1,24 @@
 package Battleship.controller
 
+import Battleship.GameModule
+import Battleship.model.gridComponent.InterfaceGrid
+import Battleship.model.shipComponent.InterfaceShip
+import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
 
 class ControllerSpec extends WordSpec with Matchers {
-/*
+
   "A Controller" when {
     "observed by an Observer" should {
-      val controller = new Controller(Grid(10), Grid(10))
+      val injector = Guice.createInjector(new GameModule)
+      val controller = new Controller()
+      controller.init()
       "createShip" in {
         controller.shipCoordsSetting = Array(0, 0, 0, 2)
         controller.createShip()
         controller.playerState = PlayerState.PLAYER_TWO
         controller.createShip()
-        controller.ship.getSize should be (3)
+        controller.ship.getSize should be(3)
       }
 
       "setShip" in {
@@ -29,8 +35,9 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "shipToString" in {
-        val ship: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
-        controller.shipToString(ship) should be ("0 0 \n0 1 \n")
+        val ship: InterfaceShip = injector.getInstance(classOf[InterfaceShip])
+        ship.setCoordinates(Array(0, 0, 0, 1))
+        controller.shipToString(ship) should be("0 0 \n0 1 \n")
       }
 
       "checkShipSetting" in {
@@ -47,11 +54,11 @@ class ControllerSpec extends WordSpec with Matchers {
       }
 
       "checkGuess" in {
-        controller.checkGuess("1 1", Grid(10))
+        controller.checkGuess("1 1", injector.getInstance(classOf[InterfaceGrid]))
       }
 
       "undoGuess" in {
-        controller.undoGuess("1 1", Grid(10))
+        controller.undoGuess("1 1", injector.getInstance(classOf[InterfaceGrid]))
       }
 
       "setLastGuess" in {
@@ -158,5 +165,5 @@ class ControllerSpec extends WordSpec with Matchers {
 
     }
 
-  }*/
+  }
 }

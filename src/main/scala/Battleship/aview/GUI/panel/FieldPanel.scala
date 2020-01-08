@@ -4,7 +4,7 @@ import java.awt.Color
 
 import Battleship.controller.{CellChanged, InterfaceController, PlayerState}
 
-import scala.swing.event.MouseClicked
+import scala.swing.event.{MouseClicked, UIEvent}
 import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
 
 class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceController) extends FlowPanel {
@@ -27,9 +27,9 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
       case e: CellChanged => {
         repaint
       }
-      case MouseClicked(source, point, modifiers, clicks, popup) => {
-        // @TODO set coordinates
-        print(point + " " + clicks + " " + popup + " " + modifiers + " " + source + "\n")
+      case event: UIEvent => {
+        print(event.source + "\n")
+        event.source.background = Color.GRAY
         repaint
       }
     }

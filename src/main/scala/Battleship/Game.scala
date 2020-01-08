@@ -34,6 +34,7 @@ object Game {
           // @TODO "2 0 3 0" geht nicht nach "0 0 0 1"
           // @TODO bei player change, gui keine änderung erst nach 1 setzen (enter nicht möglich)
           // @TODO nach state change noch falsches bild (enter möglich)
+          // @TODO undo beim letzen Schiff nicht möglich
 
           controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => {

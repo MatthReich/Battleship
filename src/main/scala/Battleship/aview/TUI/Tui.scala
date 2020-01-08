@@ -63,8 +63,10 @@ class Tui(controller: InterfaceController) extends Reactor {
     input match {
       case "q" => System.exit(0)
       case "getPlayerConfig" => print(tui.printGetPlayer(controller.getPlayer1, controller.getPlayer2))
-      case "getGameStatus" => print(controller.getGameState + "\n")
-      case "getPlayerStatus" => print(controller.getPlayerState + "\n")
+      case "getGameState" => print(controller.getGameState + "\n")
+      case "gGS" => print(controller.getGameState + "\n")
+      case "getPlayerState" => print(controller.getPlayerState + "\n")
+      case "gPS" => print(controller.getPlayerState + "\n")
       case "admin: printGrid 1" => print(controller.getGridPlayer1.toString(controller.getPlayer1, true, controller.getPlayerState))
       case "admin: printGrid 2" => print(controller.getGridPlayer2.toString(controller.getPlayer2, true, controller.getPlayerState))
       case _ => {
@@ -138,15 +140,16 @@ class Tui(controller: InterfaceController) extends Reactor {
   def update: Boolean = {
     if (shipProcess) {
       print(controller.gridToString(0, printGridOption))
-    }
-    if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
-      print(controller.gridToString(1, printGridOption))
-    }
-    else {
-      print(controller.gridToString(0, printGridOption))
-    }
-    if (controller.getGridPlayer1.winStatement() || controller.getGridPlayer2.winStatement()) {
-      controller.setGameState(GameState.SOLVED)
+    } else {
+      if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
+        print(controller.gridToString(1, printGridOption))
+      }
+      else {
+        print(controller.gridToString(0, printGridOption))
+      }
+      if (controller.getGridPlayer1.winStatement() || controller.getGridPlayer2.winStatement()) {
+        controller.setGameState(GameState.SOLVED)
+      }
     }
     true
   }

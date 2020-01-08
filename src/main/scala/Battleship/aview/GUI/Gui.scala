@@ -101,7 +101,7 @@ class Gui(controller: InterfaceController) extends Frame {
         nameYou = controller.getPlayer2.toString
     }
     contents += new TextArea(nameEnemy)
-    contents += new TextArea(nameYou)
+    contents += new TextArea("On turn: " + nameYou)
   }
 
   def closeMe() {

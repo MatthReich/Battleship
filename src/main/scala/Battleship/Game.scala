@@ -49,6 +49,7 @@ object Game {
         case GameState.IDLE => {
           // @TODO player_two wird übersprungen
           // @TODO gui zeigt richtig an, aber fehler oben - erst bei enter wieder zurück gesetzt
+          // @TODO "0" wirft das game ganz raus "array out of bounds"
 
           tui.printFirstTimeProcessLine()
         }

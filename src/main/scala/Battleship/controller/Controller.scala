@@ -21,7 +21,7 @@ class Controller @Inject() extends InterfaceController {
   var player_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
   var player_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
-  var nr2: Array[Int] = Array[Int](1, 0, 0, 0)
+  var nr2: Array[Int] = Array[Int](2, 0, 0, 0)
   var ship: InterfaceShip = injector.getInstance(classOf[InterfaceShip]) //Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false

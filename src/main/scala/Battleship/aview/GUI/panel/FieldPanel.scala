@@ -28,6 +28,7 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
         repaint
       }
       case MouseClicked(source, point, modifiers, clicks, popup) => {
+        // @TODO set coordinates
         print(point + " " + clicks + " " + popup + " " + modifiers + " " + source + "\n")
         repaint
       }

@@ -88,7 +88,7 @@ class Tui(controller: InterfaceController) extends Reactor {
                 controller.undoGuess(input, controller.getGridPlayer2)
               }
               update
-            case _ => // grid nur mit spiel makierungen ausgeben
+            case _ =>
               if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
                 controller.checkGuess(input, controller.getGridPlayer2)
                 controller.setLastGuess(input)

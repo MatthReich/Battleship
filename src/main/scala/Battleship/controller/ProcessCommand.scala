@@ -39,27 +39,16 @@ class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: Play
     }
 
     if (functionable) {
-      if (true) {
+      val x: Int = convertedArray(0).toString.toInt
+      val y: Int = convertedArray(1).toString.toInt
 
-        val x: Int = convertedArray(0).toString.toInt
-        val y: Int = convertedArray(1).toString.toInt
-
-        grid.getValue(x, y) match {
-          case 0 => grid.setField(x, y, 3)
-          case 1 =>
-            hit = true
-            grid.setField(x, y, 2)
-          case _ =>
-        }
-
-      } else {
-        print("Format Error\n")
-        hit = true
+      grid.getValue(x, y) match {
+        case 0 => grid.setField(x, y, 3)
+        case 1 =>
+          hit = true
+          grid.setField(x, y, 2)
+        case _ =>
       }
-    }
-
-    if (convertedArray.length != 2) {
-      hit = true
     }
 
     if (!hit) {
@@ -67,10 +56,7 @@ class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: Play
         case PLAYER_ONE => controller.setPlayerState(PlayerState.PLAYER_TWO)
         case PLAYER_TWO => controller.setPlayerState(PlayerState.PLAYER_ONE)
       }
-    } else {
-      controller.setPlayerState(playerState)
     }
-
   }
 
   override def undoStep(): Unit = {

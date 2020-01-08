@@ -11,23 +11,30 @@ class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: Play
   override def setValue(): Unit = {
     var hit = false
     var functionable: Boolean = true
+    var convertedArray: Array[Any] = new Array[Any](0)
 
     val myString = playerInput.split(" ")
 
-    val convertDoubles = myString.map { x =>
-      Try(x.toInt)
-    }
+    if (myString.length != 2) {
+      functionable = false
+      hit = true
+      print("wrong output")
+    } else {
+      val convertDoubles = myString.map { x =>
+        Try(x.toInt)
+      }
 
-    val convertedArray = convertDoubles.map {
-      case Success(res) => res
-      case Failure(f) => None
-    }
+      convertedArray = convertDoubles.map {
+        case Success(res) => res
+        case Failure(f) => None
+      }
 
-    for (x <- convertedArray) {
-      if (x == None) {
-        functionable = false
-        hit = true
-        print("wrong input")
+      for (x <- convertedArray) {
+        if (x == None) {
+          functionable = false
+          hit = true
+          print("wrong input")
+        }
       }
     }
 

@@ -90,8 +90,18 @@ class Gui(controller: InterfaceController) extends Frame {
   }
 
   def textGrid = new GridPanel(1, 2) {
-    contents += new TextArea("Enemy")
-    contents += new TextArea("You")
+    var nameEnemy: String = ""
+    var nameYou: String = ""
+    controller.getPlayerState match {
+      case PlayerState.PLAYER_ONE =>
+        nameEnemy = controller.getPlayer2.toString
+        nameYou = controller.getPlayer1.toString
+      case PlayerState.PLAYER_TWO =>
+        nameEnemy = controller.getPlayer1.toString
+        nameYou = controller.getPlayer2.toString
+    }
+    contents += new TextArea(nameEnemy)
+    contents += new TextArea(nameYou)
   }
 
   def closeMe() {

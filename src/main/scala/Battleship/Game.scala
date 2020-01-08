@@ -23,7 +23,6 @@ object Game {
     tuii.printWelcomeX()
 
     do {
-
       controller.getGameState match {
         case GameState.PLAYERSETTING => {
           controller.getPlayerState match {
@@ -32,6 +31,10 @@ object Game {
           }
         }
         case GameState.SHIPSETTING => {
+          // @TODO "2 0 3 0" geht nicht nach "0 0 0 1"
+          // @TODO nach beenden setzen, gui keine änderung erst nach 1 setzen (nicht 1 enter)
+          // @TODO nach state change noch falsches bild
+
           controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => {
               tui.printGrid(0)
@@ -44,6 +47,9 @@ object Game {
           }
         }
         case GameState.IDLE => {
+          // @TODO player_two wird übersprungen
+          // @TODO gui zeigt richtig an, aber fehler oben - erst bei enter wieder zurück gesetzt
+
           tui.printFirstTimeProcessLine()
         }
         case GameState.SOLVED => {}

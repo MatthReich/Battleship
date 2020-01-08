@@ -90,8 +90,8 @@ class Gui(controller: InterfaceController) extends Frame {
   }
 
   def textGrid = new GridPanel(1, 2) {
-    contents += new TextArea("You")
     contents += new TextArea("Enemy")
+    contents += new TextArea("You")
   }
 
   def closeMe() {

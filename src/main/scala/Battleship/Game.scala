@@ -47,9 +47,6 @@ object Game {
           }
         }
         case GameState.IDLE => {
-          // @TODO player_two wird übersprungen
-          // @TODO gui zeigt richtig an, aber fehler oben - erst bei enter wieder zurück gesetzt
-
           tui.printFirstTimeProcessLine()
         }
         case GameState.SOLVED => {}
@@ -58,15 +55,18 @@ object Game {
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)
 
-      if ((controller.getNrPlayer1()(0) + controller.getNrPlayer1()(1) + controller.getNrPlayer1()(2) +
-        controller.getNrPlayer1()(3)) == 0) {
-        controller.setPlayerState(PlayerState.PLAYER_TWO)
+      if (controller.getGameState == GameState.SHIPSETTING) {
+        if ((controller.getNrPlayer1()(0) + controller.getNrPlayer1()(1) + controller.getNrPlayer1()(2) +
+          controller.getNrPlayer1()(3)) == 0) {
+          controller.setPlayerState(PlayerState.PLAYER_TWO)
+        }
+        if (controller.getNrPlayer2()(0) + controller.getNrPlayer2()(1) + controller.getNrPlayer2()(2) +
+          controller.getNrPlayer2()(3) == 0) {
+          controller.setPlayerState(PlayerState.PLAYER_ONE)
+          controller.setGameState(GameState.IDLE)
+        }
       }
-      if (controller.getNrPlayer2()(0) + controller.getNrPlayer2()(1) + controller.getNrPlayer2()(2) +
-        controller.getNrPlayer2()(3) == 0) {
-        controller.setPlayerState(PlayerState.PLAYER_ONE)
-        controller.setGameState(GameState.IDLE)
-      }
+
       if (controller.getGameState == GameState.SOLVED) input = "q"
     } while (input != "q")
 

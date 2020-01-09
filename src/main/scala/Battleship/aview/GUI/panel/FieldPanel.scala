@@ -4,21 +4,21 @@ import java.awt.Color
 
 import Battleship.controller.{CellChanged, InterfaceController, PlayerState}
 
-import scala.swing.event.{MouseClicked, UIEvent}
-import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
+import scala.swing.event.UIEvent
+import scala.swing.{BoxPanel, FlowPanel, Orientation, Swing}
 
 class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceController) extends FlowPanel {
 
   val field = new BoxPanel(Orientation.Vertical) {
     myField match {
       case 0 => background = Color.BLUE
-        contents += new Label("~")
+        contents += new CoordLabel(column, row, "~")
       case 1 => background = Color.GREEN
-        contents += new Label("x")
+        contents += new CoordLabel(column, row, "x")
       case 2 => background = Color.RED
-        contents += new Label("x")
+        contents += new CoordLabel(column, row, "x")
       case 3 => background = new Color(148, 197, 229)
-        contents += new Label("0")
+        contents += new CoordLabel(column, row, "0")
     }
     border = Swing.LineBorder(java.awt.Color.BLACK, 1)
     listenTo(mouse.clicks)
@@ -30,6 +30,14 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
       case event: UIEvent => {
         print(event.source + "\n")
         event.source.background = Color.GRAY
+        val x = event.source.asInstanceOf[CoordLabel].getX()
+        val y = event.source.asInstanceOf[CoordLabel].getY()
+        val string: String = x + y + ""
+        var grid = controller.getGridPlayer1
+        controller.getPlayerState match {
+          case PlayerState.PLAYER_TWO => grid = controller.getGridPlayer2
+        }
+        controller.checkGuess(string, grid)
         repaint
       }
     }

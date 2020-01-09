@@ -59,9 +59,11 @@ class Gui(controller: InterfaceController) extends Frame {
 
   menuBar = new MenuBar {
     contents += new Menu("File") {
+      /*
       contents += new MenuItem(Action("New Game same Player") {
         /*@TODO Action Undo*/
       })
+      */
       contents += new MenuItem(Action("Quit") {
         closeMe()
       })

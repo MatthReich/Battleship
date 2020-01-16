@@ -1,8 +1,11 @@
 package Battleship.model.fileIoComponent
 
+import Battleship.model.gridComponent.InterfaceGrid
+
 trait FileIOInterface {
 
-  // def load: GridInterface
-  // def save(grid: GridInterface): Unit
+  def load: InterfaceGrid
+
+  def save(grid: InterfaceGrid): Unit
 
 }

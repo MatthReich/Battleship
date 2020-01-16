@@ -6,14 +6,23 @@ import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
+import Battleship.model.shipComponent.advancedShip.Ship
 import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 
 import scala.io.Source
 
 class FileIO extends FileIOInterface {
-  override def load: (InterfaceGrid, InterfacePerson) = {
+  override def load: (InterfaceGrid, InterfacePerson, Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = {
     var grid: InterfaceGrid = null
     var player: InterfacePerson = null
+    var shipSetting: Array[Int] = null
+    var ship: Ship = null
+    var shipCoordsSetting: Array[Int] = null
+    var shipSet: Boolean = null
+    var shipDelete: Boolean = null
+    var lastGuess: String = null
+    var gameState: GameState = null
+    var playerState: PlayerState = null
 
     val source: String = Source.fromFile("grid.json").getLines.mkString
     val json: JsValue = Json.parse(source)
@@ -36,7 +45,7 @@ class FileIO extends FileIOInterface {
       // if (given) grid = grid.setGiven(row, col, value)
       // if (showCandidates) grid = grid.setShowCandidates(row, col)
     }
-    (grid, player)
+    (grid, player, shipSetting, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
   }
 
   override def save(grid: InterfaceGrid): Unit = {

@@ -2,6 +2,7 @@ package Battleship.model.fileIoComponent.fileIoJsonImpl
 
 import Battleship.controller.GameState.GameState
 import Battleship.controller.PlayerState.PlayerState
+import Battleship.controller.{GameState, PlayerState}
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
@@ -18,11 +19,6 @@ class FileIO extends FileIOInterface {
     var shipSetting: Array[Int] = null
     var ship: Ship = null
     var shipCoordsSetting: Array[Int] = null
-    var shipSet: Boolean = null
-    var shipDelete: Boolean = null
-    var lastGuess: String = null
-    var gameState: GameState = null
-    var playerState: PlayerState = null
 
     val source: String = Source.fromFile("grid.json").getLines.mkString
     val json: JsValue = Json.parse(source)
@@ -45,6 +41,22 @@ class FileIO extends FileIOInterface {
       // if (given) grid = grid.setGiven(row, col, value)
       // if (showCandidates) grid = grid.setShowCandidates(row, col)
     }
+
+    val shipSet: Boolean = (json \ "shipSet").get.toString.toBoolean
+    val shipDelete: Boolean = (json \ "shipDelete").get.toString.toBoolean
+    val lastGuess: String = (json \ "lastGuess").get.toString
+    val gameState: GameState = (json \ "gameState") match {
+      case GameState.PLAYERSETTING => GameState.PLAYERSETTING
+      case GameState.SHIPSETTING => GameState.SHIPSETTING
+      case GameState.IDLE => GameState.IDLE
+      case GameState.SOLVED => GameState.SOLVED
+    }
+    val playerState: PlayerState = (json \ "playerState") match {
+      case PlayerState.PLAYER_ONE => PlayerState.PLAYER_ONE
+      case PlayerState.PLAYER_TWO => PlayerState.PLAYER_TWO
+    }
+
+
     (grid, player, shipSetting, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
   }
 
@@ -57,7 +69,7 @@ class FileIO extends FileIOInterface {
 
   implicit val playerWrites = new Writes[InterfacePerson] {
     override def writes(player: InterfacePerson): JsValue = Json.obj(
-      "player_one" -> player.toString
+      "player" -> player.toString
     )
   }
 

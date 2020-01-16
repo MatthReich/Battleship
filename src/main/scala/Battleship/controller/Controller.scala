@@ -1,8 +1,8 @@
 package Battleship.controller
 
 import Battleship.GameModule
-import Battleship.controller.GameState._
-import Battleship.controller.PlayerState._
+import Battleship.controller.GameState.{GameState, _}
+import Battleship.controller.PlayerState.{PlayerState, _}
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
@@ -239,6 +239,20 @@ class Controller @Inject() extends InterfaceController with Publisher {
   override def setWholeNrPlayer2(array: Array[Int]): Unit = nr2 = array
 
   override def load(): Unit = {
+    val values: (InterfaceGrid, InterfaceGrid, InterfacePerson, InterfacePerson, Array[Int], Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = fileIo_Player01.load
+    grid_player01 = values._1
+    grid_player02 = values._2
+    player_01 = values._3
+    player_02 = values._4
+    nr = values._5
+    nr2 = values._6
+    ship = values._7
+    shipCoordsSetting = values._8
+    shipSet = values._9
+    shipDelete = values._10
+    lastGuess = values._11
+    gameState = values._12
+    playerState = values._13
 
     publish(new CellChanged)
   }

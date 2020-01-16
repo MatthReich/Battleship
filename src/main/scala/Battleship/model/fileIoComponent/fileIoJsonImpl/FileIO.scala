@@ -13,10 +13,13 @@ import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 import scala.io.Source
 
 class FileIO extends FileIOInterface {
-  override def load: (InterfaceGrid, InterfacePerson, Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = {
+  override def load: (InterfaceGrid, InterfaceGrid, InterfacePerson, InterfacePerson, Array[Int], Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = {
     var grid: InterfaceGrid = null
+    var grid2: InterfaceGrid = null
     var player: InterfacePerson = null
+    var player2: InterfacePerson = null
     var shipSetting: Array[Int] = null
+    var shipSetting2: Array[Int] = null
     var ship: Ship = null
     var shipCoordsSetting: Array[Int] = null
 
@@ -50,13 +53,14 @@ class FileIO extends FileIOInterface {
       case PlayerState.PLAYER_TWO => PlayerState.PLAYER_TWO
     }
 
-    (grid, player, shipSetting, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
+    (grid, grid2, player, player2, shipSetting, shipSetting2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
   }
 
-  override def save(grid: InterfaceGrid): Unit = {
+  override def save(grid: InterfaceGrid, grid2: InterfaceGrid, player: InterfacePerson, player2: InterfacePerson, shipSetting: Array[Int], shipSetting2: Array[Int], ship: InterfaceShip, shipCoordsSetting: Array[Int], shipSet: Boolean, shipDelete: Boolean, lastGuess: String, gameState: GameState, playerState: PlayerState): Unit = {
     import java.io._
     val pw = new PrintWriter(new File("grid.json"))
     pw.write(Json.prettyPrint(gridToJson(grid)))
+    pw.write(Json.prettyPrint(gridToJson(grid2)))
     pw.close
   }
 

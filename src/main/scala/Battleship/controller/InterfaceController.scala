@@ -81,4 +81,8 @@ trait InterfaceController extends Publisher {
   def setShipSet(boolean: Boolean): Unit
 
   def setShipDelete(boolean: Boolean): Unit
+
+  def load(): Unit
+
+  def save(): Unit
 }

@@ -4,22 +4,27 @@ import Battleship.GameModule
 import Battleship.controller.GameState._
 import Battleship.controller.PlayerState._
 import Battleship.model.Person.InterfacePerson
+import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.util.UndoManager
 import com.google.inject.{Guice, Inject}
+import net.codingwell.scalaguice.InjectorExtensions._
 
+import scala.swing.Publisher
 import scala.util.{Failure, Success, Try}
 
 
-class Controller @Inject() extends InterfaceController {
+class Controller @Inject() extends InterfaceController with Publisher {
   val injector = Guice.createInjector(new GameModule)
-  var grid_player02: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
-  var grid_player01: InterfaceGrid = injector.getInstance(classOf[InterfaceGrid])
-  val creator_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  var creator_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  var player_01: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
-  var player_02: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+  val fileIo_Player01 = injector.instance[FileIOInterface]
+  val fileIo_Player02 = injector.instance[FileIOInterface]
+  val creator_02: InterfacePerson = injector.instance[InterfacePerson]
+  var grid_player02: InterfaceGrid = injector.instance[InterfaceGrid]
+  var grid_player01: InterfaceGrid = injector.instance[InterfaceGrid]
+  var creator_01: InterfacePerson = injector.instance[InterfacePerson]
+  var player_01: InterfacePerson = injector.instance[InterfacePerson]
+  var player_02: InterfacePerson = injector.instance[InterfacePerson]
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](2, 0, 0, 0)
   var ship: InterfaceShip = injector.getInstance(classOf[InterfaceShip]) //Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
@@ -232,4 +237,18 @@ class Controller @Inject() extends InterfaceController {
   override def setWholeNrPlayer1(array: Array[Int]): Unit = nr = array
 
   override def setWholeNrPlayer2(array: Array[Int]): Unit = nr2 = array
+
+  override def load(): Unit = {
+    grid_player01 = fileIo_Player01.load
+    grid_player02 = fileIo_Player02.load
+    gameState = LOADED
+    publish(new CellChanged)
+  }
+
+  override def save(): Unit = {
+    fileIo_Player01.save(grid_player01)
+    fileIo_Player02.save(grid_player02)
+    gameState = SAVED
+    publish(new CellChanged)
+  }
 }

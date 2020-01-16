@@ -239,16 +239,12 @@ class Controller @Inject() extends InterfaceController with Publisher {
   override def setWholeNrPlayer2(array: Array[Int]): Unit = nr2 = array
 
   override def load(): Unit = {
-    grid_player01 = fileIo_Player01.load
-    grid_player02 = fileIo_Player02.load
-    gameState = LOADED
+
     publish(new CellChanged)
   }
 
   override def save(): Unit = {
-    fileIo_Player01.save(grid_player01)
-    fileIo_Player02.save(grid_player02)
-    gameState = SAVED
+
     publish(new CellChanged)
   }
 }

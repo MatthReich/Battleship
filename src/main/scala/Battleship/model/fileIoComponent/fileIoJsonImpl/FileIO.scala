@@ -8,8 +8,10 @@ import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 import scala.io.Source
 
 class FileIO extends FileIOInterface {
-  override def load: InterfaceGrid = {
+  override def load: (InterfaceGrid, InterfacePerson) = {
     var grid: InterfaceGrid = null
+    var player: InterfacePerson = null
+
     val source: String = Source.fromFile("grid.json").getLines.mkString
     val json: JsValue = Json.parse(source)
     val size = (json \ "grid" \ "size").get.toString.toInt
@@ -31,7 +33,7 @@ class FileIO extends FileIOInterface {
       // if (given) grid = grid.setGiven(row, col, value)
       // if (showCandidates) grid = grid.setShowCandidates(row, col)
     }
-    grid
+    (grid, player)
   }
 
   override def save(grid: InterfaceGrid): Unit = {

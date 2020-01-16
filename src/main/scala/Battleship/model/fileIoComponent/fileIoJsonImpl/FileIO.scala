@@ -9,7 +9,7 @@ import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.advancedShip.Ship
-import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
+import play.api.libs.json.{JsNumber, JsObject, JsValue, Json, Writes}
 
 import scala.io.Source
 
@@ -35,6 +35,7 @@ class FileIO extends FileIOInterface {
       val value = (json \\ "value") (index).as[Int]
       grid1.setField(row, col, value)
     }
+    // setzt grid 2 komplett 0
     grid2 = Grid()
 
     val shipSet: Boolean = (json \ "shipSet").get.toString.toBoolean
@@ -57,56 +58,56 @@ class FileIO extends FileIOInterface {
   override def save(grid: InterfaceGrid, grid2: InterfaceGrid, player: InterfacePerson, player2: InterfacePerson, shipSetting: Array[Int], shipSetting2: Array[Int], ship: InterfaceShip, shipCoordsSetting: Array[Int], shipSet: Boolean, shipDelete: Boolean, lastGuess: String, gameState: GameState, playerState: PlayerState): Unit = {
     import java.io._
     val pw = new PrintWriter(new File("saveFile.json"))
-    pw.write(Json.prettyPrint(grid1ToJson(grid)))
+    pw.write(Json.prettyPrint(getAllObj(grid, grid2, player, player2, shipSetting, shipSetting2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)))
     pw.close()
   }
 
-  implicit val player1 = new Writes[InterfacePerson] {
-    def writes(player: InterfacePerson): JsValue = Json.obj(
-      "player1" -> Json.toJson(player.toString) // @TODO functionable?
+  def getAllObj(grid: InterfaceGrid, grid2: InterfaceGrid, player: InterfacePerson, player2x: InterfacePerson, shipSetting: Array[Int], shipSetting2: Array[Int], shipX: InterfaceShip, shipCoordsSettingX: Array[Int], shipSetX: Boolean, shipDeleteX: Boolean, lastGuessX: String, gameStateX: GameState, playerStateX: PlayerState): JsValue = {
+    val array: Array[Array[Int]] = Array(shipSetting, shipSetting2, shipCoordsSettingX)
+    val players: Array[InterfacePerson] = Array(player, player2x)
+    val bools: Array[Boolean] = Array(shipSetX, shipDeleteX)
+    Json.toJson(List(grid1ToJson(grid), grid2ToJson(grid2), playerToJson.writes(players),
+      arrayToJson.writes(array), ship.writes(shipX), boolToJson.writes(bools),
+      lastGuess.writes(lastGuessX), gameState.writes(gameStateX), playerState.writes(playerStateX)))
+  }
+
+  implicit val playerToJson = new Writes[Array[InterfacePerson]] {
+    override def writes(player: Array[InterfacePerson]): JsValue = Json.obj(
+      "players" -> Json.obj(
+      "player1" -> Json.toJson(player(0).toString),
+              "player2" -> Json.toJson(player(1).toString)
+      )
     )
   }
 
-  implicit val player2 = new Writes[InterfacePerson] {
-    def writes(player: InterfacePerson): JsValue = Json.obj(
-      "player2" -> Json.toJson(player.toString) // @TODO functionable?
-    )
-  }
-
-  implicit val shipSettings = new Writes[Array[Int]] {
-    def writes(array: Array[Int]): JsValue = Json.obj(
-      "shipSetting" -> Json.toJson(array) // @TODO functionable?
+  implicit val arrayToJson = new Writes[Array[Array[Int]]] {
+    override def writes(array: Array[Array[Int]]): JsValue = Json.obj(
+      "arraysInt" -> Json.obj(
+      "shipSetting" -> Json.toJson(array(0)),
+      "shipSetting2" -> Json.toJson(array(1)),
+      "shipCoordsSet" -> Json.toJson(array(2))
+      )
     )
   }
 
   implicit val ship = new Writes[InterfaceShip] {
     def writes(ship: InterfaceShip): JsValue = Json.obj(
-      "ship" -> ship.getCoordinates // @TODO functionable?
+      "ship" -> "" // @TODO needs Function
     )
   }
 
-
-  implicit val shipCoordsSetting = new Writes[Array[Int]] {
-    def writes(shipCoordsSetting: Array[Int]): JsValue = Json.obj(
-      "shipCoordsSetting" -> Json.toJson(shipCoordsSetting)
+  implicit val boolToJson = new Writes[Array[Boolean]] {
+    override def writes(bools: Array[Boolean]): JsValue = Json.obj(
+      "booleans" -> Json.obj(
+      "shipSet" -> Json.toJson(bools(0)),
+             "shipDelete" -> Json.toJson(bools(1))
     )
-  }
-
-  implicit val shipSet = new Writes[Boolean] {
-    def writes(shipSet: Boolean): JsValue = Json.obj(
-      "shipSet" -> shipSet
-    )
-  }
-
-  implicit val shipDelete = new Writes[Boolean] {
-    def writes(shipDelete: Boolean): JsValue = Json.obj(
-      "shipDelete" -> shipDelete
     )
   }
 
   implicit val lastGuess = new Writes[String] {
     def writes(lastGuess: String): JsValue = Json.obj(
-      "shipDelete" -> lastGuess
+      "lastGuess" -> Json.toJson(lastGuess)
     )
   }
 

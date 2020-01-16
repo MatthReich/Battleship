@@ -23,13 +23,7 @@ class FileIO extends FileIOInterface {
     val source: String = Source.fromFile("grid.json").getLines.mkString
     val json: JsValue = Json.parse(source)
     val size = (json \ "grid" \ "size").get.toString.toInt
-    // val injector = Guice.createInjector(new SudokuModule)
-    /*size match {
-      case 1 => grid = injector.instance[GridInterface](Names.named("tiny"))
-      case 4 => grid = injector.instance[GridInterface](Names.named("small"))
-      case 9 => grid = injector.instance[GridInterface](Names.named("normal"))
-      case _ =>
-    }*/
+
     for (index <- 0 until size * size) {
       val row = (json \\ "row") (index).as[Int]
       val col = (json \\ "col") (index).as[Int]
@@ -55,7 +49,6 @@ class FileIO extends FileIOInterface {
       case PlayerState.PLAYER_ONE => PlayerState.PLAYER_ONE
       case PlayerState.PLAYER_TWO => PlayerState.PLAYER_TWO
     }
-
 
     (grid, player, shipSetting, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
   }

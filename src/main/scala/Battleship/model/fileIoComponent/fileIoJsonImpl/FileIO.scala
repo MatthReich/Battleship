@@ -1,8 +1,11 @@
 package Battleship.model.fileIoComponent.fileIoJsonImpl
 
+import Battleship.controller.GameState.GameState
+import Battleship.controller.PlayerState.PlayerState
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
+import Battleship.model.shipComponent.InterfaceShip
 import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 
 import scala.io.Source
@@ -48,6 +51,56 @@ class FileIO extends FileIOInterface {
       "player_one" -> player.toString
     )
   }
+
+  implicit val shipSettings = new Writes[Array[Int]] {
+    override def writes(array: Array[Int]): JsValue = Json.obj(
+      "shipSetting" -> Json.toJson(array) // @TODO functionable?
+    )
+  }
+
+  implicit val ship = new Writes[InterfaceShip] {
+    override def writes(ship: InterfaceShip): JsValue = Json.obj(
+      "ship" -> ship.getCoordinates // @TODO functionable?
+    )
+  }
+
+
+  implicit val shipCoordsSetting = new Writes[Array[Int]] {
+    override def writes(shipCoordsSetting: Array[Int]): JsValue = Json.obj(
+      "shipCoordsSetting" -> Json.toJson(shipCoordsSetting)
+    )
+  }
+
+  implicit val shipSet = new Writes[Boolean] {
+    override def writes(shipSet: Boolean): JsValue = Json.obj(
+      "shipSet" -> shipSet
+    )
+  }
+
+  implicit val shipDelete = new Writes[Boolean] {
+    override def writes(shipDelete: Boolean): JsValue = Json.obj(
+      "shipDelete" -> shipDelete
+    )
+  }
+
+  implicit val lastGuess = new Writes[String] {
+    override def writes(lastGuess: String): JsValue = Json.obj(
+      "shipDelete" -> lastGuess
+    )
+  }
+
+  implicit val gameState = new Writes[GameState] {
+    override def writes(gameState: GameState): JsValue = Json.obj(
+      "gameState" -> gameState
+    )
+  }
+
+  implicit val playerState = new Writes[PlayerState] {
+    override def writes(playerState: PlayerState): JsValue = Json.obj(
+      "playerState" -> playerState
+    )
+  }
+
 
   def gridToJson(grid: InterfaceGrid) = {
     val gridSize = 10

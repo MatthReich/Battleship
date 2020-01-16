@@ -258,6 +258,7 @@ class Controller @Inject() extends InterfaceController with Publisher {
   }
 
   override def save(): Unit = {
+    fileIo_Player01.save(grid_player01, grid_player02, player_01, player_02, nr, nr2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
 
     publish(new CellChanged)
   }

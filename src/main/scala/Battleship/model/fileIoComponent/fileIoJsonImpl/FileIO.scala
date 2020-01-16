@@ -1,8 +1,9 @@
 package Battleship.model.fileIoComponent.fileIoJsonImpl
 
+import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
-import play.api.libs.json.{JsNumber, JsValue, Json}
+import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 
 import scala.io.Source
 
@@ -38,6 +39,12 @@ class FileIO extends FileIOInterface {
     val pw = new PrintWriter(new File("grid.json"))
     pw.write(Json.prettyPrint(gridToJson(grid)))
     pw.close
+  }
+
+  implicit val playerWrites = new Writes[InterfacePerson] {
+    override def writes(player: InterfacePerson): JsValue = Json.obj(
+      "player_one" -> player.toString
+    )
   }
 
   def gridToJson(grid: InterfaceGrid) = {

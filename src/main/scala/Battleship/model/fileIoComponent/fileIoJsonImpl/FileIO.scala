@@ -28,12 +28,14 @@ class FileIO extends FileIOInterface {
     val json: JsValue = Json.parse(source)
     val size = (json \ "grid1" \ "size").get.toString.toInt
     grid1 = Grid()
+
     for (index <- 0 until size * size) {
       val row = (json \\ "row") (index).as[Int]
       val col = (json \\ "col") (index).as[Int]
       val value = (json \\ "value") (index).as[Int]
       grid1.setField(row, col, value)
     }
+    grid2 = Grid()
 
     val shipSet: Boolean = (json \ "shipSet").get.toString.toBoolean
     val shipDelete: Boolean = (json \ "shipDelete").get.toString.toBoolean
@@ -54,15 +56,20 @@ class FileIO extends FileIOInterface {
 
   override def save(grid: InterfaceGrid, grid2: InterfaceGrid, player: InterfacePerson, player2: InterfacePerson, shipSetting: Array[Int], shipSetting2: Array[Int], ship: InterfaceShip, shipCoordsSetting: Array[Int], shipSet: Boolean, shipDelete: Boolean, lastGuess: String, gameState: GameState, playerState: PlayerState): Unit = {
     import java.io._
-    val pw = new PrintWriter(new File("safeFile.json"))
+    val pw = new PrintWriter(new File("saveFile.json"))
     pw.write(Json.prettyPrint(grid1ToJson(grid)))
-    // pw.write(Json.prettyPrint(grid2ToJson(grid2)))
     pw.close()
   }
 
-  implicit val player = new Writes[InterfacePerson] {
+  implicit val player1 = new Writes[InterfacePerson] {
     def writes(player: InterfacePerson): JsValue = Json.obj(
-      "player" -> Json.toJson(player.toString) // @TODO functionable?
+      "player1" -> Json.toJson(player.toString) // @TODO functionable?
+    )
+  }
+
+  implicit val player2 = new Writes[InterfacePerson] {
+    def writes(player: InterfacePerson): JsValue = Json.obj(
+      "player2" -> Json.toJson(player.toString) // @TODO functionable?
     )
   }
 
@@ -73,51 +80,55 @@ class FileIO extends FileIOInterface {
   }
 
   implicit val ship = new Writes[InterfaceShip] {
-    override def writes(ship: InterfaceShip): JsValue = Json.obj(
+    def writes(ship: InterfaceShip): JsValue = Json.obj(
       "ship" -> ship.getCoordinates // @TODO functionable?
     )
   }
 
 
   implicit val shipCoordsSetting = new Writes[Array[Int]] {
-    override def writes(shipCoordsSetting: Array[Int]): JsValue = Json.obj(
+    def writes(shipCoordsSetting: Array[Int]): JsValue = Json.obj(
       "shipCoordsSetting" -> Json.toJson(shipCoordsSetting)
     )
   }
 
   implicit val shipSet = new Writes[Boolean] {
-    override def writes(shipSet: Boolean): JsValue = Json.obj(
+    def writes(shipSet: Boolean): JsValue = Json.obj(
       "shipSet" -> shipSet
     )
   }
 
   implicit val shipDelete = new Writes[Boolean] {
-    override def writes(shipDelete: Boolean): JsValue = Json.obj(
+    def writes(shipDelete: Boolean): JsValue = Json.obj(
       "shipDelete" -> shipDelete
     )
   }
 
   implicit val lastGuess = new Writes[String] {
-    override def writes(lastGuess: String): JsValue = Json.obj(
+    def writes(lastGuess: String): JsValue = Json.obj(
       "shipDelete" -> lastGuess
     )
   }
 
   implicit val gameState = new Writes[GameState] {
-    override def writes(gameState: GameState): JsValue = Json.obj(
+    def writes(gameState: GameState): JsValue = Json.obj(
       "gameState" -> gameState
     )
   }
 
   implicit val playerState = new Writes[PlayerState] {
-    override def writes(playerState: PlayerState): JsValue = Json.obj(
+    def writes(playerState: PlayerState): JsValue = Json.obj(
       "playerState" -> playerState
     )
   }
 
+  implicit val grid2 = new Writes[InterfaceGrid] {
+    def writes(grid2: InterfaceGrid): JsValue = grid2ToJson(grid2)
+  }
+
 
   def grid1ToJson(grid: InterfaceGrid) = {
-    val gridSize = 10
+    val gridSize = grid.getSize
     Json.obj(
       "grid1" -> Json.obj(
         "size" -> JsNumber(gridSize),
@@ -150,7 +161,7 @@ class FileIO extends FileIOInterface {
             Json.obj(
               "row" -> row,
               "col" -> col,
-              "value" -> Json.toJson(grid.getValue(row, col))
+              "value" -> grid.getValue(row, col)
             )
           }
         )

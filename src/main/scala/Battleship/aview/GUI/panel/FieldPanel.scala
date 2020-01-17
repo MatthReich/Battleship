@@ -33,7 +33,7 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
         val y = row
         val string: String = x + " " + y
         controller.getGameState match {
-          case GameState.SHIPSETTING =>
+          case GameState.SHIPSETTING => println("needs to be implemented")
           case GameState.IDLE => controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => controller.checkGuess(string, controller.getGridPlayer2)
             case PlayerState.PLAYER_TWO => controller.checkGuess(string, controller.getGridPlayer1)

@@ -19,6 +19,6 @@ class GameModule extends AbstractModule with ScalaModule {
     bind[InterfacePerson].to[Player]
     bind[InterfaceShip].to[Ship]
     bind[InterfaceController].to[Controller]
-    bind[FileIOInterface].to[fileIoXmlImpl.FileIO]
+    bind[FileIOInterface].to[fileIoJsonImpl.FileIO]
   }
 }

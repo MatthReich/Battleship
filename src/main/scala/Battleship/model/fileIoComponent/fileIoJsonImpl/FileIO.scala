@@ -21,8 +21,7 @@ class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson
   override def load: (InterfaceGrid, InterfaceGrid, InterfacePerson, InterfacePerson, Array[Int], Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = {
     var grid1: InterfaceGrid = null
     var grid2: InterfaceGrid = null
-
-    var ship: Ship = null
+    val ship: Ship = null
 
     val source: String = Source.fromFile("saveFile.json").getLines.mkString
     val json: JsValue = Json.parse(source)
@@ -35,7 +34,6 @@ class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson
       val value = (json \\ "valueY") (index).as[Int]
       grid1.setField(row, col, value)
     }
-    // setzt grid 2 komplett 0
     grid2 = Grid()
     for (index <- 0 until size * size) {
       val row = (json \\ "rowX") (index).as[Int]

@@ -28,7 +28,6 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
         repaint
       }
       case event: UIEvent => {
-        print(event.source + "\n")
         event.source.background = Color.GRAY
         val x = column
         val y = row

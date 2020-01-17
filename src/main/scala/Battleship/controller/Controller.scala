@@ -1,6 +1,6 @@
 package Battleship.controller
 
-import Battleship.GameModule
+import Battleship.{GameModule, controller}
 import Battleship.controller.GameState.{GameState, _}
 import Battleship.controller.PlayerState.{PlayerState, _}
 import Battleship.model.Person.InterfacePerson
@@ -106,6 +106,9 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
 
   override def checkGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
+    if (getGridPlayer1.winStatement() || getGridPlayer2.winStatement()) {
+      setGameState(GameState.SOLVED)
+    }
     publish(new CellChanged)
   }
 
@@ -254,4 +257,5 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
 
     publish(new CellChanged)
   }
+
 }

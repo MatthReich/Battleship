@@ -24,20 +24,17 @@ class FileIO @Inject extends FileIOInterface {
     var grid1: InterfaceGrid = null
     var grid2: InterfaceGrid = null
 
-    var shipSetting: Array[Int] = null
-    var shipSetting2: Array[Int] = null
     var ship: Ship = null
-    var shipCoordsSetting: Array[Int] = null
 
     val source: String = Source.fromFile("saveFile.json").getLines.mkString
     val json: JsValue = Json.parse(source)
-    val size = 10 // (json \ "grid1" \ "size").get.toString.toInt
+    val size = (json \\ "size").head.as[Int]
     grid1 = Grid()
 
     for (index <- 0 until size * size) {
       val row = (json \\ "row") (index).as[Int]
       val col = (json \\ "col") (index).as[Int]
-      val value = (json \\ "value") (index).as[Int]
+      val value = (json \\ "valueY") (index).as[Int]
       grid1.setField(row, col, value)
     }
     // setzt grid 2 komplett 0
@@ -46,7 +43,7 @@ class FileIO @Inject extends FileIOInterface {
       val row = (json \\ "rowX") (index).as[Int]
       val col = (json \\ "colX") (index).as[Int]
       val value = (json \\ "valueX") (index).as[Int]
-      grid1.setField(row, col, value)
+      grid2.setField(row, col, value)
     }
 
     var playerString: String = (json \\ "player1").head.as[String]
@@ -56,23 +53,25 @@ class FileIO @Inject extends FileIOInterface {
     val player2: InterfacePerson = injector.instance[InterfacePerson]
     player2.addName(playerString)
 
+    val shipSetting: Array[Int] = (json \\ "shipSetting").head.as[Array[Int]]
+    val shipSetting2: Array[Int] = (json \\ "shipSetting2").head.as[Array[Int]]
+    val shipCoordsSetting: Array[Int] = (json \\ "shipCoordsSet").head.as[Array[Int]]
+
 
     val shipSet: Boolean = (json \\ "shipSet").head.as[Boolean]
     val shipDelete: Boolean = (json \\ "shipDelete").head.as[Boolean]
     val lastGuess: String = (json \\ "lastGuess").head.as[String]
-    /*
-        val gameState: GameState = (json \\ "gameState") match {
-          case GameState.PLAYERSETTING => GameState.PLAYERSETTING
-          case GameState.SHIPSETTING => GameState.SHIPSETTING
-          case GameState.IDLE => GameState.IDLE
-          case GameState.SOLVED => GameState.SOLVED
-        }
-        val playerState: PlayerState = (json \ "playerState") match {
-          case PlayerState.PLAYER_ONE => PlayerState.PLAYER_ONE
-          case PlayerState.PLAYER_TWO => PlayerState.PLAYER_TWO
-        } */
-    val gameState = GameState.IDLE
-    val playerState = PlayerState.PLAYER_ONE
+
+    val gameState: GameState = (json \\ "gameState").head.as[String] match {
+      case "PLAYERSETTING" => GameState.PLAYERSETTING
+      case "SHIPSETTING" => GameState.SHIPSETTING
+      case "IDLE" => GameState.IDLE
+      case "SOLVED" => GameState.SOLVED
+    }
+    val playerState: PlayerState = (json \\ "playerState").head.as[String] match {
+      case "PLAYER_ONE" => PlayerState.PLAYER_ONE
+      case "PLAYER_TWO" => PlayerState.PLAYER_TWO
+    }
 
     (grid1, grid2, player, player2, shipSetting, shipSetting2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
   }
@@ -163,7 +162,7 @@ class FileIO @Inject extends FileIOInterface {
             Json.obj(
               "row" -> row,
               "col" -> col,
-              "value" -> grid.getValue(row, col)
+              "valueY" -> grid.getValue(row, col)
             )
           }
         )

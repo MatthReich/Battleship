@@ -67,6 +67,7 @@ class Tui(controller: InterfaceController) extends Reactor {
       case "gGS" => print(controller.getGameState + "\n")
       case "getPlayerState" => print(controller.getPlayerState + "\n")
       case "gPS" => print(controller.getPlayerState + "\n")
+
       case "admin: printGrid 1" => print(controller.getGridPlayer1.toString(controller.getPlayer1, true, controller.getPlayerState))
       case "admin: printGrid 2" => print(controller.getGridPlayer2.toString(controller.getPlayer2, true, controller.getPlayerState))
       case "save" => controller.save()

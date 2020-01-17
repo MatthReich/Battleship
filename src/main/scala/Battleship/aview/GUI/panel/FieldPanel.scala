@@ -2,9 +2,9 @@ package Battleship.aview.GUI.panel
 
 import java.awt.Color
 
-import Battleship.controller.{CellChanged, InterfaceController, PlayerState}
+import Battleship.controller.{CellChanged, GameState, InterfaceController, PlayerState}
 
-import scala.swing.event.UIEvent
+import scala.swing.event.{UIEvent}
 import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
 
 class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceController) extends FlowPanel {
@@ -32,9 +32,13 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
         val x = column
         val y = row
         val string: String = x + " " + y
-        controller.getPlayerState match {
-          case PlayerState.PLAYER_ONE => controller.checkGuess(string, controller.getGridPlayer2)
-          case PlayerState.PLAYER_TWO => controller.checkGuess(string, controller.getGridPlayer1)
+        controller.getGameState match {
+          case GameState.SHIPSETTING =>
+          case GameState.IDLE => controller.getPlayerState match {
+            case PlayerState.PLAYER_ONE => controller.checkGuess(string, controller.getGridPlayer2)
+            case PlayerState.PLAYER_TWO => controller.checkGuess(string, controller.getGridPlayer1)
+          }
+          case GameState.SOLVED => sys.exit(0)
         }
         repaint
       }

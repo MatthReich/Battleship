@@ -59,12 +59,13 @@ class Gui(controller: InterfaceController) extends Frame {
 
   menuBar = new MenuBar {
     contents += new Menu("File") {
-      /*
-      contents += new MenuItem(Action("New Game same Player") {
-        /*@TODO Action Undo*/
+      contents += new MenuItem(Action("save") {
+        controller.save()
       })
-      */
-      contents += new MenuItem(Action("Quit") {
+      contents += new MenuItem(Action("load") {
+        controller.load()
+      })
+      contents += new MenuItem(Action("quit") {
         closeMe()
       })
     }

@@ -9,6 +9,8 @@ import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 import com.google.inject.Inject
 
+import scala.xml.PrettyPrinter
+
 class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson, var grid01: InterfaceGrid, var grid02: InterfaceGrid, ship: InterfaceShip
                       ) extends FileIOInterface {
 
@@ -54,5 +56,37 @@ class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson
     (grid01, grid02, player, player2, shipSetting, shipSetting2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
   }
 
-  override def save(grid1: InterfaceGrid, grid2: InterfaceGrid, player: InterfacePerson, player2: InterfacePerson, shipSetting: Array[Int], shipSetting2: Array[Int], ship: InterfaceShip, shipCoordsSetting: Array[Int], shipSet: Boolean, shipDelete: Boolean, lastGuess: String, gameState: GameState, playerState: PlayerState): Unit = ???
+  override def save(grid1: InterfaceGrid, grid2: InterfaceGrid, player: InterfacePerson, player2: InterfacePerson, shipSetting: Array[Int], shipSetting2: Array[Int], ship: InterfaceShip, shipCoordsSetting: Array[Int], shipSet: Boolean, shipDelete: Boolean, lastGuess: String, gameState: GameState, playerState: PlayerState): Unit = {
+    saveString(grid1)
+  }
+
+  /*
+    def saveXML(grid: InterfaceGrid): Unit = {
+      scala.xml.XML.save("grid.xml", gridToXml(grid))
+    }
+  */
+  def saveString(grid: InterfaceGrid): Unit = {
+    import java.io._
+    val pw = new PrintWriter(new File("saveFile.xml"))
+    val prettyPrinter = new PrettyPrinter(120, 4)
+    val xml = prettyPrinter.format(gridToXml(grid))
+    pw.write(xml)
+    pw.close
+  }
+
+  def gridToXml(grid: InterfaceGrid) = {
+    <grid size={grid.getSize.toString}>
+      {for {
+      row <- 0 until grid.getSize
+      col <- 0 until grid.getSize
+    } yield cellToXml(grid, row, col)}
+    </grid>
+  }
+
+  def cellToXml(grid: InterfaceGrid, row: Int, col: Int) = {
+    <cell row={row.toString} col={col.toString}>
+      {grid.getValue(row, col)}
+    </cell>
+  }
+
 }

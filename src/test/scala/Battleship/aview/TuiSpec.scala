@@ -1,4 +1,4 @@
-package Battleship.aview
+/*package Battleship.aview
 
 import Battleship.GameModule
 import Battleship.aview.TUI.Tui
@@ -111,3 +111,4 @@ class TuiSpec extends WordSpec with Matchers {
   }
 
 }
+*/

@@ -795,12 +795,12 @@
       {
         "rowX": 7,
         "colX": 7,
-        "valueX": 1
+        "valueX": 0
       },
       {
         "rowX": 7,
         "colX": 8,
-        "valueX": 1
+        "valueX": 0
       },
       {
         "rowX": 7,
@@ -850,12 +850,12 @@
       {
         "rowX": 8,
         "colX": 8,
-        "valueX": 0
+        "valueX": 1
       },
       {
         "rowX": 8,
         "colX": 9,
-        "valueX": 0
+        "valueX": 1
       },
       {
         "rowX": 9,
@@ -918,14 +918,19 @@
   "arraysInt" : {
     "shipSetting" : [ 0, 0, 0, 0 ],
     "shipSetting2" : [ 1, 0, 0, 0 ],
-    "shipCoordsSet" : [ 7, 7, 7, 8 ]
+    "shipCoordsSet": [
+      8,
+      8,
+      8,
+      9
+    ]
   }
 }, {
   "ship" : ""
 }, {
   "booleans" : {
-    "shipSet" : true,
-    "shipDelete" : false
+    "shipSet": false,
+    "shipDelete": false
   }
 }, {
   "lastGuess" : ""

@@ -1,4 +1,4 @@
-package Battleship.controller
+/*package Battleship.controller
 
 import Battleship.GameModule
 import Battleship.model.gridComponent.InterfaceGrid
@@ -166,4 +166,4 @@ class ControllerSpec extends WordSpec with Matchers {
     }
 
   }
-}
+}*/

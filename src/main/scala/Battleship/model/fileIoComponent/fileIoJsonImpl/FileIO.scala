@@ -1,6 +1,5 @@
 package Battleship.model.fileIoComponent.fileIoJsonImpl
 
-import Battleship.GameModule
 import Battleship.controller.GameState.GameState
 import Battleship.controller.PlayerState.PlayerState
 import Battleship.controller.{GameState, PlayerState}
@@ -10,14 +9,13 @@ import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.gridComponent.advancedGrid.Grid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.model.shipComponent.advancedShip.Ship
-import com.google.inject.{Guice, Inject}
-import net.codingwell.scalaguice.InjectorExtensions._
+import com.google.inject.Inject
 import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
 
 import scala.io.Source
 
-class FileIO @Inject extends FileIOInterface {
-  val injector = Guice.createInjector(new GameModule)
+class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson
+                      ) extends FileIOInterface {
 
 
   override def load: (InterfaceGrid, InterfaceGrid, InterfacePerson, InterfacePerson, Array[Int], Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = {
@@ -47,10 +45,8 @@ class FileIO @Inject extends FileIOInterface {
     }
 
     var playerString: String = (json \\ "player1").head.as[String]
-    val player: InterfacePerson = injector.instance[InterfacePerson]
     player.addName(playerString)
     playerString = (json \\ "player2").head.as[String]
-    val player2: InterfacePerson = injector.instance[InterfacePerson]
     player2.addName(playerString)
 
     val shipSetting: Array[Int] = (json \\ "shipSetting").head.as[Array[Int]]

@@ -9,25 +9,16 @@ import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 import Battleship.util.UndoManager
 import com.google.inject.{Guice, Inject}
-import net.codingwell.scalaguice.InjectorExtensions._
 
 import scala.swing.Publisher
 import scala.util.{Failure, Success, Try}
 
 
-class Controller @Inject() extends InterfaceController with Publisher {
-  val injector = Guice.createInjector(new GameModule)
-  val fileIo_Player01 = injector.instance[FileIOInterface]
-  val fileIo_Player02 = injector.instance[FileIOInterface]
-  val creator_02: InterfacePerson = injector.instance[InterfacePerson]
-  var grid_player02: InterfaceGrid = injector.instance[InterfaceGrid]
-  var grid_player01: InterfaceGrid = injector.instance[InterfaceGrid]
-  var creator_01: InterfacePerson = injector.instance[InterfacePerson]
-  var player_01: InterfacePerson = injector.instance[InterfacePerson]
-  var player_02: InterfacePerson = injector.instance[InterfacePerson]
+class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Player02: FileIOInterface, val creator_01: InterfacePerson, val creator_02: InterfacePerson,
+                           var grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid, var player_01: InterfacePerson, var player_02: InterfacePerson, var ship: InterfaceShip) extends InterfaceController with Publisher {
+
   var nr: Array[Int] = Array[Int](2, 0, 0, 0)
   var nr2: Array[Int] = Array[Int](2, 0, 0, 0)
-  var ship: InterfaceShip = injector.getInstance(classOf[InterfaceShip]) //Ship(Array(0, 0, 0, 0), new StrategyCollideNormal)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
   var shipDelete: Boolean = false
@@ -129,6 +120,7 @@ class Controller @Inject() extends InterfaceController with Publisher {
 
   override def createShip(): Unit = {
     shipDelete = false
+    val injector = Guice.createInjector(new GameModule)
     ship = injector.getInstance(classOf[InterfaceShip])
     ship.setCoordinates(shipCoordsSetting)
     publish(new CellChanged)

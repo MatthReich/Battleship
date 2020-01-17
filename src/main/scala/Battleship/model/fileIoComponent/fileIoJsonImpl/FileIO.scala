@@ -107,7 +107,7 @@ class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson
 
   implicit val ship = new Writes[InterfaceShip] {
     def writes(ship: InterfaceShip): JsValue = Json.obj(
-      "ship" -> "" // @TODO needs Function
+      "ship" -> ""
     )
   }
 

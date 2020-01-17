@@ -38,9 +38,9 @@ class FileIO @Inject()(var player: InterfacePerson, var player2: InterfacePerson
     val shipDelete: Boolean = (file \\ "shipDelete").text.toBoolean
     val lastGuess: String = (file \\ "lastGuess").text.toString
 
-    val shipSetting: Array[Int] = (file \\ "shipSetting").text.toArray[Int]
-    val shipSetting2: Array[Int] = (file \\ "shipSetting2").text.toArray[Int]
-    val shipCoordsSetting: Array[Int] = (file \\ "shipCoordsSet").text.toArray[Int]
+    val shipSetting: Array[Int] = null // (file \\ "shipSetting").text.toArray[Int]
+    val shipSetting2: Array[Int] = null // (file \\ "shipSetting2").text.toArray[Int]
+    val shipCoordsSetting: Array[Int] = null // (file \\ "shipCoordsSet").text.toArray[Int]
 
     val gameState: GameState = (file \\ "gameState").text.toString match {
       case "PLAYERSETTING" => GameState.PLAYERSETTING

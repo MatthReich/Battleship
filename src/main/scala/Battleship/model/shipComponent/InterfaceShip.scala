@@ -8,6 +8,8 @@ trait InterfaceShip extends StrategyCollide {
 
   def getSize: Int
 
+  def setCoordinates(array: Array[Int]): Unit
+
   def getCoordinates: Array[Array[Int]]
 
   def collide(ship: Ship, grid: InterfaceGrid): Boolean
@@ -17,7 +19,5 @@ trait InterfaceShip extends StrategyCollide {
   def deleteFromGrid(grid: InterfaceGrid): Unit
 
   def toString: String
-
-  def setCoordinates(array: Array[Int]): Unit
 
 }

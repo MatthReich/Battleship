@@ -74,17 +74,14 @@ class startGUI(controller: InterfaceController) extends MainFrame {
   }
 
   def chooseStart(): Dialog.Result.Value = {
-    val sizeOfField = new JTextField
     val player_one = new JTextField
     val player_two = new JTextField
-    // val message = Array(" mapsize (ex: 10): ", sizeOfField, " ", " player_one:", player_one, " ", " player_two:", player_two)
     val message = Array(" player_one:", player_one, " ", " player_two:", player_two)
     val res = Dialog.showConfirmation(contents.head,
       message,
       optionType = Dialog.Options.YesNo,
       title = title)
     if (res == Dialog.Result.Ok) {
-      // controller.fieldsize = sizeOfField @TODO import somehow customization of field
       controller.setPlayers(player_one.getText())
       controller.setPlayers(player_two.getText())
       controller.setGameState(GameState.SHIPSETTING)

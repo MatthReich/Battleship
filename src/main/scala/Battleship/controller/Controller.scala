@@ -1,6 +1,6 @@
 package Battleship.controller
 
-import Battleship.{GameModule, controller}
+import Battleship.GameModule
 import Battleship.controller.GameState.{GameState, _}
 import Battleship.controller.PlayerState.{PlayerState, _}
 import Battleship.model.Person.InterfacePerson
@@ -34,7 +34,6 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
   }
 
   override def checkShipSetting(playerInput: String): Boolean = {
-    // @TODO look if its functionable
     var functionable: Boolean = true
     val myString = playerInput.split(" ")
 

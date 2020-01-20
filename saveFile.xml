@@ -1,7 +1,7 @@
 <save>
     <grid size="10">
-        <cell row="0" col="0">0</cell>
-        <cell row="0" col="1">0</cell>
+        <cell row="0" col="0">3</cell>
+        <cell row="0" col="1">1</cell>
         <cell row="0" col="2">0</cell>
         <cell row="0" col="3">0</cell>
         <cell row="0" col="4">0</cell>
@@ -102,7 +102,7 @@
         <cell row="9" col="9">0</cell>
     </grid>
     <gridx sizex="10">
-        <cellx rowx="0" colx="0">1</cellx>
+        <cellx rowx="0" colx="0">0</cellx>
         <cellx rowx="0" colx="1">0</cellx>
         <cellx rowx="0" colx="2">0</cellx>
         <cellx rowx="0" colx="3">0</cellx>
@@ -203,36 +203,36 @@
         <cellx rowx="9" colx="8">0</cellx>
         <cellx rowx="9" colx="9">0</cellx>
     </gridx>
-    <player1>player_01</player1>
-    <player2>player_02</player2>
+    <player1></player1>
+    <player2>Name</player2>
     <shipSetting>
         <array size="4">
-            <cell col="0">1</cell>
+            <cell col="0">2</cell>
             <cell col="1">0</cell>
-            <cell col="2">1</cell>
-            <cell col="3">1</cell>
+            <cell col="2">0</cell>
+            <cell col="3">0</cell>
         </array>
     </shipSetting>
     <shipSetting2>
         <array size="4">
-            <cell col="0">1</cell>
+            <cell col="0">0</cell>
             <cell col="1">0</cell>
-            <cell col="2">1</cell>
-            <cell col="3">1</cell>
+            <cell col="2">0</cell>
+            <cell col="3">0</cell>
         </array>
     </shipSetting2>
     <ship></ship>
     <shipCoordsSetting>
         <array size="4">
-            <cell col="0">4</cell>
-            <cell col="1">1</cell>
-            <cell col="2">3</cell>
-            <cell col="3">1</cell>
+            <cell col="0">0</cell>
+            <cell col="1">0</cell>
+            <cell col="2">1</cell>
+            <cell col="3">0</cell>
         </array>
     </shipCoordsSetting>
     <shipSet>false</shipSet>
     <shipDelete>true</shipDelete>
-    <lastGuess>1 1</lastGuess>
+    <lastGuess>0 0</lastGuess>
     <gameState>SOLVED</gameState>
     <playerState>PLAYER_ONE</playerState>
 </save>

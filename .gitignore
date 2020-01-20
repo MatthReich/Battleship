@@ -43,6 +43,3 @@ project/.sbtserver
 # Application
 yourgame.log
 
-#Savefiles
-saveFile.json
-saveFile.xml

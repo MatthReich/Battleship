@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import Battleship.aview.GUI.panel.ImagePanel
-import Battleship.controller.{Controller, GameState, PlayerChanged}
+import Battleship.controller.{GameState, InterfaceController, PlayerChanged}
 import javax.imageio.ImageIO
 import javax.swing.JTextField
 
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
-class startGUI(controller: Controller) extends MainFrame {
+class startGUI(controller: InterfaceController) extends MainFrame {
   listenTo(controller)
 
   //val dimWidth = 800
@@ -46,13 +46,19 @@ class startGUI(controller: Controller) extends MainFrame {
 
   val startButton: Panel = new FlowPanel {
     val ButtonStartGame = new Button("start game")
+    val exitButton = new Button("exit game")
 
     ButtonStartGame.background = Color.BLACK
     ButtonStartGame.foreground = Color.WHITE
 
+    exitButton.background = Color.BLACK
+    exitButton.foreground = Color.WHITE
+
     contents += ButtonStartGame
+    contents += exitButton
 
     listenTo(ButtonStartGame)
+    listenTo(exitButton)
 
     val buttons: List[Button] = List(ButtonStartGame)
     reactions += {
@@ -61,34 +67,34 @@ class startGUI(controller: Controller) extends MainFrame {
         if (b == ButtonStartGame) {
           if (chooseStart() == Dialog.Result.Ok) {
           }
+        } else if (b == exitButton) {
+          sys.exit(0)
         }
     }
   }
 
-  def chooseStart(): Dialog.Result.Value = { // @TODO replace JTextField
-    val sizeOfField = new JTextField
+  def chooseStart(): Dialog.Result.Value = {
     val player_one = new JTextField
     val player_two = new JTextField
-    val message = Array(" mapsize (ex: 10): ", sizeOfField, " ", " player_one:", player_one, " ", " player_two:", player_two)
+    val message = Array(" player_one:", player_one, " ", " player_two:", player_two)
     val res = Dialog.showConfirmation(contents.head,
       message,
       optionType = Dialog.Options.YesNo,
       title = title)
     if (res == Dialog.Result.Ok) {
-      // controller.fieldsize = sizeOfField @TODO import somehow customization of field
       controller.setPlayers(player_one.getText())
       controller.setPlayers(player_two.getText())
-      controller.gameState = GameState.SHIPSETTING
+      controller.setGameState(GameState.SHIPSETTING)
     }
     res
   }
 
   menuBar = new MenuBar {
     contents += new Menu("Creators") {
-      contents += new MenuItem(scala.swing.Action(controller.creator_01.toString) {
+      contents += new MenuItem(scala.swing.Action(controller.getCreator1.toString) {
       })
       contents += new Separator()
-      contents += new MenuItem(scala.swing.Action(controller.creator_02.toString) {
+      contents += new MenuItem(scala.swing.Action(controller.getCreator2.toString) {
       })
     }
   }
@@ -98,6 +104,6 @@ class startGUI(controller: Controller) extends MainFrame {
     add(imageLabel, BorderPanel.Position.Center)
     add(startButton, BorderPanel.Position.South)
   }
-  centerOnScreen()
 
+  centerOnScreen()
 }

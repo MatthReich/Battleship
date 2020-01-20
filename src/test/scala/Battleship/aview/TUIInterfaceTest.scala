@@ -1,17 +1,18 @@
 package Battleship.aview
 
+import Battleship.GameModule
 import Battleship.aview.TUI.TUIInterface
-import Battleship.controller.Controller
-import Battleship.model.gridComponent.advancedGrid.Grid
-import Battleship.model.{Creator, Player}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import Battleship.controller.InterfaceController
+import Battleship.model.Person.InterfacePerson
+import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
 
-@RunWith(classOf[JUnitRunner])
 class TUIInterfaceTest extends WordSpec with Matchers {
 
-  val interface = new TUIInterface(new Controller(Grid(10), Grid(10)))
+  val injector = Guice.createInjector(new GameModule)
+  val controller: InterfaceController = injector.getInstance(classOf[InterfaceController])
+  controller.init()
+  val interface = new TUIInterface(controller)
 
   "A TUIInterface" when {
     "new" should {
@@ -24,12 +25,7 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       "playerConfiguration" in {
         interface.playerConfiguration()
       }
-/*
-      "setPlayers" in {
-        interface.setPlayers("name", 1)
-        interface.setPlayers("", 2)
-      }
-*/
+
       "printWelcomeX" in {
         interface.printWelcomeX()
       }
@@ -42,7 +38,11 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       }
 
       "printWelcome" in {
-        val tmp = interface.printWelcome(Creator("Marcel"), Creator("Matthias"))
+        val creator1: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+        creator1.addName("Marcel")
+        val creator2: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+        creator2.addName("Matthias")
+        val tmp = interface.printWelcome(creator1, creator2)
         tmp should startWith("#")
         tmp should include("Marcel")
         tmp should include("Matthias")
@@ -51,7 +51,11 @@ class TUIInterfaceTest extends WordSpec with Matchers {
       }
 
       "printGetPlayer" in {
-        val tmp = interface.printGetPlayer(Player("Marcel"), Player("Matthias"))
+        val player1: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+        player1.addName("Marcel")
+        val player2: InterfacePerson = injector.getInstance(classOf[InterfacePerson])
+        player2.addName("Matthias")
+        val tmp = interface.printGetPlayer(player1, player2)
         tmp should startWith("Actual")
         tmp should include("Marcel")
         tmp should include("Matthias")

@@ -2,14 +2,14 @@ package Battleship
 
 import Battleship.aview.GUI.startGUI
 import Battleship.aview.TUI.{TUIInterface, Tui}
-import Battleship.controller._
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.controller.{GameState, InterfaceController, PlayerState}
+import com.google.inject.Guice
 
 
 object Game {
-
-  val fieldSize = 10
-  val controller = new Controller(Grid(fieldSize), Grid(fieldSize))
+  val injector = Guice.createInjector(new GameModule)
+  val controller = injector.getInstance(classOf[InterfaceController]) //new Controller(Grid(fieldSize), Grid(fieldSize))
+  controller.init()
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)
   val gui = new startGUI(controller)
@@ -23,23 +23,26 @@ object Game {
     tuii.printWelcomeX()
 
     do {
-
-      controller.gameState match {
+      controller.getGameState match {
         case GameState.PLAYERSETTING => {
-          controller.playerState match {
+          controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => print(tuii.printSetPlayer(1))
             case PlayerState.PLAYER_TWO => print(tuii.printSetPlayer(2))
           }
         }
         case GameState.SHIPSETTING => {
-          controller.playerState match {
+          // @TODO bei player change, gui keine änderung erst nach 1 setzen (enter nicht möglich)
+          // @TODO nach state change noch falsches bild (enter möglich)
+          // @TODO undo beim letzen Schiff nicht möglich
+
+          controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => {
               tui.printGrid(0)
-              tui.printShipSetSettings(controller.nr)
+              tui.printShipSetSettings(controller.getNrPlayer1())
             }
             case PlayerState.PLAYER_TWO => {
               tui.printGrid(1)
-              tui.printShipSetSettings(controller.nr2)
+              tui.printShipSetSettings(controller.getNrPlayer2())
             }
           }
         }
@@ -52,15 +55,21 @@ object Game {
       input = scala.io.StdIn.readLine().toString
       tui.processLine(input)
 
-      if ((controller.nr(0) + controller.nr(1) + controller.nr(2) + controller.nr(3)) == 0) {
-        controller.playerState = PlayerState.PLAYER_TWO
+      if (controller.getGameState == GameState.SHIPSETTING) {
+        if ((controller.getNrPlayer1()(0) + controller.getNrPlayer1()(1) + controller.getNrPlayer1()(2) +
+          controller.getNrPlayer1()(3)) == 0) {
+          controller.setPlayerState(PlayerState.PLAYER_TWO)
+        }
+        if (controller.getNrPlayer2()(0) + controller.getNrPlayer2()(1) + controller.getNrPlayer2()(2) +
+          controller.getNrPlayer2()(3) == 0) {
+          controller.setPlayerState(PlayerState.PLAYER_ONE)
+          controller.setGameState(GameState.IDLE)
+        }
       }
-      if (controller.nr2(0) + controller.nr2(1) + controller.nr2(2) + controller.nr2(3) == 0) {
-        controller.playerState = PlayerState.PLAYER_ONE
-        controller.gameState = GameState.IDLE
-      }
-      if (controller.gameState == GameState.SOLVED) input = "q"
+
+      if (controller.getGameState == GameState.SOLVED) input = "q"
     } while (input != "q")
 
+    sys.exit(0)
   }
 }

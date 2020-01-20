@@ -1,69 +1,62 @@
 package Battleship.controller
 
 import Battleship.controller.PlayerState.{PLAYER_ONE, PLAYER_TWO, PlayerState}
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.util.Command
 
 import scala.util.{Failure, Success, Try}
 
-class ProcessCommand(playerInput: String, grid: Grid, playerState: PlayerState, controller: Controller) extends Command {
+class ProcessCommand(playerInput: String, grid: InterfaceGrid, playerState: PlayerState, controller: InterfaceController) extends Command {
 
   override def setValue(): Unit = {
     var hit = false
     var functionable: Boolean = true
+    var convertedArray: Array[Any] = new Array[Any](0)
 
     val myString = playerInput.split(" ")
 
-    val convertDoubles = myString.map { x =>
-      Try(x.toInt)
-    }
+    if (myString.length != 2) {
+      functionable = false
+      hit = true
+      print("wrong output")
+    } else {
+      val convertDoubles = myString.map { x =>
+        Try(x.toInt)
+      }
 
-    val convertedArray = convertDoubles.map {
-      case Success(res) => res
-      case Failure(f) => None
-    }
+      convertedArray = convertDoubles.map {
+        case Success(res) => res
+        case Failure(f) => None
+      }
 
-    for (x <- convertedArray) {
-      if (x == None) {
-        functionable = false
-        hit = true
-        print("wrong input")
+      for (x <- convertedArray) {
+        if (x == None) {
+          functionable = false
+          hit = true
+          print("wrong input")
+        }
       }
     }
 
     if (functionable) {
-      if (true) {
+      val x: Int = convertedArray(0).toString.toInt
+      val y: Int = convertedArray(1).toString.toInt
 
-        val x: Int = convertedArray(0).toString.toInt
-        val y: Int = convertedArray(1).toString.toInt
-
-        grid.getValue(x, y) match {
-          case 0 => grid.setField(x, y, 3)
-          case 1 =>
-            hit = true
-            grid.setField(x, y, 2)
-          case _ =>
-        }
-
-      } else {
-        print("Format Error\n")
-        hit = true
+      grid.getValue(x, y) match {
+        case 0 => grid.setField(x, y, 3)
+        case 1 =>
+          hit = true
+          grid.setField(x, y, 2)
+        case _ =>
       }
-    }
-
-    if (convertedArray.length != 2) {
-      hit = true
     }
 
     if (!hit) {
       playerState match {
-        case PLAYER_ONE => controller.playerState = PlayerState.PLAYER_TWO
-        case PLAYER_TWO => controller.playerState = PlayerState.PLAYER_ONE
+        case PLAYER_ONE => controller.setPlayerState(PlayerState.PLAYER_TWO)
+        case PLAYER_TWO => controller.setPlayerState(PlayerState.PLAYER_ONE)
       }
-    } else {
-      controller.playerState = playerState
     }
-
   }
 
   override def undoStep(): Unit = {

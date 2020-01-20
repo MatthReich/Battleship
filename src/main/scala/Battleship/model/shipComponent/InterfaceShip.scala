@@ -1,6 +1,6 @@
 package Battleship.model.shipComponent
 
-import Battleship.model.gridComponent.advancedGrid.Grid
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.advancedShip.Ship
 import Battleship.model.shipComponent.strategyCollide.StrategyCollide
 
@@ -10,12 +10,14 @@ trait InterfaceShip extends StrategyCollide {
 
   def getCoordinates: Array[Array[Int]]
 
-  def collide(ship: Ship, grid: Grid): Boolean
+  def collide(ship: Ship, grid: InterfaceGrid): Boolean
 
-  def setToGrid(grid: Grid): Boolean
+  def setToGrid(grid: InterfaceGrid): Boolean
 
-  def deleteFromGrid(grid: Grid): Unit
+  def deleteFromGrid(grid: InterfaceGrid): Unit
 
   def toString: String
+
+  def setCoordinates(array: Array[Int]): Unit
 
 }

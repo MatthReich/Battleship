@@ -1,25 +1,25 @@
 package Battleship.aview.TUI
 
-import Battleship.controller.Controller
-import Battleship.model.{Creator, Player}
+import Battleship.controller.InterfaceController
+import Battleship.model.Person.InterfacePerson
 
 import scala.collection.mutable
 import scala.swing.Reactor
 
 
-class TUIInterface(controller: Controller) extends Reactor {
+class TUIInterface(controller: InterfaceController) extends Reactor {
 
   listenTo(controller)
 
   def printWelcomeX(): Unit = {
-    print(printWelcome(controller.creator_01, controller.creator_02))
+    print(printWelcome(controller.getCreator1, controller.getCreator2))
   }
 
   def playerConfiguration(): Unit = {
-    print(printGetPlayer(controller.player_01, controller.player_02))
+    print(printGetPlayer(controller.getPlayer1, controller.getPlayer2))
   }
 
-  def printWelcome(creator_01: Creator, creator_02: Creator): String = {
+  def printWelcome(creator_01: InterfacePerson, creator_02: InterfacePerson): String = {
     val stringPrint = new mutable.StringBuilder("")
     val sSharp: String = "#" * 30
     val sSpace: String = " " * 10
@@ -29,11 +29,11 @@ class TUIInterface(controller: Controller) extends Reactor {
     stringPrint.toString()
   }
 
-  def printGetPlayer(player_01: Player, player_02: Player): String = {
+  def printGetPlayer(player_01: InterfacePerson, player_02: InterfacePerson): String = {
     val stringPrint = new mutable.StringBuilder("")
     stringPrint ++= ("Actual player-configuration\n" +
-      "\tPlayer One: " + Console.GREEN + player_01.name + "\n" + Console.RESET +
-      "\tPlayer Two: " + Console.CYAN + player_02.name + "\n\n" + Console.RESET)
+      "\tPlayer One: " + Console.GREEN + player_01.toString + "\n" + Console.RESET +
+      "\tPlayer Two: " + Console.CYAN + player_02.toString + "\n\n" + Console.RESET)
     stringPrint.toString()
   }
 

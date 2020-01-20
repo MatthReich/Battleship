@@ -1,12 +1,12 @@
 package Battleship.aview.TUI
 
 import Battleship.controller._
-import Battleship.model.shipComponent.advancedShip.Ship
+import Battleship.model.shipComponent.InterfaceShip
 
 import scala.collection.mutable
 import scala.swing.Reactor
 
-class Tui(controller: Controller) extends Reactor {
+class Tui(controller: InterfaceController) extends Reactor {
 
   listenTo(controller)
 
@@ -58,73 +58,46 @@ class Tui(controller: Controller) extends Reactor {
     update
   }
 
-  def decreaseShipNumbersToPlace(ship: Ship, boolean: Boolean, increase: Boolean): Unit = {
-    if (boolean || increase) {
-      val shipSize: Int = ship.getSize
-      var x: Int = -1
-      if (increase) {
-        x = 1
-      }
-      shipSize match {
-        case 2 =>
-          controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(0) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(0) += x
-          }
-        case 3 =>
-          controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(1) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(1) += x
-          }
-        case 4 =>
-          controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(2) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(2) += x
-          }
-        case 5 =>
-          controller.playerState match {
-            case PlayerState.PLAYER_ONE => controller.nr(3) += x
-            case PlayerState.PLAYER_TWO => controller.nr2(3) += x
-          }
-      }
-    }
-  }
-
   def processLine(input: String): Unit = {
 
     input match {
       case "q" => System.exit(0)
-      case "getPlayerConfig" => print(tui.printGetPlayer(controller.player_01, controller.player_02))
-      case "getGameStatus" => print(controller.gameState + "\n")
-      case "getPlayerStatus" => print(controller.playerState + "\n")
-      case "admin: printGrid 1" => print(controller.grid_player01.toString(controller.player_01, true, controller.playerState))
-      case "admin: printGrid 2" => print(controller.grid_player02.toString(controller.player_02, true, controller.playerState))
+      case "getPlayerConfig" => print(tui.printGetPlayer(controller.getPlayer1, controller.getPlayer2))
+      case "getGameState" => print(controller.getGameState + "\n")
+      case "gGS" => print(controller.getGameState + "\n")
+      case "getPlayerState" => print(controller.getPlayerState + "\n")
+      case "gPS" => print(controller.getPlayerState + "\n")
+
+      case "admin: printGrid 1" => print(controller.getGridPlayer1.toString(controller.getPlayer1, true, controller.getPlayerState))
+      case "admin: printGrid 2" => print(controller.getGridPlayer2.toString(controller.getPlayer2, true, controller.getPlayerState))
+      case "save" => controller.save()
+      case "load" => controller.load()
       case _ => {
-        controller.gameState match {
+        controller.getGameState match {
           case GameState.PLAYERSETTING => {
             controller.setPlayers(input)
           }
           case GameState.SHIPSETTING => {
-            controller.shipSet = false
+            controller.shipSet(false)
             shipProcessLong(input)
-            decreaseShipNumbersToPlace(controller.ship, controller.shipSet, controller.shipDelete)
+            decreaseShipNumbersToPlace(controller.getShip, controller.getShipSet, controller.getShipDelete)
           }
           case GameState.IDLE => input match {
 
             case "undo Guess" =>
-              if (controller.playerState == PlayerState.PLAYER_ONE) {
-                controller.undoGuess(input, controller.grid_player02)
+              if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                controller.undoGuess(input, controller.getGridPlayer2)
               } else {
-                controller.undoGuess(input, controller.grid_player01)
+                controller.undoGuess(input, controller.getGridPlayer2)
               }
               update
-            case _ => // grid nur mit spiel makierungen ausgeben
-              if (controller.playerState == PlayerState.PLAYER_ONE) {
-                controller.checkGuess(input, controller.grid_player02)
+            case _ =>
+              if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
+                controller.checkGuess(input, controller.getGridPlayer2)
                 controller.setLastGuess(input)
               }
               else {
-                controller.checkGuess(input, controller.grid_player01)
+                controller.checkGuess(input, controller.getGridPlayer1)
                 controller.setLastGuess(input)
               }
               update
@@ -135,18 +108,51 @@ class Tui(controller: Controller) extends Reactor {
     }
   }
 
+  def decreaseShipNumbersToPlace(ship: InterfaceShip, boolean: Boolean, increase: Boolean): Unit = {
+    if (boolean || increase) {
+      val shipSize: Int = ship.getSize
+      var x: Int = -1
+      if (increase) {
+        x = 1
+      }
+      shipSize match {
+        case 2 =>
+          controller.getPlayerState match {
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(0, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(0, x)
+          }
+        case 3 =>
+          controller.getPlayerState match {
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(1, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(1, x)
+          }
+        case 4 =>
+          controller.getPlayerState match {
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(2, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(2, x)
+          }
+        case 5 =>
+          controller.getPlayerState match {
+            case PlayerState.PLAYER_ONE => controller.setNrPlayer1(3, x)
+            case PlayerState.PLAYER_TWO => controller.setNrPlayer2(3, x)
+          }
+      }
+    }
+  }
+
   def update: Boolean = {
     if (shipProcess) {
       print(controller.gridToString(0, printGridOption))
-    }
-    if (controller.playerState == PlayerState.PLAYER_ONE) {
-      print(controller.gridToString(1, printGridOption))
-    }
-    else {
-      print(controller.gridToString(0, printGridOption))
-    }
-    if (controller.grid_player01.winStatement() || controller.grid_player02.winStatement()) {
-      controller.gameState = GameState.SOLVED
+    } else {
+      if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
+        print(controller.gridToString(1, printGridOption))
+      }
+      else {
+        print(controller.gridToString(0, printGridOption))
+      }
+      if (controller.getGridPlayer1.winStatement() || controller.getGridPlayer2.winStatement()) {
+        controller.setGameState(GameState.SOLVED)
+      }
     }
     true
   }

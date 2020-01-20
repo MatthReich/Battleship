@@ -1,20 +1,19 @@
-package Battleship.aview
+/*package Battleship.aview
 
+import Battleship.GameModule
 import Battleship.aview.TUI.Tui
-import Battleship.controller.Controller
-import Battleship.model.gridComponent.advancedGrid.Grid
-import Battleship.model.shipComponent.advancedShip.Ship
-import Battleship.model.shipComponent.strategyCollide.StrategyCollideNormal
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import Battleship.controller.{Controller, GameState, InterfaceController, PlayerState}
+import Battleship.model.shipComponent.InterfaceShip
+import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
 
-@RunWith(classOf[JUnitRunner])
 class TuiSpec extends WordSpec with Matchers {
 
   "A Tui" when {
     "new" should {
-      val controller = new Controller(Grid(10), Grid(10))
+      val injector = Guice.createInjector(new GameModule)
+      val controller: InterfaceController = new Controller
+      controller.init()
       val tui = new Tui(controller)
 
       "printGrid" in {
@@ -38,27 +37,29 @@ class TuiSpec extends WordSpec with Matchers {
       "decreaseShipNumbersToPlace" in {
 
         val boolean: Boolean = true
-        val shipLength2: Ship = Ship(Array(0, 0, 0, 1), new StrategyCollideNormal)
-        val shipLength3: Ship = Ship(Array(0, 0, 0, 2), new StrategyCollideNormal)
-        val shipLength4: Ship = Ship(Array(0, 0, 0, 3), new StrategyCollideNormal)
-        val shipLength5: Ship = Ship(Array(0, 0, 0, 4), new StrategyCollideNormal)
+        val shipLength2: InterfaceShip = injector.getInstance(classOf[InterfaceShip])
+        shipLength2.setCoordinates(Array(0, 0, 0, 1))
+        val shipLength3: InterfaceShip = injector.getInstance(classOf[InterfaceShip])
+        shipLength3.setCoordinates(Array(0, 0, 0, 2))
+        val shipLength4: InterfaceShip = injector.getInstance(classOf[InterfaceShip])
+        shipLength4.setCoordinates(Array(0, 0, 0, 3))
+        val shipLength5: InterfaceShip = injector.getInstance(classOf[InterfaceShip])
+        shipLength5.setCoordinates(Array(0, 0, 0, 4))
 
-        controller.nr = Array(1, 1, 1, 1)
-        controller.nr2 = Array(1, 1, 1, 1)
-        /*
-                tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength3, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength4, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength5, boolean)
+        controller.setWholeNrPlayer1(Array(1, 1, 1, 1))
+        controller.setWholeNrPlayer2(Array(1, 1, 1, 1))
+        tui.decreaseShipNumbersToPlace(shipLength2, boolean, true)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength4, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength5, boolean, false)
 
-                controller.playerState = PlayerState.PLAYER_TWO
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
 
-                tui.decreaseShipNumbersToPlace(shipLength3, boolean = false)
-                tui.decreaseShipNumbersToPlace(shipLength2, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength3, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength4, boolean)
-                tui.decreaseShipNumbersToPlace(shipLength5, boolean)
-        */
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean = false, false)
+        tui.decreaseShipNumbersToPlace(shipLength2, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength3, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength4, boolean, false)
+        tui.decreaseShipNumbersToPlace(shipLength5, boolean, false)
       }
 
       "printFirstTimeProcessLine" in {
@@ -71,11 +72,24 @@ class TuiSpec extends WordSpec with Matchers {
       }
 
       "processLine" in {
-        tui.processLine("q")
         tui.processLine("getPlayerConfig")
         tui.processLine("getGameStatus")
         tui.processLine("getPlayerStatus")
+        tui.processLine("admin: printGrid 1")
+        tui.processLine("admin: printGrid 2")
+        controller.setGameState(GameState.PLAYERSETTING)
+        tui.processLine("Name")
+        controller.setGameState(GameState.SHIPSETTING)
+        tui.processLine("0 0 1 0")
+        controller.setGameState(GameState.IDLE)
         tui.processLine("0 0")
+        controller.setPlayerState(PlayerState.PLAYER_ONE)
+        controller.setGameState(GameState.IDLE)
+        tui.processLine("undo Guess")
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
+        controller.setGameState(GameState.IDLE)
+        tui.processLine("undo Guess")
+        controller.setGameState(GameState.IDLE)
         tui.processLine("0 0")
       }
 
@@ -83,10 +97,13 @@ class TuiSpec extends WordSpec with Matchers {
         tui.shipProcess = true
         tui.update
 
-        val controller = new Controller(Grid(1), Grid(1))
+        val controller = new Controller()
+        controller.init()
         controller.grid_player01.setField(0, 0, 2)
         tui.update
         controller.grid_player01.setField(0, 0, 0)
+        tui.update
+        controller.playerState = PlayerState.PLAYER_TWO
         tui.update
       }
 
@@ -94,3 +111,4 @@ class TuiSpec extends WordSpec with Matchers {
   }
 
 }
+*/

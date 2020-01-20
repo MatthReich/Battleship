@@ -81,7 +81,7 @@ class Tui(controller: InterfaceController) extends Reactor {
             controller.setPlayers(input)
           }
           case GameState.SHIPSETTING => {
-            controller.shipSet(false)
+            controller.setShipSet(false)
             shipProcessLong(input)
             decreaseShipNumbersToPlace(controller.getShip, controller.getShipSet, controller.getShipDelete)
           }

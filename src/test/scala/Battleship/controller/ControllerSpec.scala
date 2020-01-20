@@ -1,6 +1,7 @@
 package Battleship.controller
 
 import Battleship.GameModule
+import Battleship.model.fileIoComponent.fileIoJsonImpl.FileIO
 import Battleship.model.gridComponent.InterfaceGrid
 import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
@@ -97,10 +98,13 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.undoGuess("1 1", injector.getInstance(classOf[InterfaceGrid]))
       }
 
-      /*"load and save" in {
+      "load and save" in {
         controller.save()
         controller.load()
-      }*/
+        val fileIO: FileIO = new FileIO(controller.getPlayer1, controller.getPlayer2)
+        fileIO.save(controller.getGridPlayer1, controller.getGridPlayer2, controller.getPlayer1, controller.getPlayer2, controller.getNrPlayer1(), controller.getNrPlayer2(), controller.getShip, Array(0, 0, 0, 0), controller.getShipSet, controller.getShipDelete, controller.getLastGuess(), controller.getGameState, controller.getPlayerState)
+        fileIO.load
+      }
     }
   }
 }

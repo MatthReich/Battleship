@@ -14,8 +14,6 @@ trait InterfaceController extends Publisher {
 
   def setPlayers(input: String): Unit
 
-  def gridToString(int: Int, boolean: Boolean): String
-
   def shipToString(ship: InterfaceShip): String
 
   def deleteShip(): Unit

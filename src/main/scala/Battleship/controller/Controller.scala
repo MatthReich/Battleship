@@ -142,23 +142,6 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
     ship.toString
   }
 
-  override def gridToString(int: Int, boolean: Boolean): String = {
-    int match {
-      case 0 =>
-        if (boolean) {
-          grid_player01.toString(player_01, boolean, playerState)
-        } else {
-          grid_player01.toString(player_01, boolean, playerState)
-        }
-      case 1 =>
-        if (boolean) {
-          grid_player02.toString(player_02, boolean, playerState)
-        } else {
-          grid_player02.toString(player_02, boolean, playerState)
-        }
-    }
-  }
-
   override def setPlayers(input: String): Unit = {
     if (input != "") {
       if (playerState == PLAYER_ONE) {

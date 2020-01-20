@@ -8,7 +8,7 @@ import com.google.inject.Guice
 
 object Game {
   val injector = Guice.createInjector(new GameModule)
-  val controller = injector.getInstance(classOf[InterfaceController]) //new Controller(Grid(fieldSize), Grid(fieldSize))
+  val controller = injector.getInstance(classOf[InterfaceController])
   controller.init()
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)
@@ -37,11 +37,11 @@ object Game {
 
           controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => {
-              tui.printGrid(0)
+              tui.printGrid(controller.getGridPlayer1, controller.getPlayer1)
               tui.printShipSetSettings(controller.getNrPlayer1())
             }
             case PlayerState.PLAYER_TWO => {
-              tui.printGrid(1)
+              tui.printGrid(controller.getGridPlayer2, controller.getPlayer2)
               tui.printShipSetSettings(controller.getNrPlayer2())
             }
           }

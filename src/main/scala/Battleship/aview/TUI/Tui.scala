@@ -1,6 +1,9 @@
 package Battleship.aview.TUI
 
+import Battleship.controller.PlayerState.PlayerState
 import Battleship.controller._
+import Battleship.model.Person.InterfacePerson
+import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip
 
 import scala.collection.mutable
@@ -21,8 +24,8 @@ class Tui(controller: InterfaceController) extends Reactor {
   var firstTime = true
   var shipProcess = true
 
-  def printGrid(int: Int): Unit = {
-    print(controller.gridToString(int, printGridOption))
+  def printGrid(grid: InterfaceGrid, player: InterfacePerson): Unit = {
+    print(gridtoString(grid, player, printGridOption))
   }
 
   def printShipSetSettings(nr: Array[Int]): Unit = {
@@ -68,8 +71,8 @@ class Tui(controller: InterfaceController) extends Reactor {
       case "getPlayerState" => print(controller.getPlayerState + "\n")
       case "gPS" => print(controller.getPlayerState + "\n")
 
-      case "admin: printGrid 1" => print(controller.getGridPlayer1.toString(controller.getPlayer1, true, controller.getPlayerState))
-      case "admin: printGrid 2" => print(controller.getGridPlayer2.toString(controller.getPlayer2, true, controller.getPlayerState))
+      case "admin: printGrid 1" => print(gridtoString(controller.getGridPlayer1, controller.getPlayer1, true))
+      case "admin: printGrid 2" => print(gridtoString(controller.getGridPlayer2, controller.getPlayer2, true))
       case "save" => controller.save()
       case "load" => controller.load()
       case _ => {
@@ -78,7 +81,7 @@ class Tui(controller: InterfaceController) extends Reactor {
             controller.setPlayers(input)
           }
           case GameState.SHIPSETTING => {
-            controller.shipSet(false)
+            controller.setShipSet(false)
             shipProcessLong(input)
             decreaseShipNumbersToPlace(controller.getShip, controller.getShipSet, controller.getShipDelete)
           }
@@ -142,19 +145,62 @@ class Tui(controller: InterfaceController) extends Reactor {
 
   def update: Boolean = {
     if (shipProcess) {
-      print(controller.gridToString(0, printGridOption))
+      print(gridtoString(controller.getGridPlayer1, controller.getPlayer1, printGridOption))
     } else {
       if (controller.getPlayerState == PlayerState.PLAYER_ONE) {
-        print(controller.gridToString(1, printGridOption))
+        print(gridtoString(controller.getGridPlayer2, controller.getPlayer2, printGridOption))
       }
       else {
-        print(controller.gridToString(0, printGridOption))
+        print(gridtoString(controller.getGridPlayer1, controller.getPlayer1, printGridOption))
       }
       if (controller.getGridPlayer1.winStatement() || controller.getGridPlayer2.winStatement()) {
         controller.setGameState(GameState.SOLVED)
       }
     }
     true
+  }
+
+  def gridtoString(grid: InterfaceGrid, player: InterfacePerson, sortOfPrint: Boolean): String = { //sortOfPrint true = with setted ships
+    val playerStatus: PlayerState = controller.getPlayerState
+    val stringOfGrid = new mutable.StringBuilder("") // false = without setted ships
+
+    playerStatus match {
+      case PlayerState.PLAYER_ONE =>
+        stringOfGrid ++= ("Field of: " + Console.GREEN + player.toString + Console.RESET + "\n")
+      case _ =>
+        stringOfGrid ++= ("Field of: " + Console.CYAN + player.toString + Console.RESET + "\n")
+    }
+
+    stringOfGrid ++= "   "
+    var ids = 0
+    while (ids < grid.getSize) {
+      stringOfGrid ++= "  " + ids + "  "
+      ids += 1
+    }
+    stringOfGrid ++= "\n"
+    var idy = 0
+    while (idy < grid.getSize) {
+      var idx = 0
+      stringOfGrid ++= "A" + idy + " "
+      while (idx < grid.getSize) {
+        val tmp = grid.getValue(idx, idy)
+        tmp match {
+          case 0 => stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+          case 1 =>
+            if (sortOfPrint) {
+              stringOfGrid ++= Console.GREEN + "  x  " + Console.RESET
+            } else {
+              stringOfGrid ++= Console.BLUE + "  ~  " + Console.RESET
+            }
+          case 2 => stringOfGrid ++= Console.RED + "  x  " + Console.RESET
+          case 3 => stringOfGrid ++= Console.BLUE + "  0  " + Console.RESET
+        }
+        idx += 1
+      }
+      idy += 1
+      stringOfGrid ++= "\n"
+    }
+    stringOfGrid.toString()
   }
 
 }

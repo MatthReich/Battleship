@@ -1,8 +1,8 @@
-/*package Battleship.controller
+package Battleship.controller
 
 import Battleship.GameModule
+import Battleship.model.fileIoComponent.fileIoJsonImpl.FileIO
 import Battleship.model.gridComponent.InterfaceGrid
-import Battleship.model.shipComponent.InterfaceShip
 import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
 
@@ -11,39 +11,77 @@ class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
       val injector = Guice.createInjector(new GameModule)
-      val controller = new Controller()
-      controller.init()
-      "createShip" in {
-        controller.shipCoordsSetting = Array(0, 0, 0, 2)
+      val controller = injector.getInstance(classOf[InterfaceController])
+
+      "init Creators" in {
+        controller.init()
+        controller.getCreator1.toString should be("Marcel Gaiser")
+        controller.getCreator2.toString should be("Matthias Reichenbach")
+      }
+
+      "players" in {
+        controller.setPlayerState(PlayerState.PLAYER_ONE)
+        controller.setPlayers("Marcel")
+        controller.getPlayer1.toString should be("Marcel")
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
+        controller.setPlayers("Matthias")
+        controller.getPlayer2.toString should be("Matthias")
+        controller.setPlayerState(PlayerState.PLAYER_ONE)
+        controller.setPlayers("")
+        controller.getPlayer1.toString should be("player_01")
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
+        controller.setPlayers("")
+        controller.getPlayer2.toString should be("player_02")
+      }
+
+      "grid" in {
+        controller.getGridPlayer1.setField(0, 0, 1)
+        controller.getGridPlayer1.getValue(0, 0) should be(1)
+        controller.getGridPlayer2.setField(0, 0, 1)
+        controller.getGridPlayer2.getValue(0, 0) should be(1)
+      }
+
+      "playerNr" in {
+        controller.setWholeNrPlayer1(Array(1, 1, 1, 1))
+        controller.getNrPlayer1() should be(Array(1, 1, 1, 1))
+        controller.setWholeNrPlayer2(Array(1, 1, 1, 1))
+        controller.getNrPlayer2() should be(Array(1, 1, 1, 1))
+        controller.setNrPlayer1(1, -1)
+        controller.getNrPlayer1()(1) should be(0)
+        controller.setNrPlayer2(1, -1)
+        controller.getNrPlayer2()(1) should be(0)
+
+      }
+
+      "playerState" in {
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
+        controller.getPlayerState should be(PlayerState.PLAYER_TWO)
+        controller.setPlayerState(PlayerState.PLAYER_ONE)
+        controller.getPlayerState should be(PlayerState.PLAYER_ONE)
+      }
+
+      "gameState" in {
+        controller.setGameState(GameState.IDLE)
+        controller.getGameState should be(GameState.IDLE)
+        controller.setGameState(GameState.SHIPSETTING)
+        controller.getGameState should be(GameState.SHIPSETTING)
+      }
+
+      "ships" in {
+        controller.setShipSet(true)
+        controller.getShipSet should be(true)
+        controller.setShipDelete(true)
+        controller.getShipDelete should be(true)
         controller.createShip()
-        controller.playerState = PlayerState.PLAYER_TWO
-        controller.createShip()
-        controller.ship.getSize should be(3)
-      }
-
-      "setShip" in {
         controller.setShips()
-        controller.playerState = PlayerState.PLAYER_ONE
-        controller.setShips()
-      }
-
-      "gridToString" in {
-        var tmp = controller.gridToString(0, boolean = true)
-        tmp = controller.gridToString(0, boolean = false)
-        tmp = controller.gridToString(1, boolean = true)
-        tmp = controller.gridToString(1, boolean = false)
-      }
-
-      "shipToString" in {
-        val ship: InterfaceShip = injector.getInstance(classOf[InterfaceShip])
-        ship.setCoordinates(Array(0, 0, 0, 1))
-        controller.shipToString(ship) should be("0 0 \n0 1 \n")
+        controller.getShip.getSize should be(1)
+        controller.deleteShip()
       }
 
       "checkShipSetting" in {
-        controller.playerState = PlayerState.PLAYER_ONE
+        controller.setPlayerState(PlayerState.PLAYER_ONE)
         controller.checkShipSetting("1 1 1 1") should be(false)
-        controller.playerState = PlayerState.PLAYER_TWO
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
         controller.checkShipSetting("1 1 1 1") should be(false)
         controller.checkShipSetting("1 1 1 a") should be(false)
         controller.checkShipSetting("0 0 0 0 0") should be(false)
@@ -53,117 +91,20 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.checkShipSetting("4 1 3 1") should be(true)
       }
 
-      "checkGuess" in {
+      "lastGuess" in {
+        controller.setLastGuess("1 1")
+        controller.getLastGuess() should be("1 1")
         controller.checkGuess("1 1", injector.getInstance(classOf[InterfaceGrid]))
-      }
-
-      "undoGuess" in {
         controller.undoGuess("1 1", injector.getInstance(classOf[InterfaceGrid]))
       }
 
-      "setLastGuess" in {
-        controller.setLastGuess("1 1")
-        controller.lastGuess should be("1 1")
+      "load and save" in {
+        controller.save()
+        controller.load()
+        val fileIO: FileIO = new FileIO(controller.getPlayer1, controller.getPlayer2)
+        fileIO.save(controller.getGridPlayer1, controller.getGridPlayer2, controller.getPlayer1, controller.getPlayer2, controller.getNrPlayer1(), controller.getNrPlayer2(), controller.getShip, Array(0, 0, 0, 0), controller.getShipSet, controller.getShipDelete, controller.getLastGuess(), controller.getGameState, controller.getPlayerState)
+        fileIO.load
       }
-
-      "deleteShip" in {
-        controller.deleteShip()
-      }
-
-      "setPlayers" in {
-        controller.playerState = PlayerState.PLAYER_ONE
-        controller.setPlayers("Marcel")
-        controller.playerState = PlayerState.PLAYER_TWO
-        controller.setPlayers("Matthias")
-        controller.playerState = PlayerState.PLAYER_ONE
-        controller.setPlayers("")
-        controller.playerState = PlayerState.PLAYER_TWO
-        controller.setPlayers("")
-      }
-
-      "checkState" in {
-        var state = GameState.message(GameState.IDLE)
-        state should be("")
-        state = PlayerState.message(PlayerState.PLAYER_ONE)
-        state should be("player_01's turn")
-      }
-
-      "getGridPlayer1" in {
-        val grid = controller.getGridPlayer1
-        grid should be(controller.grid_player01)
-      }
-
-      "getGridPlayer2" in {
-        val grid = controller.getGridPlayer2
-        grid should be(controller.grid_player02)
-      }
-
-      "getPlayerState" in {
-        val playerSt = controller.getPlayerState
-        playerSt should be(controller.playerState)
-      }
-
-      "getCreator1" in {
-        val creator = controller.getCreator1
-        creator should be(controller.creator_01)
-      }
-
-      "getCreator2" in {
-        val creator = controller.getCreator2
-        creator should be(controller.creator_02)
-      }
-
-      "getPlayer1" in {
-        val player = controller.getPlayer1
-        player should be(controller.player_01)
-      }
-
-      "getPlayer2" in {
-        val player = controller.getPlayer2
-        player should be(controller.player_02)
-      }
-
-      "getGameState" in {
-        val gameSt = controller.getGameState
-        gameSt should be(controller.gameState)
-      }
-
-      "getShipSet" in {
-        val ship = controller.getShipSet
-        ship should be(controller.shipSet)
-      }
-
-      "getShipDetelte" in {
-        val ship = controller.getShipDelete
-        ship should be(controller.shipDelete)
-      }
-
-      "getShip" in {
-        val ship = controller.getShip
-        ship should be(controller.ship)
-      }
-
-      "setGameState" in {
-        controller.setGameState(GameState.SHIPSETTING)
-        controller.gameState should be(GameState.SHIPSETTING)
-      }
-
-      "shipSet" in {
-        controller.shipSet(true)
-        controller.shipSet should be(true)
-      }
-
-      "setNrPlayer1" in {
-        controller.setNrPlayer1(0, 1)
-        controller.nr(0) should be(3)
-      }
-
-      "setNrPlayer2" in {
-        controller.setNrPlayer2(0, 1)
-        controller.nr2(0) should be(2)
-      }
-
     }
-
   }
-}*/
+}

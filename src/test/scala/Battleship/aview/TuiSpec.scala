@@ -91,8 +91,8 @@ class TuiSpec extends WordSpec with Matchers {
         tui.processLine("undo Guess")
         controller.setGameState(GameState.IDLE)
         tui.processLine("0 0")
-        tui.processLine("save")
-        tui.processLine("load")
+        //tui.processLine("save")
+        //tui.processLine("load")
       }
 
       "update" in {

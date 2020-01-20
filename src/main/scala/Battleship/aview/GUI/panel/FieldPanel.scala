@@ -2,12 +2,13 @@ package Battleship.aview.GUI.panel
 
 import java.awt.Color
 
+import Battleship.aview.GUI.Gui
 import Battleship.controller.{CellChanged, GameState, InterfaceController, PlayerState}
 
-import scala.swing.event.{UIEvent}
+import scala.swing.event.UIEvent
 import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}
 
-class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceController) extends FlowPanel {
+class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceController, gui: Gui) extends FlowPanel {
 
   val field = new BoxPanel(Orientation.Vertical) {
     myField match {
@@ -25,15 +26,17 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
     listenTo(controller)
     reactions += {
       case e: CellChanged => {
-        repaint
+        repaint()
       }
+
       case event: UIEvent => {
         event.source.background = Color.GRAY
         val x = column
         val y = row
         val string: String = x + " " + y
         controller.getGameState match {
-          case GameState.SHIPSETTING => println("needs to be implemented")
+          case GameState.SHIPSETTING =>
+            gui.writeShip(string)
           case GameState.IDLE => controller.getPlayerState match {
             case PlayerState.PLAYER_ONE => controller.checkGuess(string, controller.getGridPlayer2)
             case PlayerState.PLAYER_TWO => controller.checkGuess(string, controller.getGridPlayer1)
@@ -43,6 +46,10 @@ class FieldPanel(you: Boolean, column: Int, row: Int, controller: InterfaceContr
         repaint
       }
     }
+  }
+
+  def changeField(): Unit = {
+    background = Color.BLUE
   }
 
   def myField: Int = {

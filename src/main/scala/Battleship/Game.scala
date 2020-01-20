@@ -8,7 +8,7 @@ import com.google.inject.Guice
 
 object Game {
   val injector = Guice.createInjector(new GameModule)
-  val controller = injector.getInstance(classOf[InterfaceController]) //new Controller(Grid(fieldSize), Grid(fieldSize))
+  val controller = injector.getInstance(classOf[InterfaceController])
   controller.init()
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)

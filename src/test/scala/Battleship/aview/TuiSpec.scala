@@ -1,8 +1,8 @@
-/*package Battleship.aview
+package Battleship.aview
 
 import Battleship.GameModule
 import Battleship.aview.TUI.Tui
-import Battleship.controller.{Controller, GameState, InterfaceController, PlayerState}
+import Battleship.controller.{GameState, InterfaceController, PlayerState}
 import Battleship.model.shipComponent.InterfaceShip
 import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}
@@ -12,12 +12,12 @@ class TuiSpec extends WordSpec with Matchers {
   "A Tui" when {
     "new" should {
       val injector = Guice.createInjector(new GameModule)
-      val controller: InterfaceController = new Controller
+      val controller: InterfaceController = injector.getInstance(classOf[InterfaceController])
       controller.init()
       val tui = new Tui(controller)
 
       "printGrid" in {
-        tui.printGrid(0)
+        tui.printGrid(controller.getGridPlayer1, controller.getPlayer1)
       }
 
       "printShipSetSettings" in {
@@ -73,8 +73,8 @@ class TuiSpec extends WordSpec with Matchers {
 
       "processLine" in {
         tui.processLine("getPlayerConfig")
-        tui.processLine("getGameStatus")
-        tui.processLine("getPlayerStatus")
+        tui.processLine("getGameState")
+        tui.processLine("getPlayerState")
         tui.processLine("admin: printGrid 1")
         tui.processLine("admin: printGrid 2")
         controller.setGameState(GameState.PLAYERSETTING)
@@ -91,19 +91,21 @@ class TuiSpec extends WordSpec with Matchers {
         tui.processLine("undo Guess")
         controller.setGameState(GameState.IDLE)
         tui.processLine("0 0")
+        //tui.processLine("save")
+        //tui.processLine("load")
       }
 
       "update" in {
         tui.shipProcess = true
         tui.update
 
-        val controller = new Controller()
+        val controller = injector.getInstance(classOf[InterfaceController])
         controller.init()
-        controller.grid_player01.setField(0, 0, 2)
+        controller.getGridPlayer1.setField(0, 0, 2)
         tui.update
-        controller.grid_player01.setField(0, 0, 0)
+        controller.getGridPlayer2.setField(0, 0, 0)
         tui.update
-        controller.playerState = PlayerState.PLAYER_TWO
+        controller.setPlayerState(PlayerState.PLAYER_TWO)
         tui.update
       }
 
@@ -111,4 +113,3 @@ class TuiSpec extends WordSpec with Matchers {
   }
 
 }
-*/

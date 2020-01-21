@@ -33,6 +33,89 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
     creator_02.addName("Matthias Reichenbach")
   }
 
+  override def getCreator1: InterfacePerson = creator_01
+
+  override def getCreator2: InterfacePerson = creator_02
+
+  override def setPlayers(input: String): Unit = {
+    if (input != "") {
+      if (playerState == PLAYER_ONE) {
+        player_01.addName(input)
+      } else if (playerState == PLAYER_TWO) {
+        player_02.addName(input)
+      }
+    } else {
+      if (playerState == PLAYER_ONE) {
+        player_01.addName("player_0" + 1)
+      } else if (playerState == PLAYER_TWO) {
+        player_02.addName("player_0" + 2)
+      }
+    }
+    if (playerState == PLAYER_ONE) {
+      playerState = PLAYER_TWO
+    } else if (playerState == PLAYER_TWO) {
+      playerState = PLAYER_ONE
+      gameState = SHIPSETTING
+      publish(new PlayerChanged)
+    }
+  }
+
+  override def getPlayer1: InterfacePerson = player_01
+
+  override def getPlayer2: InterfacePerson = player_02
+
+  override def getGridPlayer1: InterfaceGrid = grid_player01
+
+  override def getGridPlayer2: InterfaceGrid = grid_player02
+
+  override def setWholeNrPlayer1(array: Array[Int]): Unit = nr = array
+
+  override def setWholeNrPlayer2(array: Array[Int]): Unit = nr2 = array
+
+  override def setNrPlayer1(int: Int, value: Int): Unit = nr(int) += value
+
+  override def setNrPlayer2(int: Int, value: Int): Unit = nr2(int) += value
+
+  override def getNrPlayer1(): Array[Int] = nr
+
+  override def getNrPlayer2(): Array[Int] = nr2
+
+  override def setPlayerState(playerState: PlayerState): Unit = this.playerState = playerState
+
+  override def getPlayerState: PlayerState = playerState
+
+  override def setGameState(gameState: GameState): Unit = this.gameState = gameState
+
+  override def getGameState: GameState = gameState
+
+  override def setShipDelete(boolean: Boolean): Unit = shipDelete = boolean
+
+  override def getShipDelete: Boolean = shipDelete
+
+  override def setShipSet(boolean: Boolean): Unit = shipSet = boolean
+
+  override def getShipSet: Boolean = shipSet
+
+  override def getShip: InterfaceShip = ship
+
+  override def createShip(): Unit = {
+    shipDelete = false
+    val injector = Guice.createInjector(new GameModule)
+    ship = injector.getInstance(classOf[InterfaceShip])
+    ship.setCoordinates(shipCoordsSetting)
+    publish(new CellChanged)
+  }
+
+  override def setShips(): Unit = {
+    undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
+    publish(new CellChanged)
+  }
+
+  override def deleteShip(): Unit = {
+    undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
+    publish(new CellChanged)
+  }
+
   override def checkShipSetting(playerInput: String): Boolean = {
     var functionable: Boolean = true
     val myString = playerInput.split(" ")
@@ -81,27 +164,11 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
     false
   }
 
-  private def getSize(): Int = {
-    if (shipCoordsSetting(0) == shipCoordsSetting(2)) {
-      val s = shipCoordsSetting(3) - shipCoordsSetting(1) + 1
-      if (s > 0) {
-        s
-      }
-      else {
-        val s = shipCoordsSetting(1) - shipCoordsSetting(3) + 1
-        s
-      }
-    } else {
-      val s = shipCoordsSetting(2) - shipCoordsSetting(0) + 1
-      if (s > 0) {
-        s
-      }
-      else {
-        val s = shipCoordsSetting(0) - shipCoordsSetting(2) + 1
-        s
-      }
-    }
+  override def setLastGuess(string: String): Unit = {
+    lastGuess = string
   }
+
+  override def getLastGuess(): String = lastGuess
 
   override def checkGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.setValue(new ProcessCommand(playerInput, grid, playerState, this))
@@ -111,109 +178,17 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
     publish(new CellChanged)
   }
 
-  override def setLastGuess(string: String): Unit = {
-    lastGuess = string
-  }
-
   override def undoGuess(playerInput: String, grid: InterfaceGrid): Unit = {
     undoManager.undoStep(new ProcessCommand(lastGuess, grid, playerState, this))
     publish(new CellChanged)
   }
 
-  override def createShip(): Unit = {
-    shipDelete = false
-    val injector = Guice.createInjector(new GameModule)
-    ship = injector.getInstance(classOf[InterfaceShip])
-    ship.setCoordinates(shipCoordsSetting)
+  override def save(): Unit = {
+    fileIo_Player01.save(grid_player01, grid_player02, player_01, player_02, nr, nr2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
+
     publish(new CellChanged)
   }
 
-  override def setShips(): Unit = {
-    undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
-    publish(new CellChanged)
-  }
-
-  override def deleteShip(): Unit = {
-    undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
-    publish(new CellChanged)
-  }
-
-  override def shipToString(ship: InterfaceShip): String = {
-    ship.toString
-  }
-
-  override def setPlayers(input: String): Unit = {
-    if (input != "") {
-      if (playerState == PLAYER_ONE) {
-        player_01.addName(input)
-      } else if (playerState == PLAYER_TWO) {
-        player_02.addName(input)
-      }
-    } else {
-      if (playerState == PLAYER_ONE) {
-        player_01.addName("player_0" + 1)
-      } else if (playerState == PLAYER_TWO) {
-        player_02.addName("player_0" + 2)
-      }
-    }
-    if (playerState == PLAYER_ONE) {
-      playerState = PLAYER_TWO
-    } else if (playerState == PLAYER_TWO) {
-      playerState = PLAYER_ONE
-      gameState = SHIPSETTING
-      publish(new PlayerChanged)
-    }
-  }
-
-  override def getGridPlayer1: InterfaceGrid = grid_player01
-
-  override def getGridPlayer2: InterfaceGrid = grid_player02
-
-  override def getPlayerState: PlayerState = playerState
-
-  override def getCreator1: InterfacePerson = creator_01
-
-  override def getCreator2: InterfacePerson = creator_02
-
-  override def getPlayer1: InterfacePerson = player_01
-
-  override def getPlayer2: InterfacePerson = player_02
-
-  override def getGameState: GameState = gameState
-
-  override def setGameState(gameState: GameState): Unit = this.gameState = gameState
-
-  override def shipSet(boolean: Boolean): Unit = shipSet = boolean
-
-  override def getShipSet: Boolean = shipSet
-
-  override def getShip: InterfaceShip = ship
-
-  override def getShipDelete: Boolean = shipDelete
-
-  override def setNrPlayer1(int: Int, value: Int): Unit = nr(int) += value
-
-  override def setNrPlayer2(int: Int, value: Int): Unit = nr2(int) += value
-
-  override def getNrPlayer1(): Array[Int] = nr
-
-  override def getNrPlayer2(): Array[Int] = nr2
-
-  override def setPlayerState(playerState: PlayerState): Unit = this.playerState = playerState
-
-  override def setgrid_player01(interfaceGrid: InterfaceGrid): Unit = grid_player01 = interfaceGrid
-
-  override def setgrid_player02(interfaceGrid: InterfaceGrid): Unit = grid_player02 = interfaceGrid
-
-  override def getLastGuess(): String = lastGuess
-
-  override def setShipSet(boolean: Boolean): Unit = shipSet = boolean
-
-  override def setShipDelete(boolean: Boolean): Unit = shipDelete = boolean
-
-  override def setWholeNrPlayer1(array: Array[Int]): Unit = nr = array
-
-  override def setWholeNrPlayer2(array: Array[Int]): Unit = nr2 = array
 
   override def load(): Unit = {
     val values: (InterfaceGrid, InterfaceGrid, InterfacePerson, InterfacePerson, Array[Int], Array[Int], InterfaceShip, Array[Int], Boolean, Boolean, String, GameState, PlayerState) = fileIo_Player01.load
@@ -234,10 +209,26 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
     publish(new CellChanged)
   }
 
-  override def save(): Unit = {
-    fileIo_Player01.save(grid_player01, grid_player02, player_01, player_02, nr, nr2, ship, shipCoordsSetting, shipSet, shipDelete, lastGuess, gameState, playerState)
-
-    publish(new CellChanged)
+  private def getSize(): Int = {
+    if (shipCoordsSetting(0) == shipCoordsSetting(2)) {
+      val s = shipCoordsSetting(3) - shipCoordsSetting(1) + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val s = shipCoordsSetting(1) - shipCoordsSetting(3) + 1
+        s
+      }
+    } else {
+      val s = shipCoordsSetting(2) - shipCoordsSetting(0) + 1
+      if (s > 0) {
+        s
+      }
+      else {
+        val s = shipCoordsSetting(0) - shipCoordsSetting(2) + 1
+        s
+      }
+    }
   }
 
 }

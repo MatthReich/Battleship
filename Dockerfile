@@ -1,6 +1,10 @@
 FROM openjdk:11
 
+# works on linux while building
+# ARG SBT_VERSION=1.3.7
+# works on windows while building
 ARG SBT_VERSION=2.12.10
+
 
 # Install sbt
 

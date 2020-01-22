@@ -1,8 +1,6 @@
 FROM openjdk:11
 
-ARG SBT_VERSION=1.3.7
-
-
+ARG SBT_VERSION=2.12.10
 
 # Install sbt
 

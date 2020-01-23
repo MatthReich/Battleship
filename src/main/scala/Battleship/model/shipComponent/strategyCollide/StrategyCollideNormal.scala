@@ -20,9 +20,8 @@ class StrategyCollideNormal extends StrategyCollide {
 
   private def equalsShip(getX: Int, getY: Int, coordinates: Array[Array[Int]]): Boolean = {
     for (x <- 0 until coordinates.length) {
-      for (y <- 0 until 2) {
-        if (coordinates(x)(y) == getX && coordinates(x)(y) == getY) return true
-      }
+      if (getX == coordinates(x)(0) && getY == coordinates(x)(1))
+        return true
     }
     false
   }

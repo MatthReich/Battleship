@@ -17,8 +17,8 @@ import scala.util.{Failure, Success, Try}
 class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Player02: FileIOInterface, val creator_01: InterfacePerson, val creator_02: InterfacePerson,
                            var grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid, var player_01: InterfacePerson, var player_02: InterfacePerson, var ship: InterfaceShip) extends InterfaceController with Publisher {
 
-  var nr: Array[Int] = Array[Int](2, 0, 0, 0)
-  var nr2: Array[Int] = Array[Int](2, 0, 0, 0)
+  var nr: Array[Int] = Array[Int](2, 2, 0, 0)
+  var nr2: Array[Int] = Array[Int](2, 2, 0, 0)
   var shipCoordsSetting: Array[Int] = Array(0, 0, 0, 0)
   var shipSet: Boolean = false
   var shipDelete: Boolean = false

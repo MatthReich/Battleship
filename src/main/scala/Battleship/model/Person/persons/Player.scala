@@ -1,4 +1,6 @@
-package Battleship.model.Person
+package Battleship.model.Person.persons
+
+import Battleship.model.Person.InterfacePerson
 
 case class Player() extends InterfacePerson {
   var name: String = ""

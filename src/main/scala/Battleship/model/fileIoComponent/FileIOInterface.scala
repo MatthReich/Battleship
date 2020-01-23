@@ -1,7 +1,7 @@
 package Battleship.model.fileIoComponent
 
-import Battleship.controller.GameState.GameState
-import Battleship.controller.PlayerState.PlayerState
+import Battleship.controller.ControllerBaseImpl.GameState.GameState
+import Battleship.controller.ControllerBaseImpl.PlayerState.PlayerState
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip

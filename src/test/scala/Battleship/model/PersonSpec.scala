@@ -1,6 +1,6 @@
 package Battleship.model
 
-import Battleship.model.Person.{Creator, Player}
+import Battleship.model.Person.persons.{Creator, Player}
 import org.scalatest.{Matchers, WordSpec}
 
 class PersonSpec extends WordSpec with Matchers {

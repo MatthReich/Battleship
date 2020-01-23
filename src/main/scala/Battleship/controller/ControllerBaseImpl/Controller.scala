@@ -1,8 +1,9 @@
-package Battleship.controller
+package Battleship.controller.ControllerBaseImpl
 
 import Battleship.GameModule
-import Battleship.controller.GameState.{GameState, _}
-import Battleship.controller.PlayerState.{PlayerState, _}
+import GameState.{GameState, _}
+import PlayerState.{PlayerState, _}
+import Battleship.controller.InterfaceController
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
 import Battleship.model.gridComponent.InterfaceGrid
@@ -14,8 +15,11 @@ import scala.swing.Publisher
 import scala.util.{Failure, Success, Try}
 
 
-class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Player02: FileIOInterface, val creator_01: InterfacePerson, val creator_02: InterfacePerson,
-                           var grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid, var player_01: InterfacePerson, var player_02: InterfacePerson, var ship: InterfaceShip) extends InterfaceController with Publisher {
+class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Player02: FileIOInterface,
+                           val creator_01: InterfacePerson, val creator_02: InterfacePerson,
+                           var grid_player01: InterfaceGrid, var grid_player02: InterfaceGrid,
+                           var player_01: InterfacePerson, var player_02: InterfacePerson,
+                           var ship: InterfaceShip) extends InterfaceController with Publisher {
 
   var nr: Array[Int] = Array[Int](2, 2, 0, 0)
   var nr2: Array[Int] = Array[Int](2, 2, 0, 0)

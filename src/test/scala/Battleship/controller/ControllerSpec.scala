@@ -1,6 +1,7 @@
 package Battleship.controller
 
 import Battleship.GameModule
+import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
 import Battleship.model.fileIoComponent.fileIoJsonImpl.FileIO
 import Battleship.model.gridComponent.InterfaceGrid
 import com.google.inject.Guice

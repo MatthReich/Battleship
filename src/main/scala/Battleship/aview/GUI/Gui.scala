@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import Battleship.aview.GUI.panel.FieldPanel
+import Battleship.controller.ControllerBaseImpl.{CellChanged, ExitGame, GameState, PlayerState}
 import Battleship.controller._
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.shipComponent.InterfaceShip

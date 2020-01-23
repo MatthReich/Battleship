@@ -1,7 +1,9 @@
 package Battleship
 
-import Battleship.controller.{Controller, InterfaceController}
-import Battleship.model.Person.{InterfacePerson, Player}
+import Battleship.controller.ControllerBaseImpl.Controller
+import Battleship.controller.InterfaceController
+import Battleship.model.Person.InterfacePerson
+import Battleship.model.Person.persons.Player
 import Battleship.model.fileIoComponent._
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.model.gridComponent.advancedGrid.Grid

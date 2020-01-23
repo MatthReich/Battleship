@@ -1,6 +1,7 @@
-package Battleship.controller
+package Battleship.controller.ControllerBaseImpl
 
-import Battleship.controller.PlayerState.{PLAYER_ONE, PLAYER_TWO, PlayerState}
+import Battleship.controller.ControllerBaseImpl.PlayerState.{PLAYER_ONE, PLAYER_TWO, PlayerState}
+import Battleship.controller.InterfaceController
 import Battleship.model.gridComponent.InterfaceGrid
 import Battleship.util.Command
 

@@ -3,7 +3,8 @@ package Battleship.aview.GUI.panel
 import java.awt.Color
 
 import Battleship.aview.GUI.Gui
-import Battleship.controller.{CellChanged, GameState, InterfaceController, PlayerState}
+import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerState}
+import Battleship.controller.InterfaceController
 
 import scala.swing.event.UIEvent
 import scala.swing.{BoxPanel, FlowPanel, Label, Orientation, Swing}

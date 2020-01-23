@@ -2,7 +2,8 @@ package Battleship
 
 import Battleship.aview.GUI.startGUI
 import Battleship.aview.TUI.{TUIInterface, Tui}
-import Battleship.controller.{GameState, InterfaceController, PlayerState}
+import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
+import Battleship.controller.InterfaceController
 import com.google.inject.Guice
 
 

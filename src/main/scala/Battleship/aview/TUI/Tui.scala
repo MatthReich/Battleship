@@ -1,6 +1,7 @@
 package Battleship.aview.TUI
 
-import Battleship.controller.PlayerState.PlayerState
+import Battleship.controller.ControllerBaseImpl.{CellChanged, GameState, PlayerChanged, PlayerState}
+import Battleship.controller.ControllerBaseImpl.PlayerState.PlayerState
 import Battleship.controller._
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.gridComponent.InterfaceGrid

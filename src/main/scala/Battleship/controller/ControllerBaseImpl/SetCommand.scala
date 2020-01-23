@@ -1,6 +1,7 @@
-package Battleship.controller
+package Battleship.controller.ControllerBaseImpl
 
-import Battleship.controller.PlayerState.PlayerState
+import Battleship.controller.ControllerBaseImpl.PlayerState.PlayerState
+import Battleship.controller.InterfaceController
 import Battleship.util.Command
 
 class SetCommand(player: PlayerState, ship: Array[Int], controller: InterfaceController) extends Command {

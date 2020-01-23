@@ -1,7 +1,8 @@
 package Battleship.util
 
 import Battleship.GameModule
-import Battleship.controller.{InterfaceController, PlayerState, ProcessCommand, SetCommand}
+import Battleship.controller.ControllerBaseImpl.{PlayerState, ProcessCommand, SetCommand}
+import Battleship.controller.InterfaceController
 import Battleship.model.gridComponent.InterfaceGrid
 import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}

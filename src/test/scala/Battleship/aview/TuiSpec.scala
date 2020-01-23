@@ -2,7 +2,8 @@ package Battleship.aview
 
 import Battleship.GameModule
 import Battleship.aview.TUI.Tui
-import Battleship.controller.{GameState, InterfaceController, PlayerState}
+import Battleship.controller.ControllerBaseImpl.{GameState, PlayerState}
+import Battleship.controller.InterfaceController
 import Battleship.model.shipComponent.InterfaceShip
 import com.google.inject.Guice
 import org.scalatest.{Matchers, WordSpec}

@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import Battleship.aview.GUI.panel.ImagePanel
-import Battleship.controller.{GameState, InterfaceController, PlayerChanged}
+import Battleship.controller.ControllerBaseImpl.{GameState, PlayerChanged}
+import Battleship.controller.InterfaceController
 import javax.imageio.ImageIO
 import javax.swing.JTextField
 

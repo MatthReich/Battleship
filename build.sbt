@@ -18,4 +18,4 @@ libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.6"
 
 libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
 
-coverageExcludedPackages := "<empty>;.*Gui;.*startGui;.*Game"
+coverageExcludedPackages := "<empty>;.*Gui;.*startGUI;.*Game;.*FieldPanel;.*ImagePanel"

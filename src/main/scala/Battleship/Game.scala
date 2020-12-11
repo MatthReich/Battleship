@@ -13,11 +13,11 @@ object Game {
   controller.init()
   val tui = new Tui(controller)
   val tuii = new TUIInterface(controller)
-  val gui = new startGUI(controller)
+  //val gui = new startGUI(controller)
 
   def main(args: Array[String]): Unit = {
 
-    gui.visible = true
+    //gui.visible = true
 
     var input: String = ""
 

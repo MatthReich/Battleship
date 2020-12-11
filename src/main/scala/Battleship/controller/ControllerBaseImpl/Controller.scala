@@ -1,8 +1,8 @@
 package Battleship.controller.ControllerBaseImpl
 
 import Battleship.GameModule
-import GameState.{GameState, _}
-import PlayerState.{PlayerState, _}
+import Battleship.controller.ControllerBaseImpl.GameState.{GameState, _}
+import Battleship.controller.ControllerBaseImpl.PlayerState.{PlayerState, _}
 import Battleship.controller.InterfaceController
 import Battleship.model.Person.InterfacePerson
 import Battleship.model.fileIoComponent.FileIOInterface
@@ -107,17 +107,14 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
     val injector = Guice.createInjector(new GameModule)
     ship = injector.getInstance(classOf[InterfaceShip])
     ship.setCoordinates(shipCoordsSetting)
-    publish(new CellChanged)
   }
 
   override def setShips(): Unit = {
     undoManager.setValue(new SetCommand(playerState, shipCoordsSetting, this))
-    publish(new CellChanged)
   }
 
   override def deleteShip(): Unit = {
     undoManager.undoStep(new SetCommand(playerState, shipCoordsSetting, this))
-    publish(new CellChanged)
   }
 
   override def checkShipSetting(playerInput: String): Boolean = {
@@ -232,6 +229,47 @@ class Controller @Inject()(val fileIo_Player01: FileIOInterface, val fileIo_Play
         val s = shipCoordsSetting(0) - shipCoordsSetting(2) + 1
         s
       }
+    }
+  }
+
+  def decreaseShipNumbers() = {
+    if (getShipSet || getShipDelete){
+      val shipSize: Int = ship.getSize
+      var x: Int = -1
+      if (getShipDelete) {
+        x = 1
+      }
+      shipSize match {
+        case 2 =>
+          getPlayerState match {
+            case PlayerState.PLAYER_ONE => setNrPlayer1(0, x)
+            case PlayerState.PLAYER_TWO => setNrPlayer2(0, x)
+          }
+        case 3 =>
+          getPlayerState match {
+            case PlayerState.PLAYER_ONE => setNrPlayer1(1, x)
+            case PlayerState.PLAYER_TWO => setNrPlayer2(1, x)
+          }
+        case 4 =>
+          getPlayerState match {
+            case PlayerState.PLAYER_ONE => setNrPlayer1(2, x)
+            case PlayerState.PLAYER_TWO => setNrPlayer2(2, x)
+          }
+        case 5 =>
+          getPlayerState match {
+            case PlayerState.PLAYER_ONE => setNrPlayer1(3, x)
+            case PlayerState.PLAYER_TWO => setNrPlayer2(3, x)
+          }
+      }
+    }
+  }
+
+  override def setShip(coordinates: String): Unit = {
+    if (checkShipSetting(coordinates)) {
+      createShip()
+      setShips()
+      decreaseShipNumbers()
+      publish(new CellChanged)
     }
   }
 

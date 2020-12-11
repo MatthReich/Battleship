@@ -40,11 +40,7 @@ class Gui(controller: InterfaceController) extends Frame {
       last = string
       if (shipCoords == 1) ship += " "
       else {
-        if (controller.checkShipSetting(ship)) {
-          controller.createShip()
-          controller.setShips()
-          decreaseShipNumbersToPlace(controller.getShip, controller.getShipSet, controller.getShipDelete)
-        }
+        controller.setShip(ship)
         ship = ""
         shipCoords = 0
         if (controller.getGameState == GameState.SHIPSETTING) {

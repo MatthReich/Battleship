@@ -75,4 +75,6 @@ trait InterfaceController extends Publisher {
   def save(): Unit
 
   def load(): Unit
+
+  def setShip(coordinates:String): Unit
 }

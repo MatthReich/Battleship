@@ -49,10 +49,7 @@ class Tui(controller: InterfaceController) extends Reactor {
   }
 
   def shipProcess(input: String): Unit = {
-    if (controller.checkShipSetting(input)) {
-      controller.createShip()
-      controller.setShips()
-    }
+      controller.setShip(input)
   }
 
   def printFirstTimeProcessLine(): Unit = {
@@ -84,7 +81,6 @@ class Tui(controller: InterfaceController) extends Reactor {
           case GameState.SHIPSETTING => {
             controller.setShipSet(false)
             shipProcessLong(input)
-            decreaseShipNumbersToPlace(controller.getShip, controller.getShipSet, controller.getShipDelete)
           }
           case GameState.IDLE => input match {
 
